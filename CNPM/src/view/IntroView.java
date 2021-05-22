@@ -1,5 +1,5 @@
 package view;
-// màn hình intro trước khi vào phần mềm
+// mÃ n hÃ¬nh intro trÆ°á»›c khi vÃ o pháº§n má»�m
 public class IntroView extends javax.swing.JFrame {
 	private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -35,9 +35,7 @@ public class IntroView extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jLabel_inven1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
-
+       
         jPanel1.setBackground(new java.awt.Color(21, 25, 28));
         jPanel1.setLayout(null);
         jLabel_SoftZyd.setFont(new java.awt.Font("Trebuchet MS", 1, 48)); // NOI18N
@@ -76,6 +74,8 @@ public class IntroView extends javax.swing.JFrame {
         jPanel1.add(jLabel_inven1);
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setUndecorated(true);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

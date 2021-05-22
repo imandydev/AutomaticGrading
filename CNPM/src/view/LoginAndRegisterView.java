@@ -101,9 +101,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 		jButton7 = new javax.swing.JButton();
 		jLabel_inven1 = new javax.swing.JLabel();
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setUndecorated(true);
-		setResizable(false);
+		
 
 		jPanel1.setBackground(new java.awt.Color(21, 25, 28));
 		jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -382,8 +380,11 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 		jButton7.setBorder(null);
 		jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		jButton7.setFocusPainted(false);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setUndecorated(true);
+		setResizable(false);
 		jButton7.addActionListener(new ActionListener() {
-			// kiểm tra đăng nhập
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String username = jTextField_Email.getText();
@@ -394,7 +395,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 					if (user != null) {
 						
 					} else 
-						JOptionPane.showMessageDialog(jPanel1, "Tên đăng nhập hoặc mật khẩu không chính xác!");		
+						JOptionPane.showMessageDialog(jPanel1, "!");		
 				} catch (UnsupportedEncodingException e1) {
 					e1.printStackTrace();
 				} catch (NoSuchAlgorithmException e1) {
