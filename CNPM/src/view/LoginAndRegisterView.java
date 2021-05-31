@@ -393,7 +393,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 				try {
 					user = new UserController().checkUser(username, pass);
 					if (user != null) {
-						
+						System.out.println(1);
 					} else 
 						JOptionPane.showMessageDialog(jPanel1, "!");		
 				} catch (UnsupportedEncodingException e1) {

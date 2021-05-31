@@ -22,7 +22,7 @@ public class UserDAO {
             ResultSet rs = s.executeQuery();
             UserDTO user = null;
             if (rs.next())
-                user = new UserDTO(rs.getInt(0),rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getString(5),rs.getInt(6));
+                user = new UserDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getInt(7));
             rs.close();
             s.close();
             return user;
@@ -41,4 +41,5 @@ public class UserDAO {
         code = bigInt.toString(16);
         return code;
     }
+    
 }
