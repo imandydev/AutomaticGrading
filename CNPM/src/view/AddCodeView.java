@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import DTO.TableDTO;
 import control.CodeAndAnswerController;
 
 public class AddCodeView extends JFrame implements ActionListener{
@@ -28,7 +29,9 @@ public class AddCodeView extends JFrame implements ActionListener{
 	private int input = 0;
 	private boolean checkCodeInput;
 	private HashMap<Integer, String> listAnswers = new HashMap<Integer, String>();
-	public AddCodeView() {
+	private ManagerCodeView mg;
+	public AddCodeView(TableDTO table, ManagerCodeView mg) {
+		this.mg = mg;
 		setLayout(null);
 		// row 1
 		jpn1 = new JPanel();

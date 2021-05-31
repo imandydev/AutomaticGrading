@@ -68,4 +68,20 @@ public class CodeDAO {
             return null;
         }
     }
+//    remove code = set hide = 1, 1 = hide | 0 not hide
+    public static boolean removeCodeByID(int id, int hide) {
+    	PreparedStatement s = null;
+    	CodeDTO codeDTO = null;
+        try {
+            String sql = "update code_submissions set hide = ? where id = ?";
+            s = ConnectionDB.createConnection(sql);
+            s.setInt(1, hide);
+            s.setInt(2, id);
+            s.close();
+            return true;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

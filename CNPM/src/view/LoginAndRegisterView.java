@@ -429,7 +429,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 	}
 
 	private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {
-		this.dispose();
+		System.exit(0);
 	}
 
 	private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {
