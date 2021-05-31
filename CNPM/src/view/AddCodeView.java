@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,8 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,10 +23,11 @@ import javax.swing.JTextField;
 
 import DTO.TableDTO;
 import control.CodeAndAnswerController;
+import interf.InterView;
 
-public class AddCodeView extends JFrame implements ActionListener{
+public class AddCodeView extends JFrame implements ActionListener, InterView{
 	private JTextField tfInputCode;
-	private Button btnSave;
+	private JButton btnSave, btnBack, btnCancel, btnMinus, btnClear;
 	private JButton[][] buttons = new JButton[40][4];
 	private JPanel jpn1,jpn2Col1, jpn2Col2, jpn2Col3, jpn2Col4, jpnbottom;
 	private int input = 0;
@@ -36,17 +40,61 @@ public class AddCodeView extends JFrame implements ActionListener{
 		// row 1
 		jpn1 = new JPanel();
 		jpn1.setLayout(null);
-
+		jpn1.setBackground(new Color(31, 36, 42));
+//		button minus
+		btnMinus = new JButton();
+		btnMinus.setBounds(1294, 5, 30, 30);
+		btnMinus.setIcon(new javax.swing.ImageIcon("Images/icons8_Minus_32px_1.png")); 
+		btnMinus.setToolTipText("Minimize");
+		btnMinus.setBorder(null);
+		btnMinus.setBorderPainted(false);
+		btnMinus.setContentAreaFilled(false);
+		btnMinus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnMinus.setFocusPainted(false);
+		btnMinus.setRequestFocusEnabled(false);
+		btnMinus.setRolloverIcon(new javax.swing.ImageIcon("Images/icons8_Minus_30px_3.png"));
+		jpn1.add(btnMinus);
+		
+//		button cancel
+		btnCancel = new JButton();
+		btnCancel.setBounds(1324, 5, 30, 30);
+		btnCancel.setIcon(new ImageIcon("Images/icons8_Cancel_32px.png"));
+		btnCancel.setToolTipText("Thoát");
+		btnCancel.setBorder(null);
+		btnCancel.setBorderPainted(false);
+		btnCancel.setContentAreaFilled(false);
+		btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnCancel.setRequestFocusEnabled(false);
+		btnCancel.setRolloverIcon(new ImageIcon("Images/icons8_Cancel_30px_3.png")); 
+		btnCancel.setVerifyInputWhenFocusTarget(false);
+		jpn1.add(btnCancel);
+		
+		btnBack = new JButton();
+		btnBack.setBounds(25,25, 30, 30);
+		btnBack.setIcon(new ImageIcon("Images/icons8_Back_To_32px_2.png"));
+		btnBack.setToolTipText("Trở về");
+		btnBack.setFocusPainted(false);
+		btnBack.setContentAreaFilled(false);
+		btnBack.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnBack.setRequestFocusEnabled(false);
+		jpn1.add(btnBack);
 		// lable
-		JLabel lbCode = new JLabel("Mã đề: ");
-		lbCode.setBounds(600, 25, 50, 30);
+		JLabel lbCode = new JLabel("MÃ ĐỀ: ");
+		lbCode.setBounds(560, 30, 100, 30);
+		lbCode.setFont(new java.awt.Font("Tahoma", 0, 25));
+		lbCode.setForeground(new Color(169, 224, 49));
 		jpn1.add(lbCode);
 		JLabel lbMess = new JLabel();
-		lbMess.setBounds(630, 50, 200, 30);
+		lbMess.setForeground(new Color(169, 224, 49));
+		lbMess.setBounds(760, 30, 200, 30);
 		jpn1.add(lbMess);
 		// txt
 		tfInputCode = new JTextField();
-		tfInputCode.setBounds(650, 30, 100, 25);
+		tfInputCode.setBounds(650, 30, 100, 35);
+		tfInputCode.setBackground(new Color(31, 36, 42));
+		tfInputCode.setFont(new java.awt.Font("Tahoma", 0, 25));
+		tfInputCode.setBorder(BorderFactory.createLineBorder(new Color(169, 224, 49)));
+		tfInputCode.setForeground(new Color(169, 224, 49));
 		jpn1.add(tfInputCode);
 		jpn1.setBounds(0, 0, 2200, 100);
 		this.add(jpn1);
@@ -105,22 +153,70 @@ public class AddCodeView extends JFrame implements ActionListener{
 //		bottom
 		jpnbottom = new JPanel();
 		jpnbottom.setLayout(null);
-		
-		btnSave = new Button("Save");
-		btnSave.setBounds(1232, 7, 100, 50);
+		jpnbottom.setBackground(new Color(31, 36, 42));
+		btnSave = new JButton("LƯU MÃ ĐỀ");
+		btnSave.setBounds(1210, 30, 120, 50);
 		btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-		btnSave.setFont(new java.awt.Font("Verdana", 0, 14));
+		btnSave.setFont(new java.awt.Font("Tahoma", 0, 14));
 		btnSave.setBackground(new java.awt.Color(169, 224, 49));
+		btnSave.setFocusPainted(false);
 		btnSave.addActionListener(this);
+		btnSave.setFont(new java.awt.Font("Tahoma", 0, 15));
 		jpnbottom.add(btnSave);
+		btnClear = new JButton("LÀM MỚI");
+		btnClear.setBounds(1100, 30, 100, 50);
+		btnClear.setFocusPainted(false);
+		btnClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnClear.setFont(new java.awt.Font("Tahoma", 0, 14));
+		btnClear.setBackground(new java.awt.Color(169, 224, 49));
+		btnClear.addActionListener(this);
+		btnClear.setFont(new java.awt.Font("Tahoma", 0, 15));
+		jpnbottom.add(btnClear);
 		jpnbottom.setBounds(0, 600, 1364, 100);
 		this.add(jpnbottom);
+		this.getContentPane().setBackground(new Color(31, 36, 42));
 		// display
-//		this.setUndecorated(true);
+		setUndecorated(true);
+		setResizable(false);
 		this.setSize(1364, 700);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
+//		event
+		btnMinus.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				btnMinusActionPerformed(e);
+			}
+		});
+		
+		btnCancel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				btnCancelActionPerformed(e);
+			}
+		});
+//		lam moi
+		btnClear.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listAnswers.clear();
+				for (int i = 0; i < buttons.length; i++) {
+					for (int j = 0; j < buttons[i].length; j++) {
+						buttons[i][j].setBackground(new Color(31, 36, 42));
+						buttons[i][j].setForeground(new Color(169, 224, 49));
+					}
+				}
+			}
+		});
+		btnBack.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				backActionPerformed(e);
+			}
+		});
 	}
 
 	// create list buttons answer A, B, C, D
@@ -136,12 +232,15 @@ public class AddCodeView extends JFrame implements ActionListener{
 				yLeft += 50;
 			xLeft = x;
 			Label lb = new Label(i+1+"");
+			lb.setForeground(new Color(169, 224, 49));
 			lb.setBounds(10, yLeft, 30, 30);
 			jpn.add(lb);
 			for (int j = 0; j < buttons[i].length; j++) {
 				buttons[i][j] = new JButton();
+				buttons[i][j].setBackground(new Color(31, 36, 42));
+				buttons[i][j].setFocusPainted(false);
 				buttons[i][j].addActionListener(this);
-				buttons[i][j].setBackground(Color.BLUE);
+				buttons[i][j].setForeground(new Color(169, 224, 49));
 				buttons[i][j].setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 				switch (j) {
 				case 0:
@@ -172,7 +271,8 @@ public class AddCodeView extends JFrame implements ActionListener{
 //				 find button on click and set color
 				if (buttons[i][j] == e.getSource()) {
 					listAnswers.put(i+1, buttons[i][j].getText());
-					buttons[i][j].setBackground(new java.awt.Color(152, 201, 45));
+					buttons[i][j].setBackground(new Color(169, 224, 49));
+					buttons[i][j].setForeground(new Color(31, 36, 42));
 					saveI = i;
 					saveJ = j;
 				}
@@ -180,8 +280,10 @@ public class AddCodeView extends JFrame implements ActionListener{
 //			on clock again has click
 			if (saveI == i) 
 				for (int j2 = 0; j2 < buttons[i].length; j2++) 
-					if (saveJ != j2)
-						buttons[i][j2].setBackground(Color.BLUE);
+					if (saveJ != j2) {
+						buttons[i][j2].setBackground(new Color(31, 36, 42));
+						buttons[i][j2].setForeground(new Color(169, 224, 49));
+					}
 		}
 //		Save
 		if (btnSave == e.getSource()) {
@@ -196,6 +298,22 @@ public class AddCodeView extends JFrame implements ActionListener{
 				}
 			}
 		}
+	}
+
+	@Override
+	public void backActionPerformed(ActionEvent avt) {
+		this.dispose();
+	}
+
+
+	@Override
+	public void btnMinusActionPerformed(ActionEvent evt) {
+		this.setState(ICONIFIED);
+	}
+
+	@Override
+	public void btnCancelActionPerformed(ActionEvent evt) {
+		System.exit(0);
 	}
 
 }
