@@ -383,6 +383,10 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setResizable(false);
+		setSize(910, 620);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		
 		jButton7.addActionListener(new ActionListener() {
 			
 			@Override

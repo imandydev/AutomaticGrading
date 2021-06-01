@@ -116,14 +116,14 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 		pn3.setBackground(new Color(31, 36, 42));
 		pn3.setBounds(0, 90, 800, 510);
 		add(pn3);
-		
 //		setting
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setResizable(false);
-		setLocationRelativeTo(null);
 		setSize(800, 600);
+		setLocationRelativeTo(null);
 		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
 //		event
 //		button back
 		btnBack.addActionListener(new ActionListener() {

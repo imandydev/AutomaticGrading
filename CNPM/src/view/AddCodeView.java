@@ -3,7 +3,9 @@ package view;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Label;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -98,6 +100,7 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 		jpn1.add(tfInputCode);
 		jpn1.setBounds(0, 0, 2200, 100);
 		this.add(jpn1);
+	
 		tfInputCode.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent e) {
 				try {
@@ -185,6 +188,7 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
+		
 //		event
 		btnMinus.addActionListener(new ActionListener() {
 			@Override
