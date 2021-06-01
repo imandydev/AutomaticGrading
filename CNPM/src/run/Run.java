@@ -13,6 +13,7 @@ import view.AddCodeView;
 public class Run {
 	public static void main(String[] args) {
 //		AddCodeView add = new AddCodeView();
+		// Mai edit 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 //		LoginAndRegisterView sign = new LoginAndRegisterView();
 		ManagerCodeView sign = new ManagerCodeView();
