@@ -16,7 +16,7 @@ public class Run {
 		// Mai edit 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 //		LoginAndRegisterView sign = new LoginAndRegisterView();
-		ManagerCodeView sign = new ManagerCodeView();
+		AddCodeView sign = new AddCodeView(null,null);
 //		sign.setSize(910, 620);
 		int w = sign.getSize().width;
 		int h = sign.getSize().height;

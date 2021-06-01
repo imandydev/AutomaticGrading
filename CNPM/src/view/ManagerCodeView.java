@@ -21,9 +21,10 @@ import javax.swing.JScrollPane;
 
 import DTO.CodeDTO;
 import DTO.TableDTO;
+import interf.InterView;
 import model.CodeDAO;
 
-public class ManagerCodeView extends JFrame implements ActionListener{
+public class ManagerCodeView extends JFrame implements ActionListener, InterView{
 	private JButton btnAdd, btnBack, btnCancel, btnMinus;
 	private AddCodeView addView;
 	private List<JButton> listCode,removeCode;
@@ -70,7 +71,7 @@ public class ManagerCodeView extends JFrame implements ActionListener{
 		pn1.setLayout(null);
 		btnBack = new JButton();
 		btnBack.setBounds(10,10, 30, 30);
-		btnBack.setIcon(new ImageIcon("Images/left_arrow_32px.png"));
+		btnBack.setIcon(new ImageIcon("Images/icons8_Back_To_32px_2.png"));
 		btnBack.setToolTipText("Trở về");
 		btnBack.setFocusPainted(false);
 		btnBack.setContentAreaFilled(false);
@@ -86,7 +87,7 @@ public class ManagerCodeView extends JFrame implements ActionListener{
 		
 		btnAdd = new JButton();
 		btnAdd.setBounds(760, 10, 30, 30);
-		btnAdd.setIcon(new ImageIcon("Images/add_64px.png"));
+		btnAdd.setIcon(new ImageIcon("Images/add_37px.png"));
 		btnAdd.setToolTipText("Thêm mã đề");
 		btnAdd.setFocusPainted(false);
 		btnAdd.setContentAreaFilled(false);
@@ -156,17 +157,17 @@ public class ManagerCodeView extends JFrame implements ActionListener{
 		});
 	}
 
-	private void backActionPerformed(ActionEvent avt) {
+	public void backActionPerformed(ActionEvent avt) {
 		this.dispose();
 	}
-	private void addActionPerformed(ActionEvent evt) {
+	public void addActionPerformed(ActionEvent evt) {
 		addView = new AddCodeView(null, this);
 		this.setVisible(false);
 	}
-	private void btnMinusActionPerformed(ActionEvent evt) {
+	public void btnMinusActionPerformed(ActionEvent evt) {
 		this.setState(ICONIFIED);
 	}
-	private void btnCancelActionPerformed(ActionEvent evt) {
+	public void btnCancelActionPerformed(ActionEvent evt) {
 		System.exit(0);
 	}
 	
@@ -174,7 +175,7 @@ public class ManagerCodeView extends JFrame implements ActionListener{
 		int stepRow = 0;
 		for (int i = 0; i < size; i++) {
 			JButton btn = new JButton();
-			btn.setIcon(new ImageIcon("Images/delete_32px.png"));
+			btn.setIcon(new ImageIcon("Images/delete_40px.png"));
 			btn.addActionListener(this);
 			btn.setToolTipText("Xóa mã đề");
 			btn.setFocusPainted(false);
@@ -195,6 +196,7 @@ public class ManagerCodeView extends JFrame implements ActionListener{
 			JButton btn = new JButton("123");
 			btn.setBackground(new Color(169, 224, 49));
 			btn.addActionListener(this);
+//			setname = codeid
 			btn.setName("123xx");
 			btn.setToolTipText("Xem mã đề và đáp án");
 			btn.setFont(new Font("Tahoma", 1, 25));
@@ -233,12 +235,12 @@ public class ManagerCodeView extends JFrame implements ActionListener{
 //				ma code tuong ung voi button remove
 				int result = JOptionPane.showConfirmDialog(pn3, "Bạn có muốn xóa mã đề ?", "", JOptionPane.WARNING_MESSAGE);
 				if (result == JOptionPane.OK_OPTION) {
-					int getCode = Integer.parseInt(listCode.get(i).getName());
-					boolean checkRemove = CodeDAO.removeCodeByID(getCode, 1);
+					int getCodeID = Integer.parseInt(listCode.get(i).getName());
+					boolean checkRemove = CodeDAO.removeCodeByID(getCodeID, 1);
 					if (checkRemove)
-						JOptionPane.showMessageDialog(pn3, "Xóa mã đề thành công "+getCode);
+						JOptionPane.showMessageDialog(pn3, "Xóa mã đề thành công "+getCodeID);
 					else
-						JOptionPane.showMessageDialog(pn3, "Xóa mã đề thất bại "+getCode);
+						JOptionPane.showMessageDialog(pn3, "Xóa mã đề thất bại "+getCodeID);
 				}
 			}
 		}
