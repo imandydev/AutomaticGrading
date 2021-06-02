@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
@@ -17,7 +18,7 @@ import javax.swing.UIManager;
 import DTO.UserDTO;
 import controller.UserController;
 public class LoginAndRegisterView extends javax.swing.JFrame {
-	private javax.swing.JButton jButton1;
+	private javax.swing.JButton jButton1, JButtonInstruction;
 	private javax.swing.JButton jButton10;
 	private javax.swing.JButton jButton11;
 	private javax.swing.JButton jButton14;
@@ -75,6 +76,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 		jButton4 = new javax.swing.JButton();
 		jButton5 = new javax.swing.JButton();
 		jButton6 = new javax.swing.JButton();
+		JButtonInstruction = new JButton();
 		jLabel3 = new javax.swing.JLabel();
 		jLabel4 = new javax.swing.JLabel();
 		jLabel19 = new javax.swing.JLabel();
@@ -128,7 +130,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 		jButton1.setBackground(new java.awt.Color(169, 224, 49));
 		jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); 
 		jButton1.setForeground(new java.awt.Color(0, 0, 0));
-		jButton1.setText("Tạo tài khoản");
+		jButton1.setText("Tạo Tài Khoản");
 		jButton1.setBorder(null);
 		jButton1.setBorderPainted(false);
 		jButton1.setContentAreaFilled(false);
@@ -140,19 +142,31 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 				jButton1ActionPerformed(evt);
 			}
 		});
-		jButton1.setBounds(150, 480, 140, 30);
+		jButton1.setBounds(70, 480, 140, 30);
 		jPanel1.add(jButton1);
+		JButtonInstruction.setBackground(new java.awt.Color(169, 224, 49));
+		JButtonInstruction.setFont(new java.awt.Font("Tahoma", 0, 14)); 
+		JButtonInstruction.setForeground(new java.awt.Color(0, 0, 0));
+		JButtonInstruction.setText("Hướng Dẫn");
+		JButtonInstruction.setBorder(null);
+		JButtonInstruction.setBorderPainted(false);
+		JButtonInstruction.setContentAreaFilled(false);
+		JButtonInstruction.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		JButtonInstruction.setRequestFocusEnabled(false);
+		JButtonInstruction.setVerifyInputWhenFocusTarget(false);
+		JButtonInstruction.setBounds(240, 480, 140, 30);
+		jPanel1.add(JButtonInstruction);
 		jLabel2.setIcon(new javax.swing.ImageIcon("Images/student_male_100px.png")); // NOI18N
 		jLabel2.setBounds(170, 60, 100, 100);
 		jPanel1.add(jLabel2);
-
-		jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
+			
+		jLabel3.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
 		jLabel3.setForeground(new java.awt.Color(169, 224, 49));
 		jLabel3.setIcon(new javax.swing.ImageIcon("Images/lock_b_35px.png")); // NOI18N
 		jLabel3.setBounds(50, 305, 45, 45);
 		jPanel1.add(jLabel3);
 
-		jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
+		jLabel4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
 		jLabel4.setForeground(new java.awt.Color(169, 224, 49));
 		jLabel4.setIcon(new javax.swing.ImageIcon("Images/male_b_user_35px.png")); // NOI18N
 		jLabel4.setBounds(50, 205, 45, 45);
@@ -305,7 +319,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 
 		jLabel16.setFont(new java.awt.Font("Tahoma", 0, 16)); 
 		jLabel16.setForeground(new java.awt.Color(255,255,255));
-		jLabel16.setText("Địa chỉ Email");
+		jLabel16.setText("Địa chỉ email");
 		jLabel16.setBounds(50, 230, 100, 20);
 		jPanel6.add(jLabel16);
 		jButton14.setBackground(new java.awt.Color(169, 224, 49));
@@ -355,7 +369,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 
 		jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 		jLabel21.setForeground(new java.awt.Color(0, 0, 0));
-		jLabel21.setText("Quên mật khẩu?");
+		jLabel21.setText("Quên mật khẩu");
 		jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		jLabel21.setBounds(170, 310, 140, 140);
 		jPanel1.add(jLabel21);

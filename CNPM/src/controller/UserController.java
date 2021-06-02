@@ -1,4 +1,4 @@
-package control;
+package controller;
 
 import DTO.UserDTO;
 import java.io.UnsupportedEncodingException;
