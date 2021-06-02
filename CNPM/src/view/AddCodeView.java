@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import DTO.TableDTO;
-import control.CodeAndAnswerController;
+import controller.CodeAndAnswerController;
 import interf.InterView;
 
 public class AddCodeView extends JFrame implements ActionListener, InterView{
@@ -42,11 +42,11 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 		// row 1
 		jpn1 = new JPanel();
 		jpn1.setLayout(null);
-		jpn1.setBackground(new Color(31, 36, 42));
+		jpn1.setBackground(new Color(110, 115, 199));
 //		button minus
 		btnMinus = new JButton();
 		btnMinus.setBounds(1294, 5, 30, 30);
-		btnMinus.setIcon(new javax.swing.ImageIcon("Images/icons8_Minus_32px_1.png")); 
+		btnMinus.setIcon(new javax.swing.ImageIcon("Images/minus_w_32px.png")); 
 		btnMinus.setToolTipText("Minimize");
 		btnMinus.setBorder(null);
 		btnMinus.setBorderPainted(false);
@@ -60,7 +60,7 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 //		button cancel
 		btnCancel = new JButton();
 		btnCancel.setBounds(1324, 5, 30, 30);
-		btnCancel.setIcon(new ImageIcon("Images/icons8_Cancel_32px.png"));
+		btnCancel.setIcon(new ImageIcon("Images/cancel_w_32px.png"));
 		btnCancel.setToolTipText("Thoát");
 		btnCancel.setBorder(null);
 		btnCancel.setBorderPainted(false);
@@ -72,8 +72,8 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 		jpn1.add(btnCancel);
 		
 		btnBack = new JButton();
-		btnBack.setBounds(25,25, 30, 30);
-		btnBack.setIcon(new ImageIcon("Images/icons8_Back_To_32px_2.png"));
+		btnBack.setBounds(25,25, 35, 35);
+		btnBack.setIcon(new ImageIcon("Images/back_to_w_32px.png"));
 		btnBack.setToolTipText("Trở về");
 		btnBack.setFocusPainted(false);
 		btnBack.setContentAreaFilled(false);
@@ -81,24 +81,25 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 		btnBack.setRequestFocusEnabled(false);
 		jpn1.add(btnBack);
 		// lable
-		JLabel lbCode = new JLabel("MÃ ĐỀ: ");
+		JLabel lbCode = new JLabel("MÃ ĐỀ ");
 		lbCode.setBounds(560, 30, 100, 30);
 		lbCode.setFont(new java.awt.Font("Tahoma", 0, 25));
-		lbCode.setForeground(new Color(169, 224, 49));
+		lbCode.setForeground(new Color(255,255,255));
 		jpn1.add(lbCode);
 		JLabel lbMess = new JLabel();
-		lbMess.setForeground(new Color(169, 224, 49));
+		lbMess.setForeground(new Color(255,255,255));
 		lbMess.setBounds(760, 30, 200, 30);
 		jpn1.add(lbMess);
 		// txt
 		tfInputCode = new JTextField();
 		tfInputCode.setBounds(650, 30, 100, 35);
-		tfInputCode.setBackground(new Color(31, 36, 42));
+		tfInputCode.setBackground(new Color(110, 115, 199));
 		tfInputCode.setFont(new java.awt.Font("Tahoma", 0, 25));
-		tfInputCode.setBorder(BorderFactory.createLineBorder(new Color(169, 224, 49)));
-		tfInputCode.setForeground(new Color(169, 224, 49));
+		tfInputCode.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(255,255,255)));
+		
+		tfInputCode.setForeground(new Color(255,255,255));
 		jpn1.add(tfInputCode);
-		jpn1.setBounds(0, 0, 2200, 100);
+		jpn1.setBounds(0, 0, 2200, 90);
 		this.add(jpn1);
 	
 		tfInputCode.addKeyListener(new KeyAdapter() {
@@ -124,7 +125,7 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 //		row 2 col 1
 		jpn2Col1 = new JPanel();
 		jpn2Col1.setLayout(null);
-		jpn2Col1.setBackground(new java.awt.Color(31, 36, 42));
+		jpn2Col1.setBackground(new java.awt.Color(255,255,255));
 		addAnswer(50, 0, 10, jpn2Col1);
 		jpn2Col1.setBounds(0, 100, 300, 500);
 		this.add(jpn2Col1);
@@ -132,7 +133,7 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 //		row2 col 2 
 		jpn2Col2 = new JPanel();
 		jpn2Col2.setLayout(null);
-		jpn2Col2.setBackground(new java.awt.Color(31, 36, 42));
+		jpn2Col2.setBackground(new java.awt.Color(255,255,255));
 		addAnswer(50, 10, 20, jpn2Col2);
 		jpn2Col2.setBounds(350, 100, 300, 500);
 		this.add(jpn2Col2);
@@ -140,7 +141,7 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 //		row2 col 3 
 		jpn2Col3 = new JPanel();
 		jpn2Col3.setLayout(null);
-		jpn2Col3.setBackground(new java.awt.Color(31, 36, 42));
+		jpn2Col3.setBackground(new java.awt.Color(255,255,255));
 		addAnswer(50, 20, 30, jpn2Col3);
 		jpn2Col3.setBounds(700, 100, 300, 500);
 		this.add(jpn2Col3);
@@ -148,7 +149,7 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 //		row2 col 4 
 		jpn2Col4 = new JPanel();
 		jpn2Col4.setLayout(null);
-		jpn2Col4.setBackground(new java.awt.Color(31, 36, 42));
+		jpn2Col4.setBackground(new java.awt.Color(255,255,255));
 		addAnswer(50, 30, 40, jpn2Col4);
 		jpn2Col4.setBounds(1050, 100, 300, 500);
 		this.add(jpn2Col4);
@@ -156,31 +157,31 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 //		bottom
 		jpnbottom = new JPanel();
 		jpnbottom.setLayout(null);
-		jpnbottom.setBackground(new Color(31, 36, 42));
+		jpnbottom.setBackground(new Color(255,255,255));
 		btnSave = new JButton();
-		btnSave.setIcon(new ImageIcon("Images/save_50px.png"));
+		btnSave.setIcon(new ImageIcon("Images/save_b_50px.png"));
 		btnSave.setToolTipText("Lưu mã đề");
 		btnSave.setBounds(1280, 10, 50, 50);
 		btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-		btnSave.setBackground(new java.awt.Color(31, 36, 42));
+		btnSave.setBackground(new java.awt.Color(255,255,255));
 		btnSave.setFocusPainted(false);
 		btnSave.addActionListener(this);
 		btnSave.setFont(new java.awt.Font("Tahoma", 0, 15));
 		jpnbottom.add(btnSave);
 		btnClear = new JButton();
 		btnClear.setBounds(1220, 10, 50, 50);
-		btnClear.setIcon(new ImageIcon("Images/sync_50px.png"));
+		btnClear.setIcon(new ImageIcon("Images/sync_b_50px.png"));
 		btnClear.setToolTipText("Làm mới");
 		btnClear.setFocusPainted(false);
 		btnClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		btnClear.setFont(new java.awt.Font("Tahoma", 0, 14));
-		btnClear.setBackground(new java.awt.Color(31, 36, 42));
+		btnClear.setBackground(new java.awt.Color(255,255,255));
 		btnClear.addActionListener(this);
 		btnClear.setFont(new java.awt.Font("Tahoma", 0, 15));
 		jpnbottom.add(btnClear);
 		jpnbottom.setBounds(0, 600, 1364, 80);
 		this.add(jpnbottom);
-		this.getContentPane().setBackground(new Color(31, 36, 42));
+		this.getContentPane().setBackground(new Color(255,255,255));
 		// display
 		setUndecorated(true);
 		setResizable(false);
@@ -211,8 +212,8 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 				listAnswers.clear();
 				for (int i = 0; i < buttons.length; i++) {
 					for (int j = 0; j < buttons[i].length; j++) {
-						buttons[i][j].setBackground(new Color(31, 36, 42));
-						buttons[i][j].setForeground(new Color(169, 224, 49));
+						buttons[i][j].setBackground(new Color(110, 115, 199));
+						buttons[i][j].setForeground(new Color(255,255,255));
 					}
 				}
 			}
@@ -239,15 +240,16 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 				yLeft += 50;
 			xLeft = x;
 			Label lb = new Label(i+1+"");
-			lb.setForeground(new Color(169, 224, 49));
+			lb.setForeground(new Color(110, 115, 199));
+			lb.setFont(new java.awt.Font("Tahoma", 0, 16));
 			lb.setBounds(10, yLeft, 30, 30);
 			jpn.add(lb);
 			for (int j = 0; j < buttons[i].length; j++) {
 				buttons[i][j] = new JButton();
-				buttons[i][j].setBackground(new Color(31, 36, 42));
+				buttons[i][j].setBackground(new Color(110, 115, 199));
 				buttons[i][j].setFocusPainted(false);
 				buttons[i][j].addActionListener(this);
-				buttons[i][j].setForeground(new Color(169, 224, 49));
+				buttons[i][j].setForeground(new Color(255,255,255));
 				buttons[i][j].setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 				switch (j) {
 				case 0:
@@ -278,8 +280,9 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 //				 find button on click and set color
 				if (buttons[i][j] == e.getSource()) {
 					listAnswers.put(i+1, buttons[i][j].getText());
-					buttons[i][j].setBackground(new Color(169, 224, 49));
-					buttons[i][j].setForeground(new Color(31, 36, 42));
+					buttons[i][j].setBackground(new Color(255,255,255));
+					buttons[i][j].setForeground(new Color(110, 115, 199));
+					buttons[i][j].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(110, 115, 199)));
 					saveI = i;
 					saveJ = j;
 				}
@@ -288,8 +291,9 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 			if (saveI == i) 
 				for (int j2 = 0; j2 < buttons[i].length; j2++) 
 					if (saveJ != j2) {
-						buttons[i][j2].setBackground(new Color(31, 36, 42));
-						buttons[i][j2].setForeground(new Color(169, 224, 49));
+						buttons[i][j2].setBackground(new Color(110, 115, 199));
+						buttons[i][j2].setForeground(new Color(255,255,255));
+						
 					}
 		}
 //		Save
