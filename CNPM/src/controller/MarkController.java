@@ -1,19 +1,6 @@
 package controller;
 
 import java.io.File;
-import java.io.ObjectInputStream.GetField;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;
-
-import DAO.AnswerDAO;
-import DAO.CodeDAO;
-import DAO.MarkDAO;
-import imageProccess.ImageProcess;
-import model.MarkDTO;
 
 public class MarkController {
 	static ImageProcess imgProcess = new ImageProcess();
@@ -41,7 +28,7 @@ public class MarkController {
 //		int codeID = CodeDAO.findCodeID(tableID, Integer.parseInt(imgCode));
 //		System.out.println("CodeID: " + codeID);
 //		if (codeID == 0) {
-//			MarkDTO mark = new MarkDTO(0, tableID, codeID, 0, imgCode, imgStudentID, img.getName(), 0, 0);
+//			MarkDTO mark = new MarkDTO(0, tableID, 0, imgCode, imgStudentID, img.getName(), 0, 0);
 //			MarkDAO.insertMark(mark);
 //		} else {
 //			HashMap<Integer, String> listAnswerImg = (HashMap<Integer, String>) imgProcess.getAnswer();
@@ -50,7 +37,7 @@ public class MarkController {
 //			System.out.println("Số câu đúng: " + numberAnswerCorrect);
 //			double grade = numberAnswerCorrect / numberQuestionUse;
 //			System.out.println("Điểm: " + grade);
-//			MarkDTO mark = new MarkDTO(0, tableID, codeID, numberAnswerCorrect, imgCode, imgStudentID, img.getName(),
+//			MarkDTO mark = new MarkDTO(0, tableID, numberAnswerCorrect, imgCode, imgStudentID, img.getName(),
 //					grade, 0);
 //			MarkDAO.insertMark(mark);
 //		}
