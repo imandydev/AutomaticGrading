@@ -24,7 +24,9 @@ public class TableDTO {
 		this.numberQuestionUse = numberQuestionUse;
 		this.hide = hide;
 	}
-
+	public TableDTO() {
+		
+	}
 	public int getId() {
 		return id;
 	}

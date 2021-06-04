@@ -1,8 +1,10 @@
 package model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import DTO.CodeDTO;
 import DTO.TableDTO;
@@ -11,90 +13,97 @@ import connection.ConnectionDB;
 
 public class CodeDAO {
 	// where table.id
-	public static boolean checkCodeExist(int code, TableDTO table) {
-		PreparedStatement s = null;
-		try {
-			String sql = "select * from code_submissions where code_content = ? and table_id = ?";
-			s = ConnectionDB.createConnection().prepareStatement(sql);
-			s.setInt(1, code);
-//            s.setInt(2, table.getID());
-			ResultSet rs = s.executeQuery();
-			if (rs.next()) {
-				rs.close();
-				s.close();
-				return true;
-			}
-			return false;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
+    public static boolean checkCodeExist(int code, TableDTO table) {
+    	ResultSet rs = null;
+        Connection con = null;
+        PreparedStatement s = null;
+        try {
+            String sql = "select * from code_exam where code_content = ? and table_id = ?";
+            con = ConnectionDB.createConnection();
+            s = con.prepareStatement(sql);
+            s.setInt(1, code);
+            s.setInt(2, table.getId());
+            rs = s.executeQuery();
+            if (rs.next()) {
+            	rs.close();
+                s.close();
+            	return true;
+            }
+            return false;
+        } catch ( SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 //    insert code
-	public static boolean insertCode(CodeDTO code) {
-		PreparedStatement s = null;
-		try {
-//        	2. code.getidtable
-			String sql = "INSERT INTO code_submissions VALUES (null,?,?,?);";
-			s = ConnectionDB.createConnection().prepareStatement(sql);
-			ResultSet rs = s.executeQuery();
-			s.setInt(2, code.getTableID());
-			s.setInt(3, code.getCode());
-			s.setInt(4, code.getHide());
-			rs.close();
-			s.close();
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-//    get new code has insert
-	public static CodeDTO getCodeNewInsert() {
-		PreparedStatement s = null;
-		CodeDTO codeDTO = null;
-		try {
-			String sql = "select * from code_submissions where order by code_id desc limit 1";
-			s = ConnectionDB.createConnection().prepareStatement(sql);
-			ResultSet rs = s.executeQuery();
-			if (rs.next()) {
-				codeDTO = new CodeDTO(rs.getInt(0), rs.getInt(1), rs.getInt(2), rs.getInt(3));
+    public static CodeDTO insertCode(CodeDTO code) {
+    	ResultSet rs = null;
+        Connection con = null;
+        PreparedStatement s = null;
+        CodeDTO codeNew = null;
+        try {
+            String sql = "INSERT INTO code_exam VALUES (null,?,?,?)";
+            con = ConnectionDB.createConnection();
+            con.setAutoCommit(false);
+            s = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            s.setInt(1, code.getTableID());
+            s.setInt(2, code.getCode());
+            s.setInt(3, code.getHide());
+            s.execute();
+            rs = s.getGeneratedKeys();
+            if (rs.next())
+				codeNew = new CodeDTO(rs.getInt(1));
+            con.commit();
+            return codeNew;
+        } catch (SQLException e) {
+        	if (con != null) {
+				try {
+					con.rollback();
+				} catch(SQLException e1) {
+					e.printStackTrace();
+				}
 			}
-			rs.close();
-			s.close();
-			return codeDTO;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+        } finally {
+        	try {
+        		if(rs != null)
+        			rs.close();
+        		if(s != null)
+        			s.close();
+        		if(con != null)
+        			con.close();
+        	} catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+        }
 
-//    remove code = set hide = 1, 1 = hide | 0 not hide
-	public static boolean removeCodeByID(int id, int hide) {
-		PreparedStatement s = null;
-		CodeDTO codeDTO = null;
-		try {
-			String sql = "update code_submissions set hide = ? where id = ?";
-			s = ConnectionDB.createConnection().prepareStatement(sql);
-			s.setInt(1, hide);
-			s.setInt(2, id);
-			s.close();
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
+       return null;
+    }
+   
+    public static boolean removeCodeByID(int id) {
+        Connection con = null;
+        PreparedStatement s = null;
+        try {
+            String sql = "delete from code_exam where code_id = ?";
+            con = ConnectionDB.createConnection();
+            s = con.prepareStatement(sql);
+            s.setInt(1, id);
+            s.executeUpdate();
+            return true;
+        } catch ( SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public static boolean hideCodeByID(int id, int hide) {
+    	return true;
+    }
 //	Mai
-	// Tìm code_id dựa vào table_id và code_content
+	// TÃ¬m code_id dá»±a vÃ o table_id vÃ  code_content
 	public static int findCodeID(int tableID, int code) {
 		PreparedStatement s = null;
 		int codeID = 0;
 		try {
-//			lọc hide=0 để chắc chắn rằng code chưa bị xóa
+//			lá»�c hide=0 Ä‘á»ƒ cháº¯c cháº¯n ráº±ng code chÆ°a bá»‹ xÃ³a
 			String sql = "select * from code_exam where table_id = ? and code_content = ? and hide=0";
 			s = ConnectionDB.createConnection().prepareStatement(sql);
 			s.setInt(1, tableID);
@@ -116,7 +125,6 @@ public class CodeDAO {
 //	Mai
 //	test
 	public static void main(String[] args) {
-		int id = findCodeID(1, 123);
-		System.out.println(id);
+		
 	}
 }

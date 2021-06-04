@@ -36,8 +36,10 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 	private boolean checkCodeInput;
 	private HashMap<Integer, String> listAnswers = new HashMap<Integer, String>();
 	private ManagerCodeView mg;
+	private TableDTO table;
 	public AddCodeView(TableDTO table, ManagerCodeView mg) {
 		this.mg = mg;
+		this.table = table;
 		setLayout(null);
 		// row 1
 		jpn1 = new JPanel();
@@ -108,7 +110,7 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 					if (tfInputCode.getText().length() > 3) {
 						lbMess.setText("Không được dài quá 3 chữ số !");
 						checkCodeInput = false;
-					} else if (tfInputCode.getText().equals("")) {
+					} else if (tfInputCode.getText().equals("") || tfInputCode.getText().length() != 3) {
 						checkCodeInput = false;
 					}else {
 						input = Integer.parseInt(tfInputCode.getText());
@@ -209,13 +211,7 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listAnswers.clear();
-				for (int i = 0; i < buttons.length; i++) {
-					for (int j = 0; j < buttons[i].length; j++) {
-						buttons[i][j].setBackground(new Color(110, 115, 199));
-						buttons[i][j].setForeground(new Color(255,255,255));
-					}
-				}
+				clearAnsChoose(listAnswers, buttons);
 			}
 		});
 		btnBack.addActionListener(new ActionListener() {
@@ -246,10 +242,11 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 			jpn.add(lb);
 			for (int j = 0; j < buttons[i].length; j++) {
 				buttons[i][j] = new JButton();
-				buttons[i][j].setBackground(new Color(110, 115, 199));
+				buttons[i][j].setBackground(new Color(255,255,255));
 				buttons[i][j].setFocusPainted(false);
 				buttons[i][j].addActionListener(this);
-				buttons[i][j].setForeground(new Color(255,255,255));
+				buttons[i][j].setForeground(new Color(110, 115, 199));
+				buttons[i][j].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(110, 115, 199)));
 				buttons[i][j].setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 				switch (j) {
 				case 0:
@@ -280,42 +277,69 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 //				 find button on click and set color
 				if (buttons[i][j] == e.getSource()) {
 					listAnswers.put(i+1, buttons[i][j].getText());
-					buttons[i][j].setBackground(new Color(255,255,255));
-					buttons[i][j].setForeground(new Color(110, 115, 199));
+					buttons[i][j].setBackground(new Color(110, 115, 199));
+					buttons[i][j].setForeground(new Color(255,255,255));
 					buttons[i][j].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(110, 115, 199)));
 					saveI = i;
 					saveJ = j;
 				}
 			}
-//			on clock again has click
+//			click 1 dong 2 dap an
 			if (saveI == i) 
 				for (int j2 = 0; j2 < buttons[i].length; j2++) 
 					if (saveJ != j2) {
-						buttons[i][j2].setBackground(new Color(110, 115, 199));
-						buttons[i][j2].setForeground(new Color(255,255,255));
-						
+						buttons[i][j2].setBackground(new Color(255,255,255));
+						buttons[i][j2].setForeground(new Color(110, 115, 199));
+						buttons[i][j2].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(110, 115, 199)));
 					}
 		}
 //		Save
 		if (btnSave == e.getSource()) {
 			if (!checkCodeInput) {
-				JOptionPane.showMessageDialog(this, "Error!");
-			} else {
-				boolean checkCodeExist = new CodeAndAnswerController().checkCode(input, null, null,listAnswers);
+				JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng mã đề!");
+			} else if (listAnswers.size() < 1) {
+				JOptionPane.showMessageDialog(this, "Vui lòng chọn đáp án!");
+			} 
+			else {
+//				tien xu ly dap an
+				listAnswers = beforeProcess(listAnswers, table.getNumberQuestionUse());
+//				insert ma de va dap an
+				boolean checkCodeExist = new CodeAndAnswerController().insertCodeAndAnswer(input, table,listAnswers);
+//				insert thanh cong
 				if (!checkCodeExist) {
-					JOptionPane.showMessageDialog(this, "Exist!");
+					JOptionPane.showMessageDialog(this, "Thêm mã đề thất bại!");
 				} else {
-					this.setVisible(false);
+					JOptionPane.showMessageDialog(this, "Thêm mã đề thành công!");
+					tfInputCode.setText("");
+					clearAnsChoose(listAnswers, buttons);
 				}
 			}
 		}
 	}
-
+//	tien xu ly, cau nao chua chon thi cho F
+	public HashMap<Integer, String> beforeProcess(HashMap<Integer, String> listAns, int numberQuestionUse) {
+		for (int i = 0; i < numberQuestionUse; i++) {
+			if (!listAns.containsKey(i+1)) {
+				listAns.put(i+1, "F");
+			}
+		}
+		return listAns;
+	}
+//	clear dap an
+	public void clearAnsChoose(HashMap<Integer, String> listAns, JButton[][] matrixButton) {
+		listAns.clear();
+		for (int i = 0; i < matrixButton.length; i++) {
+			for (int j = 0; j < matrixButton[i].length; j++) {
+				matrixButton[i][j].setBackground(new Color(255, 255, 255));
+				matrixButton[i][j].setForeground(new Color(110, 115, 199));
+				matrixButton[i][j].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(110, 115, 199)));
+			}
+		}
+	}
 	@Override
 	public void backActionPerformed(ActionEvent avt) {
 		this.dispose();
 	}
-
 
 	@Override
 	public void btnMinusActionPerformed(ActionEvent evt) {

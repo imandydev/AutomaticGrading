@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/model/AnswerDAO.java=UTF-8
+encoding//src/model/CodeDAO.java=UTF-8
 encoding//src/view/AddCodeView.java=UTF-8
 encoding//src/view/LoginAndRegisterView.java=UTF-8
 encoding//src/view/ManagerCodeView.java=UTF-8
