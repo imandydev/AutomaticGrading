@@ -15,6 +15,9 @@ public class CodeDTO {
 	public CodeDTO() {
 		super();
 	}
+	public CodeDTO(int codeID) {
+		this.codeID = codeID;
+	}
 	public int getCodeID() {
 		return codeID;
 	}

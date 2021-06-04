@@ -18,11 +18,11 @@ public class CodeDAO {
         Connection con = null;
         PreparedStatement s = null;
         try {
-            String sql = "select * from code_submissions where code_content = ? and table_id = ?";
+            String sql = "select * from code_exam where code_content = ? and table_id = ?";
             con = ConnectionDB.createConnection();
             s = con.prepareStatement(sql);
             s.setInt(1, code);
-//            s.setInt(2, table.getID());
+            s.setInt(2, table.getId());
             rs = s.executeQuery();
             if (rs.next()) {
             	rs.close();
@@ -42,19 +42,18 @@ public class CodeDAO {
         PreparedStatement s = null;
         CodeDTO codeNew = null;
         try {
-            String sql = "INSERT INTO code_submissions VALUES (null,?,?,?);";
+            String sql = "INSERT INTO code_exam VALUES (null,?,?,?)";
             con = ConnectionDB.createConnection();
             con.setAutoCommit(false);
             s = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            s.setInt(2, code.getTableID());
-            s.setInt(3, code.getCode());
-            s.setInt(4, code.getHide());
-            s.executeUpdate();
+            s.setInt(1, code.getTableID());
+            s.setInt(2, code.getCode());
+            s.setInt(3, code.getHide());
+            s.execute();
             rs = s.getGeneratedKeys();
-            if (rs.next()) {
-				codeNew = new CodeDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4));
-				con.commit();
-			}
+            if (rs.next())
+				codeNew = new CodeDTO(rs.getInt(1));
+            con.commit();
             return codeNew;
         } catch (SQLException e) {
         	if (con != null) {
@@ -79,7 +78,23 @@ public class CodeDAO {
 
        return null;
     }
-    public static boolean removeCodeByID(int id, int hide) {
+   
+    public static boolean removeCodeByID(int id) {
+        Connection con = null;
+        PreparedStatement s = null;
+        try {
+            String sql = "delete from code_exam where code_id = ?";
+            con = ConnectionDB.createConnection();
+            s = con.prepareStatement(sql);
+            s.setInt(1, id);
+            s.executeUpdate();
+            return true;
+        } catch ( SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public static boolean hideCodeByID(int id, int hide) {
     	return true;
     }
 //	Mai
@@ -110,7 +125,6 @@ public class CodeDAO {
 //	Mai
 //	test
 	public static void main(String[] args) {
-		int id = findCodeID(1, 123);
-		System.out.println(id);
+		
 	}
 }

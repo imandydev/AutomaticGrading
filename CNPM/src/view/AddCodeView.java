@@ -36,8 +36,10 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 	private boolean checkCodeInput;
 	private HashMap<Integer, String> listAnswers = new HashMap<Integer, String>();
 	private ManagerCodeView mg;
+	private TableDTO table;
 	public AddCodeView(TableDTO table, ManagerCodeView mg) {
 		this.mg = mg;
+		this.table = table;
 		setLayout(null);
 		// row 1
 		jpn1 = new JPanel();
@@ -209,13 +211,7 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listAnswers.clear();
-				for (int i = 0; i < buttons.length; i++) {
-					for (int j = 0; j < buttons[i].length; j++) {
-						buttons[i][j].setBackground(new Color(110, 115, 199));
-						buttons[i][j].setForeground(new Color(255,255,255));
-					}
-				}
+				clearAnsChoose(listAnswers, buttons);
 			}
 		});
 		btnBack.addActionListener(new ActionListener() {
@@ -288,13 +284,13 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 					saveJ = j;
 				}
 			}
-//			on clock again has click
+//			click 1 dong 2 dap an
 			if (saveI == i) 
 				for (int j2 = 0; j2 < buttons[i].length; j2++) 
 					if (saveJ != j2) {
 						buttons[i][j2].setBackground(new Color(255,255,255));
 						buttons[i][j2].setForeground(new Color(110, 115, 199));
-						buttons[i][j2	].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(110, 115, 199)));
+						buttons[i][j2].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(110, 115, 199)));
 					}
 		}
 //		Save
@@ -305,18 +301,41 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 				JOptionPane.showMessageDialog(this, "Vui lòng chọn đáp án!");
 			} 
 			else {
-//				boolean checkCodeExist = new CodeAndAnswerController().checkCode(input, null, null,listAnswers);
-				boolean checkCodeExist = true;
+//				tien xu ly dap an
+				listAnswers = beforeProcess(listAnswers, table.getNumberQuestionUse());
+//				insert ma de va dap an
+				boolean checkCodeExist = new CodeAndAnswerController().insertCodeAndAnswer(input, table,listAnswers);
+//				insert thanh cong
 				if (!checkCodeExist) {
 					JOptionPane.showMessageDialog(this, "Thêm mã đề thất bại!");
 				} else {
-					this.dispose();
-					new AddCodeView(null, null);
+					JOptionPane.showMessageDialog(this, "Thêm mã đề thành công!");
+					tfInputCode.setText("");
+					clearAnsChoose(listAnswers, buttons);
 				}
 			}
 		}
 	}
-
+//	tien xu ly, cau nao chua chon thi cho F
+	public HashMap<Integer, String> beforeProcess(HashMap<Integer, String> listAns, int numberQuestionUse) {
+		for (int i = 0; i < numberQuestionUse; i++) {
+			if (!listAns.containsKey(i+1)) {
+				listAns.put(i+1, "F");
+			}
+		}
+		return listAns;
+	}
+//	clear dap an
+	public void clearAnsChoose(HashMap<Integer, String> listAns, JButton[][] matrixButton) {
+		listAns.clear();
+		for (int i = 0; i < matrixButton.length; i++) {
+			for (int j = 0; j < matrixButton[i].length; j++) {
+				matrixButton[i][j].setBackground(new Color(255, 255, 255));
+				matrixButton[i][j].setForeground(new Color(110, 115, 199));
+				matrixButton[i][j].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(110, 115, 199)));
+			}
+		}
+	}
 	@Override
 	public void backActionPerformed(ActionEvent avt) {
 		this.dispose();

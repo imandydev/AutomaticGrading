@@ -10,16 +10,29 @@ import model.AnswerDAO;
 import model.CodeDAO;
 
 public class CodeAndAnswerController {
-    public boolean checkCode(int code, UserDTO user, TableDTO table, HashMap<Integer, String> listAnswers) {
-    	boolean checkCode= CodeDAO.checkCodeExist(code, table);
-    	if (checkCode) {
-    		// table.id
-			CodeDTO codeDTO =  CodeDAO.insertCode(new CodeDTO(0,table.getId(),code,0));
-			if (codeDTO == null)
+//	them ma de va dap an
+	public boolean insertCodeAndAnswer(int code, TableDTO table, HashMap<Integer, String> listAnswers) {
+//		kiem tra ma de ton tai ?
+		boolean checkCode = CodeDAO.checkCodeExist(code, table);
+		if (!checkCode) {
+//			insert ma de
+			CodeDTO codeDTO = CodeDAO.insertCode(new CodeDTO(0, table.getId(), code, 0));
+//			insert that bai
+			if (codeDTO == null) {
 				return false;
-			AnswerDTO answerDTO = new AnswerDTO(codeDTO.getCode(), listAnswers);
-			return AnswerDAO.insertAnswer(answerDTO);
+			} else {
+//				insert dap an
+				AnswerDTO answerDTO = new AnswerDTO(codeDTO.getCodeID(), listAnswers);
+				boolean checkInsertAns = AnswerDAO.insertAnswer(answerDTO);
+//				insert dap an that bai
+				if (!checkInsertAns) {
+					CodeDAO.removeCodeByID(codeDTO.getCodeID());
+					return false;
+				} else
+				return true;
+			}
 		} else
-			return false; 
-    }
+			return false;
+	}
+
 }

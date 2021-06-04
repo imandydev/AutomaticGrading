@@ -248,7 +248,7 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 				int result = JOptionPane.showConfirmDialog(pn3, "Bạn có muốn xóa mã đề ?", "", JOptionPane.WARNING_MESSAGE);
 				if (result == JOptionPane.OK_OPTION) {
 					int getCodeID = Integer.parseInt(listCode.get(i).getName());
-					boolean checkRemove = CodeDAO.removeCodeByID(getCodeID, 1);
+					boolean checkRemove = CodeDAO.hideCodeByID(getCodeID, 1);
 					if (checkRemove)
 						JOptionPane.showMessageDialog(pn3, "Xóa mã đề thành công "+getCodeID);
 					else
