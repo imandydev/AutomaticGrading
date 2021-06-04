@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import connection.ConnectionDB;
+
 public class UserDAO {
 //	kiem tra tai khoan mat khau co ton tai trong DB hay khong
      public static UserDTO checkUserExist(String username, String pass) throws UnsupportedEncodingException, NoSuchAlgorithmException {
@@ -34,7 +35,6 @@ public class UserDAO {
         	return null;
         }
     }
-     // ma hoa data
      public static String passwordSHA512(String pass) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         String code = "";
         MessageDigest msd = MessageDigest.getInstance("SHA-512");
@@ -44,6 +44,5 @@ public class UserDAO {
         code = bigInt.toString(16);
         return code;
     }
-    
-    
+
 }

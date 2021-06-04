@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import DTO.AnswerDTO;
 import DTO.TableDTO;
@@ -49,4 +50,41 @@ public class AnswerDAO {
 	        }
 	        return false;
 	    }
+
+
+//	Mai
+	// TÃ¬m ra Ä‘Ã¡p Ã¡n cá»§a 1 mÃ£ Ä‘á»� tá»« DB dá»±a vÃ o codeID
+	public static HashMap<Integer, String> findAnswer(int codeID) {
+		PreparedStatement s = null;
+		HashMap<Integer, String> listAnswer = new HashMap<Integer, String>();
+		try {
+			String sql = "select * from answer where code_id = ?";
+			s = ConnectionDB.createConnection().prepareStatement(sql);
+			s.setInt(1, codeID);
+
+			int key;
+			String value;
+
+			ResultSet rs = s.executeQuery();
+			while (rs.next()) {
+				key = rs.getInt(3);
+				value = rs.getString(4);
+				listAnswer.put(key, value);
+			}
+
+			rs.close();
+			s.close();
+			return listAnswer;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return listAnswer;
+		}
+	}
+
+//	Mai
+	// test
+	public static void main(String[] args) {
+		System.out.println(findAnswer(1));
+
+	}
 }

@@ -79,22 +79,38 @@ public class CodeDAO {
 
        return null;
     }
-//    get new code has insert
-
-////    remove code = set hide = 1, 1 = hide | 0 not hide
     public static boolean removeCodeByID(int id, int hide) {
-//    	PreparedStatement s = null;
-//    	CodeDTO codeDTO = null;
-//        try {
-//            String sql = "update code_submissions set hide = ? where id = ?";
-//            s = ConnectionDB.createConnection(sql);
-//            s.setInt(1, hide);
-//            s.setInt(2, id);
-//            s.close();
-//            return true;
-//        } catch (ClassNotFoundException | SQLException e) {
-//            e.printStackTrace();
-            return false;
-        }
-//    }
+    	return true;
+    }
+//	Mai
+	// TÃ¬m code_id dá»±a vÃ o table_id vÃ  code_content
+	public static int findCodeID(int tableID, int code) {
+		PreparedStatement s = null;
+		int codeID = 0;
+		try {
+//			lá»�c hide=0 Ä‘á»ƒ cháº¯c cháº¯n ráº±ng code chÆ°a bá»‹ xÃ³a
+			String sql = "select * from code_exam where table_id = ? and code_content = ? and hide=0";
+			s = ConnectionDB.createConnection().prepareStatement(sql);
+			s.setInt(1, tableID);
+			s.setInt(2, code);
+
+			ResultSet rs = s.executeQuery();
+			if (rs.next()) {
+				codeID = rs.getInt(1);
+			}
+			rs.close();
+			s.close();
+			return codeID;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return codeID;
+		}
+	}
+
+//	Mai
+//	test
+	public static void main(String[] args) {
+		int id = findCodeID(1, 123);
+		System.out.println(id);
+	}
 }
