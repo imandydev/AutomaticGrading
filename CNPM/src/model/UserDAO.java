@@ -5,30 +5,33 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 import connection.ConnectionDB;
 public class UserDAO {
 //	kiem tra tai khoan mat khau co ton tai trong DB hay khong
      public static UserDTO checkUserExist(String username, String pass) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    	ResultSet rs = null;
         String passEncode = passwordSHA512(pass);
+        Connection con = null;
         PreparedStatement s = null;
         try {
             String sql = "select * from user_info where user_name = ? and pass = ?";
-            s = ConnectionDB.createConnection(sql);
+            con = ConnectionDB.createConnection();
+            s = con.prepareStatement(sql);
             s.setString(1, username);
             s.setString(2, passEncode);
-            ResultSet rs = s.executeQuery();
+            rs =   s.executeQuery();
             UserDTO user = null;
             if (rs.next())
                 user = new UserDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getInt(7));
-            rs.close();
-            s.close();
             return user;
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            return null;
+        } catch ( SQLException e) {
+        	return null;
         }
     }
      // ma hoa data
@@ -41,5 +44,6 @@ public class UserDAO {
         code = bigInt.toString(16);
         return code;
     }
+    
     
 }

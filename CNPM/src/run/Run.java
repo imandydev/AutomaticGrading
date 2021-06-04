@@ -12,8 +12,8 @@ import view.AddCodeView;
 
 public class Run {
 	public static void main(String[] args) {
-		LoginAndRegisterView sign = new LoginAndRegisterView();
-//		AddCodeView sign = new AddCodeView(null,null);
+//		LoginAndRegisterView sign = new LoginAndRegisterView();
+		AddCodeView sign = new AddCodeView(null,null);
 //		ManagerCodeView mg = new ManagerCodeView();
 		
 	}

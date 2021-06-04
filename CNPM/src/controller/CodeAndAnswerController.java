@@ -14,14 +14,11 @@ public class CodeAndAnswerController {
     	boolean checkCode= CodeDAO.checkCodeExist(code, table);
     	if (checkCode) {
     		// table.id
-			CodeDTO codeDTO = new CodeDTO(0, 0, code, 0);
-			checkCode = CodeDAO.insertCode(codeDTO);
-			if (checkCode) {
-				codeDTO = CodeDAO.getCodeNewInsert();
-				AnswerDTO answerDTO = new AnswerDTO(codeDTO.getCode(), listAnswers);
-				return AnswerDAO.insertAnswer(answerDTO);
-			}
-			return false;
+			CodeDTO codeDTO =  CodeDAO.insertCode(new CodeDTO(0,table.getId(),code,0));
+			if (codeDTO == null)
+				return false;
+			AnswerDTO answerDTO = new AnswerDTO(codeDTO.getCode(), listAnswers);
+			return AnswerDAO.insertAnswer(answerDTO);
 		} else
 			return false; 
     }

@@ -108,7 +108,7 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 					if (tfInputCode.getText().length() > 3) {
 						lbMess.setText("Không được dài quá 3 chữ số !");
 						checkCodeInput = false;
-					} else if (tfInputCode.getText().equals("")) {
+					} else if (tfInputCode.getText().equals("") || tfInputCode.getText().length() != 3) {
 						checkCodeInput = false;
 					}else {
 						input = Integer.parseInt(tfInputCode.getText());
@@ -246,10 +246,11 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 			jpn.add(lb);
 			for (int j = 0; j < buttons[i].length; j++) {
 				buttons[i][j] = new JButton();
-				buttons[i][j].setBackground(new Color(110, 115, 199));
+				buttons[i][j].setBackground(new Color(255,255,255));
 				buttons[i][j].setFocusPainted(false);
 				buttons[i][j].addActionListener(this);
-				buttons[i][j].setForeground(new Color(255,255,255));
+				buttons[i][j].setForeground(new Color(110, 115, 199));
+				buttons[i][j].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(110, 115, 199)));
 				buttons[i][j].setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 				switch (j) {
 				case 0:
@@ -280,8 +281,8 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 //				 find button on click and set color
 				if (buttons[i][j] == e.getSource()) {
 					listAnswers.put(i+1, buttons[i][j].getText());
-					buttons[i][j].setBackground(new Color(255,255,255));
-					buttons[i][j].setForeground(new Color(110, 115, 199));
+					buttons[i][j].setBackground(new Color(110, 115, 199));
+					buttons[i][j].setForeground(new Color(255,255,255));
 					buttons[i][j].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(110, 115, 199)));
 					saveI = i;
 					saveJ = j;
@@ -291,21 +292,26 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 			if (saveI == i) 
 				for (int j2 = 0; j2 < buttons[i].length; j2++) 
 					if (saveJ != j2) {
-						buttons[i][j2].setBackground(new Color(110, 115, 199));
-						buttons[i][j2].setForeground(new Color(255,255,255));
-						
+						buttons[i][j2].setBackground(new Color(255,255,255));
+						buttons[i][j2].setForeground(new Color(110, 115, 199));
+						buttons[i][j2	].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(110, 115, 199)));
 					}
 		}
 //		Save
 		if (btnSave == e.getSource()) {
 			if (!checkCodeInput) {
-				JOptionPane.showMessageDialog(this, "Error!");
-			} else {
-				boolean checkCodeExist = new CodeAndAnswerController().checkCode(input, null, null,listAnswers);
+				JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng mã đề!");
+			} else if (listAnswers.size() < 1) {
+				JOptionPane.showMessageDialog(this, "Vui lòng chọn đáp án!");
+			} 
+			else {
+//				boolean checkCodeExist = new CodeAndAnswerController().checkCode(input, null, null,listAnswers);
+				boolean checkCodeExist = true;
 				if (!checkCodeExist) {
-					JOptionPane.showMessageDialog(this, "Exist!");
+					JOptionPane.showMessageDialog(this, "Thêm mã đề thất bại!");
 				} else {
-					this.setVisible(false);
+					this.dispose();
+					new AddCodeView(null, null);
 				}
 			}
 		}
@@ -315,7 +321,6 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 	public void backActionPerformed(ActionEvent avt) {
 		this.dispose();
 	}
-
 
 	@Override
 	public void btnMinusActionPerformed(ActionEvent evt) {
