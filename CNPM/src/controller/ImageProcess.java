@@ -1,13 +1,32 @@
 package controller;
 
-import org.opencv.core.*;
-import org.opencv.imgcodecs.Imgcodecs;
-
-import java.util.*;
-
 import static org.opencv.core.CvType.CV_8UC1;
-import static org.opencv.imgproc.Imgproc.*;
-import static org.opencv.imgproc.Imgproc.drawContours;
+import static org.opencv.imgproc.Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C;
+import static org.opencv.imgproc.Imgproc.CHAIN_APPROX_SIMPLE;
+import static org.opencv.imgproc.Imgproc.COLOR_BGR2GRAY;
+import static org.opencv.imgproc.Imgproc.Canny;
+import static org.opencv.imgproc.Imgproc.GaussianBlur;
+import static org.opencv.imgproc.Imgproc.RETR_TREE;
+import static org.opencv.imgproc.Imgproc.THRESH_BINARY;
+import static org.opencv.imgproc.Imgproc.adaptiveThreshold;
+import static org.opencv.imgproc.Imgproc.boundingRect;
+import static org.opencv.imgproc.Imgproc.cvtColor;
+import static org.opencv.imgproc.Imgproc.findContours;
+import static org.opencv.imgproc.Imgproc.threshold;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.Rect;
+import org.opencv.core.Size;
+import org.opencv.imgcodecs.Imgcodecs;
 
 public class ImageProcess {
 	private Rect roi, roi_1, roi_2, mssv, code, roi_1_1, roi_1_2, roi_mssv;
@@ -57,7 +76,7 @@ public class ImageProcess {
 		findChooseCodeOrStudentNumber(percent, mssv, colsMSSV, this.ansMssv);
 		// tìm mã đề
 		findChooseCodeOrStudentNumber(percent, code, colsCode, this.ansCode);
-		
+
 		find8RectIn2Rect();
 		findLineIn8Col();
 		splitNumberQuestion();
@@ -233,34 +252,6 @@ public class ImageProcess {
 		}
 	}
 
-	// kiem tra to sai ma so sinh vien, to 2 trong cung 1 cot
-	public boolean checkMSSV() {
-		int count = 0;
-		for (int i = 0; i < ansMssv[0].length; i++) {
-			for (int j = 0; j < ansMssv.length; j++) {
-				if (ansMssv[j][i] == true)
-					count++;
-				if (count > 1 || count == 0)
-					return false;
-			}
-		}
-		return true;
-	}
-
-	// kiem tra to 2 o trong 1 cot ma de
-	public boolean checkCode() {
-		int count = 0;
-		for (int i = 0; i < ansCode[0].length; i++) {
-			for (int j = 0; j < ansCode.length; j++) {
-				if (ansCode[j][i] == true)
-					count++;
-				if (count > 1 || count == 0)
-					return false;
-			}
-		}
-		return true;
-	}
-
 	// tim ra ma de va mssv duoc to
 	public void findChooseCodeOrStudentNumber(double percent, Rect input, int cols, boolean[][] temp) {
 		int y = input.y, x = input.x, widthCell = 22, heightCell = 32, widthCount = 0, heightCount = 0, pixcelBlack = 0;
@@ -318,28 +309,39 @@ public class ImageProcess {
 		return listAnswer;
 	}
 
-	// lay ra ma de
+	// lay ra ma de. neu to ma de sai thi return 0
 	public String getCode() {
 		String codeStr = "";
 		for (int i = 0; i < ansCode[0].length; i++) {
+			int count = 0;
 			for (int j = 0; j < ansCode.length; j++) {
 				if (ansCode[j][i] == true) {
 					codeStr += j + "";
+					count++;
 				}
+			}
+			if (count > 1 || count == 0) {
+				codeStr = "0";
+				break;
 			}
 		}
 		return codeStr;
 	}
 
-	// lay ra mssv
+	// lay ra mssv. neu to mssv to sai thi return 0
 	public String getMssv() {
 		String mssvStr = "";
 		for (int i = 0; i < ansMssv[0].length; i++) {
+			int count = 0;
 			for (int j = 0; j < ansMssv.length; j++) {
 				if (ansMssv[j][i] == true) {
 					mssvStr += j + "";
-					break;
+					count++;
 				}
+			}
+			if (count > 1 || count == 0) {
+				mssvStr = "0";
+				break;
 			}
 		}
 		return mssvStr;

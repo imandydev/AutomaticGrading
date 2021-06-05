@@ -35,11 +35,4 @@ public class MarkDAO {
 			return false;
 		}
 	}
-
-//	Mai
-//	test
-	public static void main(String[] args) {
-		MarkDTO mark = new MarkDTO(0, 1, 6, "123", "123456", "text.jpg", 6, 0);
-		insertMark(mark);
-	}
 }
