@@ -25,8 +25,7 @@ public class DetailTableView extends JFrame {
 	private JButton btnBack, btnCancel, btnMinus, btnCodeManager, btnMark;
 //	private TableDTO table;
 
-//	public DetailTableView(TableDTO table) {
-	public DetailTableView() {
+	public DetailTableView(TableDTO table) {
 		getContentPane().setLayout(null);
 
 		JPanel pn0 = new JPanel();
@@ -86,16 +85,14 @@ public class DetailTableView extends JFrame {
 		tittle.setBounds(0, 0, 600, 30);
 		pn1.add(tittle);
 
-//		JLabel lblTableName = new JLabel(table.getTableName());
-		JLabel lblTableName = new JLabel("Demo"); // ví dụ
+		JLabel lblTableName = new JLabel(table.getTableName());
 		lblTableName.setForeground(Color.WHITE);
 		lblTableName.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblTableName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTableName.setBounds(0, 41, 600, 23);
 		pn1.add(lblTableName);
 
-//		JLabel lblNumberQuestionUse = new JLabel("Số lượng câu hỏi: " + table.getNumberQuestionUse());
-		JLabel lblNumberQuestionUse = new JLabel("Số lượng câu hỏi: " + 10); // ví dụ
+		JLabel lblNumberQuestionUse = new JLabel("Số lượng câu hỏi: " + table.getNumberQuestionUse());
 		lblNumberQuestionUse.setForeground(Color.WHITE);
 		lblNumberQuestionUse.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNumberQuestionUse.setHorizontalAlignment(SwingConstants.CENTER);
@@ -106,7 +103,6 @@ public class DetailTableView extends JFrame {
 		JPanel pn2 = new JPanel();
 		pn2.setLayout(null);
 		pn2.setBounds(0, 135, 600, 107);
-//		pn2.setBackground(Color.yellow);
 		getContentPane().add(pn2);
 
 		btnCodeManager = new JButton("Quản lý mã đề");
@@ -139,6 +135,41 @@ public class DetailTableView extends JFrame {
 		getContentPane().add(pn3);
 		pn3.setLayout(null);
 
+		JLabel lblStatus = new JLabel();
+		lblStatus.setForeground(new Color(11, 109, 9));
+		lblStatus.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		lblStatus.setBounds(0, 0, 600, 23);
+		pn3.add(lblStatus);
+
+		JLabel lblTotal = new JLabel();
+		lblTotal.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTotal.setForeground(Color.BLACK);
+		lblTotal.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblTotal.setBounds(193, 34, 263, 23);
+		pn3.add(lblTotal);
+
+		JLabel lblSuccess = new JLabel();
+		lblSuccess.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSuccess.setForeground(Color.BLACK);
+		lblSuccess.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblSuccess.setBounds(193, 65, 263, 23);
+		pn3.add(lblSuccess);
+
+		JLabel lblSNotScan = new JLabel();
+		lblSNotScan.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSNotScan.setForeground(Color.BLACK);
+		lblSNotScan.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblSNotScan.setBounds(193, 95, 263, 23);
+		pn3.add(lblSNotScan);
+
+		JLabel lblNotImage = new JLabel();
+		lblNotImage.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNotImage.setForeground(Color.BLACK);
+		lblNotImage.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNotImage.setBounds(193, 125, 263, 23);
+		pn3.add(lblNotImage);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setResizable(false);
@@ -146,12 +177,76 @@ public class DetailTableView extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 
+//		Quản lý mã đề
+		btnCodeManager.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+
 //		Xử lí chấm điểm
 		btnMark.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				JFileChooser fileChooser = new JFileChooser();
+
+				fileChooser.setFileFilter(new FileNameExtensionFilter(".png", "png"));
+				fileChooser.setFileFilter(new FileNameExtensionFilter(".jpeg", "jpeg"));
+				fileChooser.setFileFilter(new FileNameExtensionFilter(".jpg", "jpg"));
+				fileChooser.setFileFilter(new FileNameExtensionFilter("Image Files", "png", "jpeg", "jpg"));
+
+				// Cho phép người dùng chọn nhiều file ảnh
+				fileChooser.setMultiSelectionEnabled(true);
+				fileChooser.setDialogTitle("Tải ảnh lên");
+				int selected = fileChooser.showDialog(pn2, "Open");
+
+				// Đếm số file đc chọn, số file là chấm thành công, số file không Scan được và
+				// số file không phải là hình ảnh
+				int numberFileChoose = 0;
+				int countSuccess = 0;
+				int countNotScan = 0;
+				int countNotImage = 0;
+
+				if (selected == JFileChooser.APPROVE_OPTION) {
+					lblStatus.setText("Hệ thống đang chấm bài...");
+					File[] files = fileChooser.getSelectedFiles();
+					numberFileChoose = files.length;
+					java.util.List<String> listNameFileFalse = new ArrayList<String>();
+					for (File file : files) {
+						MarkController mc = new MarkController();
+						if (mc.checkImage(file) == false) {
+							countNotImage++;
+						} else {
+							try {
+								if (mc.mark(table.getId(), table.getNumberQuestionUse(), file) == true)
+									countSuccess++;
+								else
+									countNotScan++;
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+					}
+
+				}
+
+				if (countNotImage > 0) {
+					JFrame frame = new JFrame();
+					String messageError = "Bạn đã chọn " + countNotImage
+							+ " không phải là hình ảnh! Những file hình ảnh có đuôi là \".jpg\" \".jpeg\" và \".png\"";
+					JOptionPane.showMessageDialog(frame, messageError, "File không hợp lệ", JOptionPane.ERROR_MESSAGE);
+				}
+
+				lblStatus.setText("ĐÃ CHẤM XONG!");
+				lblTotal.setText("Số file đã chọn: " + numberFileChoose);
+				lblSuccess.setText("Số file chấm thành công: " + countSuccess);
+				lblSNotScan.setText("Số file không Scan được: " + countNotScan);
+				lblNotImage.setText("Số file không phải là hình ảnh: " + countNotImage);
 
 			}
 		});
