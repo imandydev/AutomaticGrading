@@ -1,9 +1,11 @@
 package run;
 
+import DTO.TableDTO;
 import DTO.UserDTO;
 import view.AddTableManagerView;
 import view.HomeView;
 import view.LoginAndRegisterView;
+import view.ManagerCodeView;
 import view.TableManagerView;
 
 public class Run {
@@ -11,7 +13,11 @@ public class Run {
 //		UserDTO user = new UserDTO();
 //		user.setRole(1);
 //		HomeView home = new HomeView(user);
-		LoginAndRegisterView g = new LoginAndRegisterView();
+//		LoginAndRegisterView g = new LoginAndRegisterView();
+		TableDTO table = new TableDTO();
+		table.setId(6);
+		table.setNumberQuestionUse(10);
+		ManagerCodeView mg = new ManagerCodeView(table);
 	}
 
 }

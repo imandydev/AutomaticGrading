@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -19,10 +20,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 
 import DTO.CodeDTO;
 import DTO.TableDTO;
+import controller.CodeAndAnswerController;
 import interf.InterView;
 import javafx.scene.layout.Border;
 import model.CodeDAO;
@@ -30,13 +33,17 @@ import model.CodeDAO;
 public class ManagerCodeView extends JFrame implements ActionListener, InterView{
 	private JButton btnAdd, btnBack, btnCancel, btnMinus;
 	private AddCodeView addView;
-	private List<JButton> listCode,removeCode;
-	private JPanel pn3;
+	private List<JButton> listBtnCode,removeBtnCode;
+	private List<CodeDTO> listCodeLoad;
+	private JPanel pn3, pn4;
 	private TableDTO table;
-	public ManagerCodeView() {
+	private CodeAndAnswerController CodeAndAns;
+	public ManagerCodeView(TableDTO table) {
 //		row 0
-		listCode = new ArrayList<JButton>();
-		removeCode = new ArrayList<JButton>();
+		this.table = table;
+		listBtnCode = new ArrayList<JButton>();
+		removeBtnCode = new ArrayList<JButton>();
+		CodeAndAns = new CodeAndAnswerController();
 		setLayout(null);
 		JPanel pn0 = new JPanel();
 		pn0.setLayout(null);
@@ -109,22 +116,26 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 		pn3.setPreferredSize(new Dimension(800, 500));
 		
 //		add code to button
-		addCodeToButton(null, listCode);
-		
-//		add button to panel 3
-		addButtonToPanel(listCode, pn3);
+		listCodeLoad = loadCodeDTOByIDTable(table);
+		addCodeToButton(listCodeLoad, listBtnCode);
 		
 //		add button remove
-		createRemoveButton(4, removeCode);
-		addButtonToPanel(removeCode, pn3);
-		
+		createRemoveButton(listBtnCode.size(), removeBtnCode);
+		pn4 = new JPanel();
+		pn4.setLayout(null);
+		pn4.setPreferredSize(new Dimension(800, listCodeLoad.size()*50 + 20));
+		addButtonToPanel(listBtnCode, pn4);
+		addButtonToPanel(removeBtnCode, pn4);
+		JScrollPane talkPane = new JScrollPane(pn4,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		talkPane.setBounds(0, 0, 800, 510);
+		pn3.add(talkPane, BorderLayout.CENTER);
 		pn3.setBackground(new Color(255, 255, 255));
-//		pn3.setBackground(new Color(31, 36, 42));
 		pn3.setBounds(0, 90, 800, 510);
-//		this.getRootPane().setBorder(BorderFactory.createMatteBorder(8, 8, 8, 8, new Color(110, 115, 199)));
 		add(pn3);
 //		line border
 		
+	
 		
 //		setting
 		
@@ -172,7 +183,7 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 		this.dispose();
 	}
 	public void addActionPerformed(ActionEvent evt) {
-		addView = new AddCodeView(null, this);
+		addView = new AddCodeView(this.table, this);
 		this.setVisible(false);
 	}
 	public void btnMinusActionPerformed(ActionEvent evt) {
@@ -203,13 +214,13 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 	public void addCodeToButton(List<CodeDTO> listCodes, List<JButton> listBtn) {
 		int stepRow = 0;
 //		for (CodeDTO codeDTO : listCodes) {
-		for (int i = 0; i < 4; i++) {
-			JButton btn = new JButton("123");
+		for (int i = 0; i < listCodes.size(); i++) {
+			JButton btn = new JButton(listCodes.get(i).getCode()+"");
 			btn.setBackground(new Color(110, 115, 199));
 			btn.setForeground(new Color(255,255,255));
 			btn.addActionListener(this);
 //			setname = codeid
-			btn.setName("123xx");
+			btn.setName(listCodes.get(i).getCodeID()+"");
 			btn.setToolTipText("Xem mã đề và đáp án");
 			btn.setFont(new Font("Tahoma", 1, 25));
 			btn.setFocusPainted(false);
@@ -229,25 +240,25 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 	
 //	get list codes by id table
 	public List<CodeDTO> loadCodeDTOByIDTable(TableDTO table) {
-		return null;
+		return CodeAndAns.loadListCodeByIDTable(table);
 	}
 	
 //	click code
 	@Override
 	public void actionPerformed(ActionEvent e) {
 //		list button code
-		for (JButton btn : listCode) {
+		for (JButton btn : listBtnCode) {
 			if (e.getSource() == btn) {
 				
 			}
 		}
 //		list button remove
-		for (int i = 0; i < removeCode.size(); i++) {
-			if (e.getSource() == removeCode.get(i)) {
+		for (int i = 0; i < removeBtnCode.size(); i++) {
+			if (e.getSource() == removeBtnCode.get(i)) {
 //				ma code tuong ung voi button remove
 				int result = JOptionPane.showConfirmDialog(pn3, "Bạn có muốn xóa mã đề ?", "", JOptionPane.WARNING_MESSAGE);
 				if (result == JOptionPane.OK_OPTION) {
-					int getCodeID = Integer.parseInt(listCode.get(i).getName());
+					int getCodeID = Integer.parseInt(listBtnCode.get(i).getName());
 					boolean checkRemove = CodeDAO.hideCodeByID(getCodeID, 1);
 					if (checkRemove)
 						JOptionPane.showMessageDialog(pn3, "Xóa mã đề thành công "+getCodeID);
@@ -260,6 +271,20 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 	
 //	reload lai danh sach ma de sau khi remove 1 ma de nao do
 	public void reload() {
-		
+		pn4.removeAll();
+		pn4.hide();
+//		clear list
+		listBtnCode.clear();
+		removeBtnCode.clear();
+		listCodeLoad.clear();
+//		load lai list
+		listCodeLoad = loadCodeDTOByIDTable(table);
+//		add ma de vao btn
+		addCodeToButton(listCodeLoad, listBtnCode);
+		createRemoveButton(listBtnCode.size(), removeBtnCode);
+//		add btn vao panel
+		addButtonToPanel(listBtnCode, pn4);
+		addButtonToPanel(removeBtnCode, pn4);
+		pn4.show();
 	}
 }
