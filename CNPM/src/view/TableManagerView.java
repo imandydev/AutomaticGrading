@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -15,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 import DTO.TableDTO;
 import DTO.UserDTO;
@@ -24,7 +27,7 @@ import interf.InterView;
 public class TableManagerView extends JFrame implements ActionListener, InterView {
 	private JButton btnAdd, btnBack, btnCancel, btnMinus;
 	private List<JButton> removeTableManager;
-	private JPanel pn3;
+	private JPanel pn3, pn4;
 	private UserDTO user;
 	private TableController tableControl;
 	public TableManagerView(UserDTO user) {
@@ -97,17 +100,17 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 		pn1.setBackground(new Color(110, 115, 199));
 		add(pn1);
 
-//		row 3 list TableManager
-		pn3 = new JPanel();
-		pn3.setLayout(null);
-		pn3.setPreferredSize(new Dimension(800, 500));
-
-//		add TableManager to button
-		listTableManager(tableControl.findListTableAllByHide(), pn3);
 		
-		pn3.setBackground(new Color(255, 255, 255));
-		pn3.setBounds(0, 90, 800, 510);
-		add(pn3);
+		
+		pn4 = new JPanel();
+		pn4.setLayout(null);
+		pn4.setPreferredSize(new Dimension(800, 500));
+//		add TableManager to button
+		listTableManager(new TableController().findListTableAllByHide(), pn4);
+		pn4.setBackground(new Color(255, 255, 255));
+		pn4.setBounds(0, 90, 800, 510);
+		add(pn4);
+		
 		
 //		setting
 		this.getContentPane().setBackground(new Color(255,255,255));
@@ -171,10 +174,15 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 //	add TableManager in button
 	public void listTableManager(List<TableDTO> listTable, JPanel panel) {
 		int stepRow = 0;
+		pn3 = new JPanel();
+		pn3.setLayout(null);
+		pn3.setPreferredSize(new Dimension(800, listTable.size()*90 + 20));
+		pn3.setBackground(new Color(255, 255, 255));
+		pn3.setBounds(0, 90, 800, 510);
 		if (listTable.isEmpty()) {
 			JLabel jlb = new JLabel("Chưa có bảng chấm điểm nào!");
 			jlb.setBounds(300, 20, 300, 50);
-			panel.add(jlb);
+			pn3.add(jlb);
 		} else {
 			for (TableDTO table : listTable) {
 				JButton btn = new JButton(table.getTableName());
@@ -182,12 +190,12 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 				btn.setForeground(new Color(255, 255, 255));
 				btn.addActionListener(this);
 				btn.setName(String.valueOf(table.getId()));
-
+				btn.addActionListener(this);
 				btn.setFont(new Font("Tahoma", 1, 25));
 				btn.setFocusPainted(false);
 				btn.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
 				btn.setBounds(225, 30 + stepRow, 300, 50);
-				panel.add(btn);
+				pn3.add(btn);
 				
 				JButton btnx = new JButton();
 				btnx.setIcon(new ImageIcon("Images/delete1_40px.png"));
@@ -198,10 +206,14 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 				btnx.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
 				btnx.setRequestFocusEnabled(false);
 				btnx.setBounds(525, 30 + stepRow, 50, 50);
-				panel.add(btnx);
+				pn3.add(btnx);
 				removeTableManager.add(btnx);
 				stepRow += 80;
 			}
+			JScrollPane talkPane = new JScrollPane(pn3,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+	                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			talkPane.setBounds(0, 0, 800, 510);
+			pn4.add(talkPane, BorderLayout.CENTER);
 		}
 
 	}
@@ -220,9 +232,9 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 				JOptionPane.WARNING_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
 			boolean checkRemove = new TableController().removeTableManagerByID(tableId);
-			reload();
 			if (checkRemove) {
 				JOptionPane.showMessageDialog(pn3, "Xóa thành công bảng chấm điểm!");
+				reload();
 			} else {
 				JOptionPane.showMessageDialog(pn3, "Xóa thất bại!");
 			}
@@ -233,7 +245,12 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 //	reload panel 3
 	public void reload() {
 		pn3.removeAll();
-		listTableManager(tableControl.findListTableAllByHide(), pn3);
+		pn4.removeAll();
+		pn3.hide();
+		pn4.hide();
+		listTableManager(tableControl.findListTableAllByHide(), pn4);
+		pn3.show();
+		pn4.show();
 
 	}
 }
