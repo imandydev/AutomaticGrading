@@ -309,39 +309,43 @@ public class ImageProcess {
 		return listAnswer;
 	}
 
-	// lay ra ma de. neu to ma de sai thi return 0
+	// lay ra ma de. neu to ma de sai ở vi tri thi vi tri do la "-"
 	public String getCode() {
 		String codeStr = "";
 		for (int i = 0; i < ansCode[0].length; i++) {
 			int count = 0;
+			String codeIndex = "";
 			for (int j = 0; j < ansCode.length; j++) {
 				if (ansCode[j][i] == true) {
-					codeStr += j + "";
+					codeIndex += j;
 					count++;
 				}
 			}
 			if (count > 1 || count == 0) {
-				codeStr = "0";
-				break;
+				codeStr += "-";
+			} else {
+				codeStr += codeIndex;
 			}
 		}
 		return codeStr;
 	}
 
-	// lay ra mssv. neu to mssv to sai thi return 0
+	// lay ra mssv. neu to mssv sai ở vi tri thi vi tri do la "-"
 	public String getMssv() {
 		String mssvStr = "";
 		for (int i = 0; i < ansMssv[0].length; i++) {
 			int count = 0;
+			String mssvIndex = "";
 			for (int j = 0; j < ansMssv.length; j++) {
 				if (ansMssv[j][i] == true) {
-					mssvStr += j + "";
+					mssvIndex += j;
 					count++;
 				}
 			}
 			if (count > 1 || count == 0) {
-				mssvStr = "0";
-				break;
+				mssvStr += "-";
+			} else {
+				mssvStr += mssvIndex;
 			}
 		}
 		return mssvStr;
