@@ -167,7 +167,7 @@ public class AddTableManagerView extends JFrame implements ActionListener, Inter
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		UserDTO userDTO = new UserDTO(1, "Nhat", "sadasd", "ssss", 1, "ádds", 0);
+//		UserDTO userDTO = new UserDTO(1, "Nhat", "sadasd", "ssss", 1, "ádds", 0);
 		String tableName = getTextTableName().getText();
 		String numberQuestionUse = getTextNumberQuestionUse().getText();
 		boolean checkInput = checkInput(tableName, numberQuestionUse);
@@ -175,7 +175,7 @@ public class AddTableManagerView extends JFrame implements ActionListener, Inter
 			reload();
 			JOptionPane.showMessageDialog(this, "Error!");
 		} else {
-			TableDTO tableDTO = new TableDTO(1, userDTO, tableName, Integer.parseInt(numberQuestionUse), 0);
+			TableDTO tableDTO = new TableDTO(1, user, tableName, Integer.parseInt(numberQuestionUse), 0);
 			if (btnSave == e.getSource()) {
 				int id = new TableController().insertTable(tableDTO);
 				if (id == 0) {
