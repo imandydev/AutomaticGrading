@@ -17,8 +17,9 @@ import javax.swing.UIManager;
 
 import DTO.UserDTO;
 import controller.UserController;
+import interf.InterView;
 
-public class LoginAndRegisterView extends javax.swing.JFrame {
+public class LoginAndRegisterView extends javax.swing.JFrame implements InterView{
 	private javax.swing.JButton jButton1, JButtonInstruction;
 	private javax.swing.JButton jButton10;
 	private javax.swing.JButton jButton11;
@@ -194,7 +195,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 		jButton10.setVerifyInputWhenFocusTarget(false);
 		jButton10.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton10ActionPerformed(evt);
+				btnCancelActionPerformed(evt);
 			}
 		});
 		jButton10.setBounds(410, 0, 40, 40);
@@ -208,14 +209,10 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 		jButton11.setFocusPainted(false);
 		jButton11.setRequestFocusEnabled(false);
 		jButton11.setRolloverIcon(new javax.swing.ImageIcon("Images/icons8_Minus_30px_3.png"));
-		jButton11.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				jButton11MouseClicked(evt);
-			}
-		});
+
 		jButton11.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton11ActionPerformed(evt);
+				btnMinusActionPerformed(evt);
 			}
 		});
 		jButton11.setBounds(380, 0, 40, 40);
@@ -411,10 +408,8 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 					try {
 						user = new UserController().checkUser(username, pass);
 						if (user != null) {
-							if (user.getRole() == 1) 
-								new AddCodeView(null, null);
-							 else
-								new AddCodeView(null, null);
+							new HomeView(user);
+							turnOffView(e);
 						} else
 							JOptionPane.showMessageDialog(jPanel1, "Tài khoản hoặc mật khẩu không chính xác!");
 					} catch (UnsupportedEncodingException e1) {
@@ -438,10 +433,8 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 		jPanel6.setVisible(true);
 
 	}
+	 
 
-	private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {
-		System.exit(0);
-	}
 
 	private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -478,8 +471,25 @@ public class LoginAndRegisterView extends javax.swing.JFrame {
 
 	}
 
-	private void jButton11MouseClicked(java.awt.event.MouseEvent evt) {
+
+	
+	public void turnOffView(ActionEvent evt) {
+		this.dispose();
+	}
+	
+	@Override
+	public void backActionPerformed(ActionEvent avt) {
+		
+	}
+
+	@Override
+	public void btnMinusActionPerformed(ActionEvent evt) {
 		this.setState(ICONIFIED);
+	}
+
+	@Override
+	public void btnCancelActionPerformed(ActionEvent evt) {
+		System.exit(0);
 	}
 
 }

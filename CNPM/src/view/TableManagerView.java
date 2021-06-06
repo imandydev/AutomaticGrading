@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import DTO.TableDTO;
+import DTO.UserDTO;
 import controller.TableController;
 import interf.InterView;
 
@@ -24,9 +25,11 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 	private JButton btnAdd, btnBack, btnCancel, btnMinus;
 	private List<JButton> removeTableManager;
 	private JPanel pn3;
-
-	public TableManagerView() {
-
+	private UserDTO user;
+	private TableController tableControl;
+	public TableManagerView(UserDTO user) {
+		this.user = user;
+		tableControl = new TableController();
 		removeTableManager = new ArrayList<JButton>();
 		setLayout(null);
 		JPanel pn0 = new JPanel();
@@ -100,14 +103,14 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 		pn3.setPreferredSize(new Dimension(800, 500));
 
 //		add TableManager to button
-		listTableManager(new TableController().findListTableAllByHide(), pn3);
-
+		listTableManager(tableControl.findListTableAllByHide(), pn3);
+		
 		pn3.setBackground(new Color(255, 255, 255));
 		pn3.setBounds(0, 90, 800, 510);
 		add(pn3);
-
+		
 //		setting
-
+		this.getContentPane().setBackground(new Color(255,255,255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setResizable(false);
@@ -149,11 +152,11 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 	}
 
 	public void addActionPerformed(ActionEvent evt) {
-		new AddTableManagerView();
-		this.setVisible(false);
+		new AddTableManagerView(this.user, this);
 	}
 
 	public void backActionPerformed(ActionEvent avt) {
+		new HomeView(this.user);
 		this.dispose();
 	}
 
@@ -179,13 +182,13 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 				btn.setForeground(new Color(255, 255, 255));
 				btn.addActionListener(this);
 				btn.setName(String.valueOf(table.getId()));
-				System.out.println(btn.getName());
+
 				btn.setFont(new Font("Tahoma", 1, 25));
 				btn.setFocusPainted(false);
 				btn.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
 				btn.setBounds(225, 30 + stepRow, 300, 50);
 				panel.add(btn);
-
+				
 				JButton btnx = new JButton();
 				btnx.setIcon(new ImageIcon("Images/delete1_40px.png"));
 				btnx.addActionListener(this);
@@ -227,8 +230,10 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 
 	}
 
+//	reload panel 3
 	public void reload() {
-		this.dispose();
-		new TableManagerView();
+		pn3.removeAll();
+		listTableManager(tableControl.findListTableAllByHide(), pn3);
+
 	}
 }

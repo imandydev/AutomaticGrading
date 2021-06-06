@@ -22,36 +22,28 @@ import interf.InterView;
 
 public class AddTableManagerView extends JFrame implements ActionListener, InterView {
 //	private JFrame frame;
-	private JTextField textTableName;
-	private JTextField textNumberQuestionUse;
-	private JButton btnSave, btnBack, btnCancel, btnMinus;
+	private JTextField textTableName,textNumberQuestionUse;
+	private JButton btnSave, btnCancel, btnMinus;
 	private JPanel panel, panel_header, panel_body;
-
-	public AddTableManagerView() {
-		initialize();
+	private UserDTO user;
+	private TableManagerView table;
+	public AddTableManagerView(UserDTO user, TableManagerView tableMa) {
+		this.user = user;
+		this.table = tableMa;
+		initialize(this.user, this.table);
 	}
-
-	private void initialize() {
+	private void initialize(UserDTO user, TableManagerView tableMa) {
 		getContentPane().setLayout(null);
-
+		
 		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setBounds(0, 0, 335, 280);
 		panel.setLayout(null);
-
 		panel_header = new JPanel();
 		panel_header.setBackground(new Color(110, 115, 199));
 		panel_header.setBounds(0, 0, 335, 80);
 		panel_header.setLayout(null);
-		btnBack = new JButton();
-		btnBack.setBounds(10, 10, 35, 35);
-		btnBack.setIcon(new ImageIcon("Images/back_to_w_32px.png"));
-		btnBack.setToolTipText("Trá»Ÿ vá»�");
-		btnBack.setFocusPainted(false);
-		btnBack.setContentAreaFilled(false);
-		btnBack.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
-		btnBack.setRequestFocusEnabled(false);
-		panel_header.add(btnBack);
+	
 
 		// button minus
 		btnMinus = new JButton();
@@ -130,11 +122,12 @@ public class AddTableManagerView extends JFrame implements ActionListener, Inter
 		btnSave.addActionListener(this);
 		btnSave.setFont(new java.awt.Font("Tahoma", 0, 15));
 		panel_body.add(btnSave);
-
+		
 		panel.add(panel_body);
 		getContentPane().add(panel);
 		setUndecorated(true);
 		setResizable(false);
+		this.getRootPane().setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(110, 115, 199)));
 		this.setSize(335, 280);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -143,6 +136,7 @@ public class AddTableManagerView extends JFrame implements ActionListener, Inter
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btnMinusActionPerformed(e);
+				
 			}
 		});
 
@@ -152,29 +146,23 @@ public class AddTableManagerView extends JFrame implements ActionListener, Inter
 				btnCancelActionPerformed(e);
 			}
 		});
-		btnBack.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				backActionPerformed(e);
-			}
-		});
-
+	
+		
 	}
-
+	
 	@Override
 	public void backActionPerformed(ActionEvent avt) {
-		loadTableManager();
 	}
 
 	@Override
 	public void btnMinusActionPerformed(ActionEvent evt) {
 		this.setState(ICONIFIED);
+		
 	}
 
 	@Override
 	public void btnCancelActionPerformed(ActionEvent evt) {
-		loadTableManager();
+		this.dispose();
 	}
 
 	@Override
@@ -235,13 +223,13 @@ public class AddTableManagerView extends JFrame implements ActionListener, Inter
 	}
 
 	public void reload() {
-		this.dispose();
-		new AddTableManagerView();
+		textNumberQuestionUse.setText("");
+		textTableName.setText("");
 	}
-
+//	load lại table management khi lưu bảng mới
 	public void loadTableManager() {
+		this.table.reload();
 		this.dispose();
-		new TableManagerView();
 	}
 
 }

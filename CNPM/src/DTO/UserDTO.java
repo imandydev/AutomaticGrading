@@ -18,7 +18,9 @@ public class UserDTO {
         this.key = key;
         this.hide = hide;
     }
-
+    public UserDTO() {
+    	
+    }
     public int getId() {
         return id;
     }
