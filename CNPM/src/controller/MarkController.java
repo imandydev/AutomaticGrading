@@ -35,29 +35,36 @@ public class MarkController {
 			String imgCode = imgProcess.getCode().trim();
 			System.out.println("Mã đề được tô: " + imgCode);
 
-			// Tìm kiếm mã đề trong BD từ mã
-			int codeID = CodeDAO.findCodeID(tableID, Integer.parseInt(imgCode));
-			System.out.println("CodeID: " + codeID);
-
-			// Trường hợp không tìm thấy mã đề trong DB
-			if (codeID == 0) {
+			// Kiểm tra sinh viên tô mã đề có hợp lệ hay không
+			if (imgCode.contains("-")) {
 				MarkDTO mark = new MarkDTO(0, tableID, 0, imgCode, imgStudentID, img.getAbsolutePath(), 0, 0);
 				System.out.println(mark.toString());
 				MarkDAO.insertMark(mark);
 			} else {
-				HashMap<Integer, String> listAnswerImg = (HashMap<Integer, String>) imgProcess.getAnswer();
-				System.out.println("Đáp án: " + listAnswerImg);
-				int numberAnswerCorrect = AnswerDAO.getNumberAnswerCorrect(listAnswerImg, codeID);
-				System.out.println("Số câu đúng: " + numberAnswerCorrect);
-				System.out.println("Tổng số câu: " + numberQuestionUse);
+				// Tìm kiếm mã đề trong BD từ mã
+				int codeID = CodeDAO.findCodeID(tableID, Integer.parseInt(imgCode));
+				System.out.println("CodeID: " + codeID);
 
-				double grade = (double) numberAnswerCorrect / numberQuestionUse * 10;
-				grade = Math.ceil(grade * 100) / 100; // làm tròn điểm: lấy 2 chữ số thập phân
-				System.out.println("Điểm: " + grade);
+				// Trường hợp không tìm thấy mã đề trong DB
+				if (codeID == 0) {
+					MarkDTO mark = new MarkDTO(0, tableID, 0, imgCode, imgStudentID, img.getAbsolutePath(), 0, 0);
+					System.out.println(mark.toString());
+					MarkDAO.insertMark(mark);
+				} else {
+					HashMap<Integer, String> listAnswerImg = (HashMap<Integer, String>) imgProcess.getAnswer();
+					System.out.println("Đáp án: " + listAnswerImg);
+					int numberAnswerCorrect = AnswerDAO.getNumberAnswerCorrect(listAnswerImg, codeID);
+					System.out.println("Số câu đúng: " + numberAnswerCorrect);
+					System.out.println("Tổng số câu: " + numberQuestionUse);
 
-				MarkDTO mark = new MarkDTO(0, tableID, numberAnswerCorrect, imgCode, imgStudentID,
-						img.getAbsolutePath(), grade, 0);
-				MarkDAO.insertMark(mark);
+					double grade = (double) numberAnswerCorrect / numberQuestionUse * 10;
+					grade = Math.ceil(grade * 100) / 100; // làm tròn điểm: lấy 2 chữ số thập phân
+					System.out.println("Điểm: " + grade);
+
+					MarkDTO mark = new MarkDTO(0, tableID, numberAnswerCorrect, imgCode, imgStudentID,
+							img.getAbsolutePath(), grade, 0);
+					MarkDAO.insertMark(mark);
+				}
 			}
 			return true;
 		} catch (Exception e) {
