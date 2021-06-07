@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import DTO.CodeDTO;
 import DTO.TableDTO;
@@ -99,7 +101,28 @@ public class CodeDAO {
 	public static boolean hideCodeByID(int id, int hide) {
 		return true;
 	}
-
+	public static List<CodeDTO> loadCodeByIDTable(TableDTO table) {
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement s = null;
+		List<CodeDTO> listCode = new ArrayList<CodeDTO>();
+		try {
+			String sql = "select * from code_exam where table_id = ?";
+			con = ConnectionDB.createConnection();
+			s = con.prepareStatement(sql);
+			s.setInt(1, table.getId());
+			rs = s.executeQuery();
+			while (rs.next()) {
+				listCode.add(new CodeDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4)));
+			}
+			rs.close();
+			s.close();
+			return listCode;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return listCode;
+		}
+	}
 //	Mai
 	// Tim code_id dua vao table_id va code_content
 	public static int findCodeID(int tableID, int code) {

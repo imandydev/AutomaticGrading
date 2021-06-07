@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import DTO.AnswerDTO;
 import DTO.CodeDTO;
@@ -34,5 +35,7 @@ public class CodeAndAnswerController {
 		} else
 			return false;
 	}
-
+	public List<CodeDTO> loadListCodeByIDTable(TableDTO table) {
+		return CodeDAO.loadCodeByIDTable(table);
+	}
 }

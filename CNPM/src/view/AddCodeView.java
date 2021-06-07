@@ -218,6 +218,7 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				mg.reload();
 				backActionPerformed(e);
 			}
 		});
@@ -338,6 +339,7 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 	}
 	@Override
 	public void backActionPerformed(ActionEvent avt) {
+		new ManagerCodeView(this.table);
 		this.dispose();
 	}
 
