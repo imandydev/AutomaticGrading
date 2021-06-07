@@ -224,7 +224,8 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int tableId = 0;
-		for (JButton btnx : removeTableManager) {
+		for (int i = 0; i < removeTableManager.size(); i++) {
+			JButton btnx = removeTableManager.get(i);
 			if (e.getSource() == btnx) {
 				tableId = Integer.parseInt(btnx.getName());
 //				System.out.println(tableId);
@@ -242,7 +243,8 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 			}
 		}
 		
-		for (JButton btn : listTableManager) {
+		for (int i = 0; i < listTableManager.size(); i++) {
+			JButton btn = listTableManager.get(i);
 			if (e.getSource() == btn) {
 				tableId = Integer.parseInt(btn.getName());
 				tableDTO = tableControl.findTableById(tableId);
