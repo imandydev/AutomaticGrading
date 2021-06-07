@@ -29,14 +29,14 @@ import interf.InterView;
 
 public class ListMarkView extends JFrame implements ActionListener, InterView {
 	private JButton btnBack, btnCancel, btnMinus;
-	private List<JButton> removeTableManager;
+	private List<JButton> removeMarkManager;
 	private JPanel pn3, pn4;
 	private TableDTO table;
 	private MarkController markController;
 	public ListMarkView(TableDTO table) {
 		this.table = table;
 		markController = new MarkController();
-		removeTableManager = new ArrayList<JButton>();
+		removeMarkManager = new ArrayList<JButton>();
 		setLayout(null);
 		JPanel pn0 = new JPanel();
 		pn0.setLayout(null);
@@ -256,7 +256,7 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 				btnx.setRequestFocusEnabled(false);
 				btnx.setBounds(720, 70 + stepRow, 30, 30);
 				pn3.add(btnx);
-				removeTableManager.add(btnx);
+				removeMarkManager.add(btnx);
 				stepRow += 60;
 			}
 			JScrollPane talkPane = new JScrollPane(pn3,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -271,7 +271,8 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int markId = 0;
-		for (JButton btnx : removeTableManager) {
+		for (int i = 0; i < removeMarkManager.size(); i++) {
+			JButton btnx = removeMarkManager.get(i);
 			if (e.getSource() == btnx) {
 				markId = Integer.parseInt(btnx.getName());
 //				System.out.println(tableId);
