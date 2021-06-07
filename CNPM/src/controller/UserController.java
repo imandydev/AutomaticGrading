@@ -11,4 +11,8 @@ public class UserController {
 			throws UnsupportedEncodingException, NoSuchAlgorithmException {
 		return UserDAO.checkUserExist(username, pass);
 	}
+// tim user theo id
+	public UserDTO findUserById(int userId) {
+		return UserDAO.findUserById(userId);
+	}
 }

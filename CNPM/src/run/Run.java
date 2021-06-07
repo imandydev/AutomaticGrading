@@ -8,10 +8,11 @@ import view.TableManagerView;
 
 public class Run {
 	public static void main(String[] args) {
-//		UserDTO user = new UserDTO();
-//		user.setRole(1);
-//		HomeView home = new HomeView(user);
-		LoginAndRegisterView g = new LoginAndRegisterView();
+		UserDTO user = new UserDTO();
+		user.setRole(1);
+		user.setId(1);
+		HomeView home = new HomeView(user);
+//		LoginAndRegisterView g = new LoginAndRegisterView();
 	}
 
 }

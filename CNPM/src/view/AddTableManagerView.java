@@ -27,9 +27,11 @@ public class AddTableManagerView extends JFrame implements ActionListener, Inter
 	private JPanel panel, panel_header, panel_body;
 	private UserDTO user;
 	private TableManagerView table;
+	private TableController tableController;
 	public AddTableManagerView(UserDTO user, TableManagerView tableMa) {
 		this.user = user;
 		this.table = tableMa;
+		this.tableController = new TableController();
 		initialize(this.user, this.table);
 	}
 	private void initialize(UserDTO user, TableManagerView tableMa) {
@@ -169,15 +171,17 @@ public class AddTableManagerView extends JFrame implements ActionListener, Inter
 	public void actionPerformed(ActionEvent e) {
 //		UserDTO userDTO = new UserDTO(1, "Nhat", "sadasd", "ssss", 1, "ádds", 0);
 		String tableName = getTextTableName().getText();
+		System.out.println(tableName);
 		String numberQuestionUse = getTextNumberQuestionUse().getText();
 		boolean checkInput = checkInput(tableName, numberQuestionUse);
 		if (!checkInput) {
 			reload();
 			JOptionPane.showMessageDialog(this, "Error!");
 		} else {
-			TableDTO tableDTO = new TableDTO(1, user, tableName, Integer.parseInt(numberQuestionUse), 0);
+			TableDTO tableDTO = new TableDTO(0, user, tableName, Integer.parseInt(numberQuestionUse), 0);
 			if (btnSave == e.getSource()) {
 				int id = new TableController().insertTable(tableDTO);
+				System.out.println(id);
 				if (id == 0) {
 					JOptionPane.showMessageDialog(this, "Trùng tên bảng chấm điểm!");
 				} else {

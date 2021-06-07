@@ -43,7 +43,7 @@ public class TableDAO {
 		return false;
 	}
 	
-	
+	//tim list table
 	public static List<TableDTO> findListTableAllByHide() {
 		List<TableDTO> listTableDTO = new ArrayList<TableDTO>();
 		ResultSet rs = null;
@@ -80,37 +80,42 @@ public class TableDAO {
 		return listTableDTO;
 	}
 	
-//	public static boolean checkTableExist(String name, UserDTO userDTO) {
-//		ResultSet rs = null;
-//		Connection con = null;
-//		PreparedStatement s = null;
-//		try {
-//			String sql = "select * from table_manager where table_name = ? and user_id = ?";
-//			con = ConnectionDB.createConnection();
-//			s = con.prepareStatement(sql);
-//			s.setString(1, name);
-//			s.setInt(2, userDTO.getId());
-//			rs = s.executeQuery();
-//			if (rs.next()) {
-//				return true;
-//			}
-//		} catch (SQLException throwables) {
-//            return false;
-//        } finally {
-//            try {
-//                if (rs != null)
-//                    rs.close();
-//                if (s != null)
-//                    s.close();
-//                if (con != null)
-//                    con.close();
-//            } catch (SQLException throwables) {
-//                throwables.printStackTrace();
-//            }
-//        }
-//		return false;
-//	}
-
+	//tim kiem table by id
+		public static TableDTO findTableById(int tableId) {
+			TableDTO tableDTO =  new TableDTO();
+			ResultSet rs = null;
+			Connection con = null;
+			PreparedStatement s = null;
+			try {
+				String sql = "select * from table_manager where table_id = ?;";
+				con = ConnectionDB.createConnection();
+				s = con.prepareStatement(sql);
+				s.setInt(1, tableId);
+				rs = s.executeQuery();
+				while (rs.next()) {
+					tableDTO.setId(rs.getInt("table_id"));
+					tableDTO.setUserId(rs.getInt("user_id"));
+					tableDTO.setTableName(rs.getString("table_name"));
+					tableDTO.setNumberQuestionUse(rs.getInt("number_question_use"));
+					tableDTO.setHide(rs.getInt("hide"));
+				}
+			} catch (SQLException throwables) {
+	            return null;
+	        } finally {
+	            try {
+	                if (rs != null)
+	                    rs.close();
+	                if (s != null)
+	                    s.close();
+	                if (con != null)
+	                    con.close();
+	            } catch (SQLException throwables) {
+	                throwables.printStackTrace();
+	            }
+	        }
+			return tableDTO;
+		}
+	
 //    insert code
 	public static int insertTable(TableDTO table) {
 		ResultSet rs = null;
