@@ -36,7 +36,9 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 	private List<JButton> listBtnCode,removeBtnCode;
 	private List<CodeDTO> listCodeLoad;
 	private JPanel pn3, pn4;
+	private JLabel lbSize0;
 	private TableDTO table;
+	private JScrollPane talkPane;
 	private CodeAndAnswerController CodeAndAns;
 	public ManagerCodeView(TableDTO table) {
 //		row 0
@@ -117,19 +119,24 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 		
 //		add code to button
 		listCodeLoad = loadCodeDTOByIDTable(table);
-		addCodeToButton(listCodeLoad, listBtnCode);
-		
-//		add button remove
-		createRemoveButton(listBtnCode.size(), removeBtnCode);
 		pn4 = new JPanel();
 		pn4.setLayout(null);
 		pn4.setPreferredSize(new Dimension(800, listCodeLoad.size()*50 + 20));
-		addButtonToPanel(listBtnCode, pn4);
-		addButtonToPanel(removeBtnCode, pn4);
-		JScrollPane talkPane = new JScrollPane(pn4,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+		if (listCodeLoad.size() > 0) {
+			addCodeToButton(listCodeLoad, listBtnCode);
+//			add button remove
+			createRemoveButton(listBtnCode.size(), removeBtnCode);
+			addButtonToPanel(listBtnCode, pn4);
+			addButtonToPanel(removeBtnCode, pn4);
+			
+		} else {
+			listCode0();
+		}
+		talkPane = new JScrollPane(pn4,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		talkPane.setBounds(0, 0, 800, 510);
 		pn3.add(talkPane, BorderLayout.CENTER);
+		
 		pn3.setBackground(new Color(255, 255, 255));
 		pn3.setBounds(0, 90, 800, 510);
 		add(pn3);
@@ -180,6 +187,7 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 	}
 
 	public void backActionPerformed(ActionEvent avt) {
+		new DetailTableView(this.table);
 		this.dispose();
 	}
 	public void addActionPerformed(ActionEvent evt) {
@@ -259,16 +267,22 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 				int result = JOptionPane.showConfirmDialog(pn3, "Bạn có muốn xóa mã đề ?", "", JOptionPane.WARNING_MESSAGE);
 				if (result == JOptionPane.OK_OPTION) {
 					int getCodeID = Integer.parseInt(listBtnCode.get(i).getName());
+					System.out.println(getCodeID);
 					boolean checkRemove = CodeDAO.hideCodeByID(getCodeID, 1);
-					if (checkRemove)
-						JOptionPane.showMessageDialog(pn3, "Xóa mã đề thành công "+getCodeID);
-					else
-						JOptionPane.showMessageDialog(pn3, "Xóa mã đề thất bại "+getCodeID);
+					if (checkRemove) {
+						JOptionPane.showMessageDialog(pn3, "Xóa thành công mã đề "+getCodeID);
+						reload();
+					}else
+						JOptionPane.showMessageDialog(pn3, "Xóa mã đề thất bại ");
 				}
 			}
 		}
 	}
-	
+	public void listCode0() {
+		this.lbSize0 = new JLabel("Danh Sách Mã Đề Rỗng!");
+		this.lbSize0.setBounds(340, 30, 200, 30);
+		this.pn4.add(lbSize0);
+	}
 //	reload lai danh sach ma de sau khi remove 1 ma de nao do
 	public void reload() {
 		pn4.removeAll();
@@ -279,12 +293,17 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 		listCodeLoad.clear();
 //		load lai list
 		listCodeLoad = loadCodeDTOByIDTable(table);
-//		add ma de vao btn
-		addCodeToButton(listCodeLoad, listBtnCode);
-		createRemoveButton(listBtnCode.size(), removeBtnCode);
-//		add btn vao panel
-		addButtonToPanel(listBtnCode, pn4);
-		addButtonToPanel(removeBtnCode, pn4);
+		if (listCodeLoad.size() > 0) {
+//			add ma de vao btn
+			pn4.setPreferredSize(new Dimension(800, listCodeLoad.size()*50 + 20));
+			addCodeToButton(listCodeLoad, listBtnCode);
+			createRemoveButton(listBtnCode.size(), removeBtnCode);
+//			add btn vao panel
+			addButtonToPanel(listBtnCode, pn4);
+			addButtonToPanel(removeBtnCode, pn4);
+		} else {
+			listCode0();
+		}
 		pn4.show();
 	}
 }

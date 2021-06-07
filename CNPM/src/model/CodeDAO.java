@@ -20,7 +20,7 @@ public class CodeDAO {
 		Connection con = null;
 		PreparedStatement s = null;
 		try {
-			String sql = "select * from code_exam where code_content = ? and table_id = ?";
+			String sql = "select * from code_exam where code_content = ? and table_id = ? and hide = 0";
 			con = ConnectionDB.createConnection();
 			s = con.prepareStatement(sql);
 			s.setInt(1, code);
@@ -99,7 +99,37 @@ public class CodeDAO {
 	}
 
 	public static boolean hideCodeByID(int id, int hide) {
-		return true;
+		Connection con = null;
+		PreparedStatement s = null;
+		int row = 0;
+		try {
+			String sql = "update code_exam set hide = ? where code_id = ?";
+			con = ConnectionDB.createConnection();
+			con.setAutoCommit(false);
+			s = con.prepareStatement(sql);
+			s.setInt(1, hide);
+			s.setInt(2, id);
+		    row = s.executeUpdate();
+            con.commit();
+        } catch (SQLException e) {
+			if (con != null) {
+				try {
+					con.rollback();
+				} catch (SQLException e1) {
+					e.printStackTrace();
+				}
+			}
+		} finally {
+			try {
+				if (s != null)
+					s.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+        return row > 0 ? true : false;
 	}
 	public static List<CodeDTO> loadCodeByIDTable(TableDTO table) {
 		ResultSet rs = null;
@@ -107,7 +137,7 @@ public class CodeDAO {
 		PreparedStatement s = null;
 		List<CodeDTO> listCode = new ArrayList<CodeDTO>();
 		try {
-			String sql = "select * from code_exam where table_id = ?";
+			String sql = "select * from code_exam where table_id = ? and hide = 0";
 			con = ConnectionDB.createConnection();
 			s = con.prepareStatement(sql);
 			s.setInt(1, table.getId());
