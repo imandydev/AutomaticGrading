@@ -19,15 +19,20 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import DTO.TableDTO;
+import DTO.UserDTO;
 import controller.MarkController;
+import controller.UserController;
 
 public class DetailTableView extends JFrame {
 	private JButton btnBack, btnCancel, btnMinus, btnCodeManager, btnMark;
-//	private TableDTO table;
+	private TableDTO table;
+	private UserController userController;
+	private UserDTO user;
 
 	public DetailTableView(TableDTO table) {
 		getContentPane().setLayout(null);
-
+		this.table = table;
+		this.userController = new UserController();
 		JPanel pn0 = new JPanel();
 		pn0.setLayout(null);
 		pn0.setBackground(new Color(110, 115, 199));
@@ -37,7 +42,7 @@ public class DetailTableView extends JFrame {
 		btnMinus = new JButton();
 		btnMinus.setBounds(528, 5, 30, 30);
 		btnMinus.setIcon(new javax.swing.ImageIcon("Images/minus_w_32px.png"));
-		btnMinus.setToolTipText("Thu nhỏ");
+		btnMinus.setToolTipText("Thu nhá»�");
 		btnMinus.setBorder(null);
 		btnMinus.setBorderPainted(false);
 		btnMinus.setContentAreaFilled(false);
@@ -50,7 +55,7 @@ public class DetailTableView extends JFrame {
 		btnCancel = new JButton();
 		btnCancel.setBounds(558, 5, 30, 30);
 		btnCancel.setIcon(new ImageIcon("Images/cancel_w_32px.png"));
-		btnCancel.setToolTipText("Thoát");
+		btnCancel.setToolTipText("ThoÃ¡t");
 		btnCancel.setBorder(null);
 		btnCancel.setBorderPainted(false);
 		btnCancel.setContentAreaFilled(false);
@@ -70,7 +75,7 @@ public class DetailTableView extends JFrame {
 		btnBack = new JButton();
 		btnBack.setBounds(10, 0, 32, 32);
 		btnBack.setIcon(new ImageIcon("Images/back_to_w_32px.png"));
-		btnBack.setToolTipText("Trở về");
+		btnBack.setToolTipText("Trá»Ÿ vá»�");
 		btnBack.setFocusPainted(false);
 		btnBack.setContentAreaFilled(false);
 		btnBack.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -78,7 +83,7 @@ public class DetailTableView extends JFrame {
 		pn1.add(btnBack);
 
 //		titleView
-		JLabel tittle = new JLabel("CHI TIẾT BẢNG CHẤM ĐIỂM");
+		JLabel tittle = new JLabel("CHI TIáº¾T Báº¢NG CHáº¤M Ä�Iá»‚M");
 		tittle.setHorizontalAlignment(SwingConstants.CENTER);
 		tittle.setFont(new Font("Tahoma", Font.BOLD, 27));
 		tittle.setForeground(new Color(255, 255, 255));
@@ -92,7 +97,7 @@ public class DetailTableView extends JFrame {
 		lblTableName.setBounds(0, 41, 600, 23);
 		pn1.add(lblTableName);
 
-		JLabel lblNumberQuestionUse = new JLabel("Số lượng câu hỏi: " + table.getNumberQuestionUse());
+		JLabel lblNumberQuestionUse = new JLabel("Sá»‘ lÆ°á»£ng cÃ¢u há»�i: " + table.getNumberQuestionUse());
 		lblNumberQuestionUse.setForeground(Color.WHITE);
 		lblNumberQuestionUse.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNumberQuestionUse.setHorizontalAlignment(SwingConstants.CENTER);
@@ -105,7 +110,7 @@ public class DetailTableView extends JFrame {
 		pn2.setBounds(0, 135, 600, 107);
 		getContentPane().add(pn2);
 
-		btnCodeManager = new JButton("Quản lý mã đề");
+		btnCodeManager = new JButton("Quáº£n lÃ½ mÃ£ Ä‘á»�");
 		btnCodeManager.setBounds(55, 25, 140, 55);
 		btnCodeManager.setForeground(new Color(255, 255, 255));
 		btnCodeManager.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -113,7 +118,7 @@ public class DetailTableView extends JFrame {
 		btnCodeManager.setFocusPainted(false);
 		pn2.add(btnCodeManager);
 
-		JButton btnSeeListMark = new JButton("Bài đã chấm");
+		JButton btnSeeListMark = new JButton("BÃ i Ä‘Ã£ cháº¥m");
 		btnSeeListMark.setForeground(Color.WHITE);
 		btnSeeListMark.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnSeeListMark.setFocusPainted(false);
@@ -121,7 +126,7 @@ public class DetailTableView extends JFrame {
 		btnSeeListMark.setBounds(402, 25, 140, 55);
 		pn2.add(btnSeeListMark);
 
-		btnMark = new JButton("Chấm điểm");
+		btnMark = new JButton("Cháº¥m Ä‘iá»ƒm");
 		btnMark.setBounds(226, 25, 140, 55);
 		pn2.add(btnMark);
 		btnMark.setForeground(new Color(255, 255, 255));
@@ -129,7 +134,7 @@ public class DetailTableView extends JFrame {
 		btnMark.setBackground(new Color(110, 115, 199));
 		btnMark.setFocusPainted(false);
 
-//		Sử để khi chấm bài xong
+//		Sá»­ Ä‘á»ƒ khi cháº¥m bÃ i xong
 		JPanel pn3 = new JPanel();
 		pn3.setBounds(0, 241, 600, 159);
 		getContentPane().add(pn3);
@@ -177,7 +182,7 @@ public class DetailTableView extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 
-//		Quản lý mã đề
+//		Quáº£n lÃ½ mÃ£ Ä‘á»�
 		btnCodeManager.addActionListener(new ActionListener() {
 
 			@Override
@@ -186,7 +191,7 @@ public class DetailTableView extends JFrame {
 			}
 		});
 
-//		Xử lí chấm điểm
+//		Xá»­ lÃ­ cháº¥m Ä‘iá»ƒm
 		btnMark.addActionListener(new ActionListener() {
 
 			@Override
@@ -199,20 +204,21 @@ public class DetailTableView extends JFrame {
 				fileChooser.setFileFilter(new FileNameExtensionFilter(".jpg", "jpg"));
 				fileChooser.setFileFilter(new FileNameExtensionFilter("Image Files", "png", "jpeg", "jpg"));
 
-				// Cho phép người dùng chọn nhiều file ảnh
+				// Cho phÃ©p ngÆ°á»�i dÃ¹ng chá»�n nhiá»�u file áº£nh
 				fileChooser.setMultiSelectionEnabled(true);
-				fileChooser.setDialogTitle("Tải ảnh lên");
+				fileChooser.setDialogTitle("Táº£i áº£nh lÃªn");
 				int selected = fileChooser.showDialog(pn2, "Open");
 
-				// Đếm số file đc chọn, số file là chấm thành công, số file không Scan được và
-				// số file không phải là hình ảnh
+				// Ä�áº¿m sá»‘ file Ä‘c chá»�n, sá»‘ file lÃ  cháº¥m thÃ nh cÃ´ng, sá»‘ file
+				// khÃ´ng Scan Ä‘Æ°á»£c vÃ 
+				// sá»‘ file khÃ´ng pháº£i lÃ  hÃ¬nh áº£nh
 				int numberFileChoose = 0;
 				int countSuccess = 0;
 				int countNotScan = 0;
 				int countNotImage = 0;
 
 				if (selected == JFileChooser.APPROVE_OPTION) {
-					lblStatus.setText("Hệ thống đang chấm bài...");
+					lblStatus.setText("Há»‡ thá»‘ng Ä‘ang cháº¥m bÃ i...");
 					File[] files = fileChooser.getSelectedFiles();
 					numberFileChoose = files.length;
 					java.util.List<String> listNameFileFalse = new ArrayList<String>();
@@ -237,25 +243,26 @@ public class DetailTableView extends JFrame {
 
 				if (countNotImage > 0) {
 					JFrame frame = new JFrame();
-					String messageError = "Bạn đã chọn " + countNotImage
-							+ " không phải là hình ảnh! Những file hình ảnh có đuôi là \".jpg\" \".jpeg\" và \".png\"";
-					JOptionPane.showMessageDialog(frame, messageError, "File không hợp lệ", JOptionPane.ERROR_MESSAGE);
+					String messageError = "Báº¡n Ä‘Ã£ chá»�n " + countNotImage
+							+ " khÃ´ng pháº£i lÃ  hÃ¬nh áº£nh! Nhá»¯ng file hÃ¬nh áº£nh cÃ³ Ä‘uÃ´i lÃ  \".jpg\" \".jpeg\" vÃ  \".png\"";
+					JOptionPane.showMessageDialog(frame, messageError, "File khÃ´ng há»£p lá»‡",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
-				lblStatus.setText("ĐÃ CHẤM XONG!");
-				lblTotal.setText("Số file đã chọn: " + numberFileChoose);
-				lblSuccess.setText("Số file chấm thành công: " + countSuccess);
-				lblSNotScan.setText("Số file không Scan được: " + countNotScan);
-				lblNotImage.setText("Số file không phải là hình ảnh: " + countNotImage);
+				lblStatus.setText("Ä�Ãƒ CHáº¤M XONG!");
+				lblTotal.setText("Sá»‘ file Ä‘Ã£ chá»�n: " + numberFileChoose);
+				lblSuccess.setText("Sá»‘ file cháº¥m thÃ nh cÃ´ng: " + countSuccess);
+				lblSNotScan.setText("Sá»‘ file khÃ´ng Scan Ä‘Æ°á»£c: " + countNotScan);
+				lblNotImage.setText("Sá»‘ file khÃ´ng pháº£i lÃ  hÃ¬nh áº£nh: " + countNotImage);
 
 			}
 		});
 
 //		button back
-		btnCancel.addActionListener(new ActionListener() {
+		btnBack.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btnCancelActionPerformed(e);
+				backActionPerformed(e);
 			}
 		});
 
@@ -274,9 +281,27 @@ public class DetailTableView extends JFrame {
 				btnMinusActionPerformed(e);
 			}
 		});
+		
+		//button list mark
+		btnSeeListMark.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				btnSeeListMarkActionPerformed(e);
+
+			}
+		});
+	}
+	
+	public void btnSeeListMarkActionPerformed(ActionEvent e) {
+		new ListMarkView(table);
+		this.dispose();
 	}
 
 	public void backActionPerformed(ActionEvent avt) {
+		user = userController.findUserById(table.getUserId());
+		new TableManagerView(user);
 		this.dispose();
 	}
 

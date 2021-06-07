@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -70,5 +71,14 @@ public class MarkController {
 		} catch (Exception e) {
 			return false;
 		}
-	}
+	}	//tim tat ca cac bai da cham
+		public List<MarkDTO> findListMarkAllByTableId(int tableId) {
+			return MarkDAO.findListMarkAllByTableId(tableId);
+		}
+		
+		// xoa
+		public boolean removeMarkByID(int markId) {
+			return MarkDAO.removeMarkByID(markId);
+		}
+
 }

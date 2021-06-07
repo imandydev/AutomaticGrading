@@ -22,6 +22,12 @@ public class MarkDTO {
 		this.grade = grade;
 		this.hide = hide;
 	}
+	
+
+	public MarkDTO() {
+		
+	}
+
 
 	public int getMarkID() {
 		return markID;
