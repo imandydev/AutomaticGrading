@@ -32,7 +32,7 @@ import model.CodeDAO;
 
 public class ManagerCodeView extends JFrame implements ActionListener, InterView{
 	private JButton btnAdd, btnBack, btnCancel, btnMinus;
-	private AddCodeView addView;
+	private AddCodeAndAnswerView addView;
 	private List<JButton> listBtnCode,removeBtnCode;
 	private List<CodeDTO> listCodeLoad;
 	private JPanel pn3, pn4;
@@ -191,7 +191,7 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 		this.dispose();
 	}
 	public void addActionPerformed(ActionEvent evt) {
-		addView = new AddCodeView(this.table, this);
+		addView = new AddCodeAndAnswerView(this.table, this);
 		this.setVisible(false);
 	}
 	public void btnMinusActionPerformed(ActionEvent evt) {

@@ -20,7 +20,7 @@ import DTO.UserDTO;
 import controller.TableController;
 import interf.InterView;
 
-public class AddTableManagerView extends JFrame implements ActionListener, InterView {
+public class AddTableView extends JFrame implements ActionListener, InterView {
 //	private JFrame frame;
 	private JTextField textTableName,textNumberQuestionUse;
 	private JButton btnSave, btnCancel, btnMinus;
@@ -28,7 +28,7 @@ public class AddTableManagerView extends JFrame implements ActionListener, Inter
 	private UserDTO user;
 	private TableManagerView table;
 	private TableController tableController;
-	public AddTableManagerView(UserDTO user, TableManagerView tableMa) {
+	public AddTableView(UserDTO user, TableManagerView tableMa) {
 		this.user = user;
 		this.table = tableMa;
 		this.tableController = new TableController();

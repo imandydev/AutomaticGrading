@@ -58,10 +58,10 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 	private javax.swing.JTextField jTextField20;
 	private javax.swing.JPasswordField jTextField21;
 	private javax.swing.JTextField jTextField_Email;
-
+	private UserController userControl;
 	public LoginAndRegisterView() {
+		userControl = new UserController();
 		initComponents();
-
 		jPanel6.setVisible(false);
 
 	}
@@ -406,7 +406,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 					JOptionPane.showMessageDialog(jPanel1, "Vui lòng điền đầy đủ thông tin!");
 				} else {
 					try {
-						user = new UserController().checkUser(username, pass);
+						user = userControl.checkUser(username, pass);
 						if (user != null) {
 							new HomeView(user);
 							turnOffView(e);

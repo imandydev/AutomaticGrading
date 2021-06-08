@@ -15,7 +15,7 @@ import connection.ConnectionDB;
 
 public class CodeDAO {
 	// where table.id
-	public static boolean checkCodeExist(int code, TableDTO table) {
+	public static boolean checkCodeExist(CodeDTO codeNew) {
 		ResultSet rs = null;
 		Connection con = null;
 		PreparedStatement s = null;
@@ -23,8 +23,8 @@ public class CodeDAO {
 			String sql = "select * from code_exam where code_content = ? and table_id = ? and hide = 0";
 			con = ConnectionDB.createConnection();
 			s = con.prepareStatement(sql);
-			s.setInt(1, code);
-			s.setInt(2, table.getId());
+			s.setInt(1, codeNew.getCode());
+			s.setInt(2, codeNew.getTableID());
 			rs = s.executeQuery();
 			if (rs.next()) {
 				rs.close();

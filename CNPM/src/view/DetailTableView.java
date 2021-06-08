@@ -28,7 +28,7 @@ public class DetailTableView extends JFrame {
 	private TableDTO table;
 	private UserController userController;
 	private UserDTO user;
-
+	private MarkController mc;
 	public DetailTableView(TableDTO table) {
 		getContentPane().setLayout(null);
 		this.table = table;
@@ -226,7 +226,7 @@ public class DetailTableView extends JFrame {
 					numberFileChoose = files.length;
 					java.util.List<String> listNameFileFalse = new ArrayList<String>();
 					for (File file : files) {
-						MarkController mc = new MarkController();
+						mc = new MarkController();
 						if (mc.checkImage(file) == false) {
 							countNotImage++;
 						} else {

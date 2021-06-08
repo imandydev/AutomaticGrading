@@ -2,7 +2,7 @@ package interf;
 
 import java.awt.event.ActionEvent;
 
-import view.AddCodeView;
+import view.AddCodeAndAnswerView;
 
 public interface InterView {
 	public void backActionPerformed(ActionEvent avt);
