@@ -24,11 +24,11 @@ import controller.MarkController;
 import controller.UserController;
 
 public class DetailTableView extends JFrame {
-	private JButton btnBack, btnCancel, btnMinus, btnCodeManager, btnMark;
+	private JButton btnBack, btnCancel, btnMinus, btnCodeManager, btnMark, btnSeeListMark;
 	private TableDTO table;
 	private UserController userController;
 	private UserDTO user;
-
+	private MarkController mc;
 	public DetailTableView(TableDTO table) {
 		getContentPane().setLayout(null);
 		this.table = table;
@@ -115,13 +115,15 @@ public class DetailTableView extends JFrame {
 		btnCodeManager.setForeground(new Color(255, 255, 255));
 		btnCodeManager.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCodeManager.setBackground(new Color(110, 115, 199));
+		btnCodeManager.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		btnCodeManager.setFocusPainted(false);
 		pn2.add(btnCodeManager);
 
-		JButton btnSeeListMark = new JButton("BÃ i Ä‘Ã£ cháº¥m");
+		btnSeeListMark = new JButton("BÃ i Ä‘Ã£ cháº¥m");
 		btnSeeListMark.setForeground(Color.WHITE);
 		btnSeeListMark.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnSeeListMark.setFocusPainted(false);
+		btnSeeListMark.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		btnSeeListMark.setBackground(new Color(110, 115, 199));
 		btnSeeListMark.setBounds(402, 25, 140, 55);
 		pn2.add(btnSeeListMark);
@@ -131,6 +133,7 @@ public class DetailTableView extends JFrame {
 		pn2.add(btnMark);
 		btnMark.setForeground(new Color(255, 255, 255));
 		btnMark.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnMark.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		btnMark.setBackground(new Color(110, 115, 199));
 		btnMark.setFocusPainted(false);
 
@@ -187,7 +190,7 @@ public class DetailTableView extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				btnManagementCodeAndAnswer(e);
 			}
 		});
 
@@ -223,7 +226,7 @@ public class DetailTableView extends JFrame {
 					numberFileChoose = files.length;
 					java.util.List<String> listNameFileFalse = new ArrayList<String>();
 					for (File file : files) {
-						MarkController mc = new MarkController();
+						mc = new MarkController();
 						if (mc.checkImage(file) == false) {
 							countNotImage++;
 						} else {
@@ -312,5 +315,9 @@ public class DetailTableView extends JFrame {
 	public void btnCancelActionPerformed(ActionEvent evt) {
 		System.exit(0);
 	}
-
+	
+	public void btnManagementCodeAndAnswer(ActionEvent evt) {
+		new ManagerCodeView(table);
+		this.dispose();
+	}
 }

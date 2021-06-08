@@ -157,7 +157,7 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 	}
 
 	public void addActionPerformed(ActionEvent evt) {
-		new AddTableManagerView(this.user, this);
+		new AddTableView(this.user, this);
 	}
 
 	public void backActionPerformed(ActionEvent avt) {

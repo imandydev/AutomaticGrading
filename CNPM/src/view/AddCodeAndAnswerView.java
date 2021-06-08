@@ -27,7 +27,7 @@ import DTO.TableDTO;
 import controller.CodeAndAnswerController;
 import interf.InterView;
 
-public class AddCodeView extends JFrame implements ActionListener, InterView{
+public class AddCodeAndAnswerView extends JFrame implements ActionListener, InterView{
 	private JTextField tfInputCode;
 	private JButton btnSave, btnBack, btnCancel, btnMinus, btnClear;
 	private JButton[][] buttons = new JButton[40][4];
@@ -37,9 +37,11 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 	private HashMap<Integer, String> listAnswers = new HashMap<Integer, String>();
 	private ManagerCodeView mg;
 	private TableDTO table;
-	public AddCodeView(TableDTO table, ManagerCodeView mg) {
+	private CodeAndAnswerController cAndAControl;
+	public AddCodeAndAnswerView(TableDTO table, ManagerCodeView mg) {
 		this.mg = mg;
 		this.table = table;
+		this.cAndAControl = new CodeAndAnswerController();
 		setLayout(null);
 		// row 1
 		jpn1 = new JPanel();
@@ -305,7 +307,7 @@ public class AddCodeView extends JFrame implements ActionListener, InterView{
 //				tien xu ly dap an
 				listAnswers = beforeProcess(listAnswers, table.getNumberQuestionUse());
 //				insert ma de va dap an
-				boolean checkCodeExist = new CodeAndAnswerController().insertCodeAndAnswer(input, table,listAnswers);
+				boolean checkCodeExist = cAndAControl.insertCodeAndAnswer(input, table.getId(),listAnswers);
 //				insert thanh cong
 				if (!checkCodeExist) {
 					JOptionPane.showMessageDialog(this, "Thêm mã đề thất bại!");

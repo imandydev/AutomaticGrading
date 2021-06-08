@@ -12,12 +12,13 @@ import model.CodeDAO;
 
 public class CodeAndAnswerController {
 //	them ma de va dap an
-	public boolean insertCodeAndAnswer(int code, TableDTO table, HashMap<Integer, String> listAnswers) {
+	public boolean insertCodeAndAnswer(int code, int tableID, HashMap<Integer, String> listAnswers) {
 //		kiem tra ma de ton tai ?
-		boolean checkCode = CodeDAO.checkCodeExist(code, table);
+		CodeDTO codeNew = new CodeDTO(0, tableID, code, 0);
+		boolean checkCode = CodeDAO.checkCodeExist(codeNew);
 		if (!checkCode) {
 //			insert ma de
-			CodeDTO codeDTO = CodeDAO.insertCode(new CodeDTO(0, table.getId(), code, 0));
+			CodeDTO codeDTO = CodeDAO.insertCode(codeNew);
 //			insert that bai
 			if (codeDTO == null) {
 				return false;
