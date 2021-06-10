@@ -16,6 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 
 import DTO.UserDTO;
+import config.AllSetting;
 import controller.UserController;
 import interf.InterView;
 
@@ -379,7 +380,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setResizable(false);
-		setSize(910, 620);
+		setSize(AllSetting.widthLAR, AllSetting.heightLAR);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		

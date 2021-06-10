@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/config/Config.java=UTF-8
 encoding//src/controller/MarkController.java=UTF-8
 encoding//src/model/AnswerDAO.java=UTF-8
 encoding//src/model/CodeDAO.java=UTF-8
@@ -9,4 +10,4 @@ encoding//src/view/HomeView.java=UTF-8
 encoding//src/view/ListMarkView.java=UTF-8
 encoding//src/view/LoginAndRegisterView.java=UTF-8
 encoding//src/view/ManagerCodeView.java=UTF-8
-encoding//src/view/TableManagerView.java=UTF-8
+encoding//src/view/ManagerTableView.java=UTF-8

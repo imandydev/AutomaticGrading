@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import DTO.TableDTO;
+import config.AllSetting;
 import controller.CodeAndAnswerController;
 import interf.InterView;
 
@@ -189,7 +190,7 @@ public class AddCodeAndAnswerView extends JFrame implements ActionListener, Inte
 		// display
 		setUndecorated(true);
 		setResizable(false);
-		this.setSize(1364, 680);
+		this.setSize(AllSetting.widthACASView, AllSetting.heightACASView);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);

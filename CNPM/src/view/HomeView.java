@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import DTO.UserDTO;
+import config.AllSetting;
 import interf.InterView;
 
 public class HomeView extends JFrame implements InterView {
@@ -149,7 +150,7 @@ public class HomeView extends JFrame implements InterView {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setResizable(false);
-		setSize(910, 700);
+		setSize(AllSetting.widthHomeView, AllSetting.heightHomeView);
 		setLocationRelativeTo(null);
 		setVisible(true);
 
@@ -174,7 +175,7 @@ public class HomeView extends JFrame implements InterView {
 		arrBtn[0].addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new TableManagerView(user);
+				new ManagerTableView(user);
 				backActionPerformed(e);
 			}
 		});

@@ -21,17 +21,18 @@ import javax.swing.ScrollPaneConstants;
 
 import DTO.TableDTO;
 import DTO.UserDTO;
+import config.AllSetting;
 import controller.TableController;
 import interf.InterView;
 
-public class TableManagerView extends JFrame implements ActionListener, InterView {
+public class ManagerTableView extends JFrame implements ActionListener, InterView {
 	private JButton btnAdd, btnBack, btnCancel, btnMinus;
 	private List<JButton> removeTableManager, listTableManager;
 	private JPanel pn3, pn4;
 	private UserDTO user;
 	private TableDTO tableDTO;
 	private TableController tableControl;
-	public TableManagerView(UserDTO user) {
+	public ManagerTableView(UserDTO user) {
 		this.user = user;
 		tableControl = new TableController();
 		removeTableManager = new ArrayList<JButton>();
@@ -119,7 +120,7 @@ public class TableManagerView extends JFrame implements ActionListener, InterVie
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setResizable(false);
-		setSize(800, 600);
+		setSize(AllSetting.widthMTView, AllSetting.heightMTView);
 		setLocationRelativeTo(null);
 		setVisible(true);
 

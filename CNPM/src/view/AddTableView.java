@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 
 import DTO.TableDTO;
 import DTO.UserDTO;
+import config.AllSetting;
 import controller.TableController;
 import interf.InterView;
 
@@ -26,15 +27,15 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 	private JButton btnSave, btnCancel, btnMinus;
 	private JPanel panel, panel_header, panel_body;
 	private UserDTO user;
-	private TableManagerView table;
+	private ManagerTableView table;
 	private TableController tableController;
-	public AddTableView(UserDTO user, TableManagerView tableMa) {
+	public AddTableView(UserDTO user, ManagerTableView tableMa) {
 		this.user = user;
 		this.table = tableMa;
 		this.tableController = new TableController();
 		initialize(this.user, this.table);
 	}
-	private void initialize(UserDTO user, TableManagerView tableMa) {
+	private void initialize(UserDTO user, ManagerTableView tableMa) {
 		getContentPane().setLayout(null);
 		
 		panel = new JPanel();
@@ -130,7 +131,7 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		setUndecorated(true);
 		setResizable(false);
 		this.getRootPane().setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(110, 115, 199)));
-		this.setSize(335, 280);
+		this.setSize(AllSetting.widthATView, AllSetting.heightATView);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);

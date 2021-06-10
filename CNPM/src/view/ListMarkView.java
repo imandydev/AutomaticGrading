@@ -22,6 +22,7 @@ import javax.swing.ScrollPaneConstants;
 
 import DTO.MarkDTO;
 import DTO.TableDTO;
+import config.AllSetting;
 import controller.MarkController;
 import controller.TableController;
 import interf.InterView;
@@ -111,7 +112,7 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setResizable(false);
-		setSize(800, 600);
+		setSize(AllSetting.widthLMView, AllSetting.heightLMView);
 		setLocationRelativeTo(null);
 		setVisible(true);
 

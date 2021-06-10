@@ -25,6 +25,7 @@ import javax.swing.border.LineBorder;
 
 import DTO.CodeDTO;
 import DTO.TableDTO;
+import config.AllSetting;
 import controller.CodeAndAnswerController;
 import interf.InterView;
 import javafx.scene.layout.Border;
@@ -149,7 +150,7 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setResizable(false);
-		setSize(800, 600);
+		setSize(AllSetting.widthMCView, AllSetting.heightMCView);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	

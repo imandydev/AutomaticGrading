@@ -20,6 +20,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import DTO.TableDTO;
 import DTO.UserDTO;
+import config.AllSetting;
 import controller.MarkController;
 import controller.UserController;
 
@@ -181,7 +182,7 @@ public class DetailTableView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setResizable(false);
-		setSize(600, 400);
+		setSize(AllSetting.widthDTView, AllSetting.heightDTView);
 		setLocationRelativeTo(null);
 		setVisible(true);
 
@@ -304,7 +305,7 @@ public class DetailTableView extends JFrame {
 
 	public void backActionPerformed(ActionEvent avt) {
 		user = userController.findUserById(table.getUserId());
-		new TableManagerView(user);
+		new ManagerTableView(user);
 		this.dispose();
 	}
 
