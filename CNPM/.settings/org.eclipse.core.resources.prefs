@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//src/controller/MarkController.java=UTF-8
 encoding//src/model/AnswerDAO.java=UTF-8
 encoding//src/model/CodeDAO.java=UTF-8
+encoding//src/view/AddCodeAndAnswerView.java=UTF-8
 encoding//src/view/AddTableView.java=UTF-8
 encoding//src/view/DetailTableView.java=UTF-8
 encoding//src/view/HomeView.java=UTF-8

@@ -25,6 +25,22 @@ public class AllSetting {
 	public static final int widthLMView= Config.readFileConfigInt("width_LM_View");
 	public static final int heightLMView = Config.readFileConfigInt("height_LM_View");
 //	AddCodeAndAnswerView
+//	width, height
 	public static final int widthACASView= Config.readFileConfigInt("width_A_C_A_A_View");
 	public static final int heightACASView = Config.readFileConfigInt("height_A_C_A_A_View");
+//	text label
+	public static final String codeLb = Config.readFileConfigStr("code_LB");
+//	font-family
+	public static final String fontFamilyAddCode = Config.readFileConfigStr("font_familyAC");
+//	width height button
+	
+//	********************** WIDTH - HEGITH Minus Cancel Back Save*******************
+	public static final int widthMinus= Config.readFileConfigInt("width_minus");
+	public static final int heightMinus = Config.readFileConfigInt("height_minus");
+	public static final int widthCancel= Config.readFileConfigInt("width_cancel");
+	public static final int heightCancel = Config.readFileConfigInt("height_cancel");
+	public static final int widthBack= Config.readFileConfigInt("width_back");
+	public static final int heightBack = Config.readFileConfigInt("height_back");
+	public static final int widthSave= Config.readFileConfigInt("width_save");
+	public static final int heightSave = Config.readFileConfigInt("height_save");
 }
