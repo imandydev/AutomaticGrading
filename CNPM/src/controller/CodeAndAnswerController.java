@@ -27,11 +27,12 @@ public class CodeAndAnswerController {
 				AnswerDTO answerDTO = new AnswerDTO(codeDTO.getCodeID(), listAnswers);
 				boolean checkInsertAns = AnswerDAO.insertAnswer(answerDTO);
 //				insert dap an that bai
-				if (!checkInsertAns) {
+				if (checkInsertAns) 
+					return true;
+				else {
 					CodeDAO.removeCodeByID(codeDTO.getCodeID());
 					return false;
-				} else
-				return true;
+				}
 			}
 		} else
 			return false;

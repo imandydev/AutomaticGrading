@@ -107,26 +107,6 @@ public class AddCodeAndAnswerView extends JFrame implements ActionListener, Inte
 		jpn1.setBounds(0, 0, 2200, 90);
 		this.add(jpn1);
 	
-		tfInputCode.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
-				try {
-					if (tfInputCode.getText().length() > 3) {
-						lbMess.setText("Không được dài quá 3 chữ số !");
-						checkCodeInput = false;
-					} else if (tfInputCode.getText().equals("") || tfInputCode.getText().length() != 3) {
-						checkCodeInput = false;
-					}else {
-						input = Integer.parseInt(tfInputCode.getText());
-						lbMess.setText("");
-						checkCodeInput = true;
-					}
-				} catch (Exception ex) {
-					lbMess.setText("Vui lòng nhập vào số");
-					checkCodeInput = false;
-				}
-			}
-		});
-
 //		row 2 col 1
 		jpn2Col1 = new JPanel();
 		jpn2Col1.setLayout(null);
@@ -299,11 +279,18 @@ public class AddCodeAndAnswerView extends JFrame implements ActionListener, Inte
 		}
 //		Save
 		if (btnSave == e.getSource()) {
-			if (!checkCodeInput) {
+			try {
+				 if (tfInputCode.getText().length() != 3)
+					checkCodeInput = false;
+				else {
+					input = Integer.parseInt(tfInputCode.getText());
+					checkCodeInput = true;
+				}
+			} catch (Exception ex) {
+				checkCodeInput = false;
+			}
+			if (!checkCodeInput)
 				JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng mã đề!");
-			} else if (listAnswers.size() < 1) {
-				JOptionPane.showMessageDialog(this, "Vui lòng chọn đáp án!");
-			} 
 			else {
 //				tien xu ly dap an
 				listAnswers = beforeProcess(listAnswers, table.getNumberQuestionUse());
