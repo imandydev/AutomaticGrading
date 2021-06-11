@@ -27,13 +27,13 @@ import controller.MarkController;
 import controller.TableController;
 import interf.InterView;
 
-
 public class ListMarkView extends JFrame implements ActionListener, InterView {
 	private JButton btnBack, btnCancel, btnMinus;
 	private List<JButton> removeMarkManager;
 	private JPanel pn3, pn4;
 	private TableDTO table;
 	private MarkController markController;
+
 	public ListMarkView(TableDTO table) {
 		this.table = table;
 		markController = new MarkController();
@@ -77,7 +77,7 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 		pn1.setBounds(0, 40, 800, 50);
 		pn1.setBackground(new Color(110, 115, 199));
 		add(pn1);
-		
+
 		btnBack = new JButton();
 		btnBack.setBounds(10, 10, 32, 32);
 		btnBack.setIcon(new ImageIcon("Images/back_to_w_32px.png"));
@@ -94,21 +94,24 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 		tittle.setBounds(230, 10, 400, 30);
 		pn1.add(tittle);
 
-
-		
-		
 		pn4 = new JPanel();
 		pn4.setLayout(null);
 		pn4.setPreferredSize(new Dimension(800, 500));
+		
+		
 //		add TableManager to button
-		showListMark(markController.findListMarkAllByTableId(this.table.getId()), pn4);
+		List<MarkDTO> listMark = markController.findListMarkAllByTableId(this.table.getId());
+		if (listMark.isEmpty()) {
+			showListMarkIsEmpty();
+		} else {
+			showListMark(listMark, pn4);
+		}
 		pn4.setBackground(new Color(255, 255, 255));
 		pn4.setBounds(0, 90, 800, 510);
 		add(pn4);
-		
-		
+
 //		setting
-		this.getContentPane().setBackground(new Color(255,255,255));
+		this.getContentPane().setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setResizable(false);
@@ -142,7 +145,6 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 
 	}
 
-
 	public void backActionPerformed(ActionEvent avt) {
 		new DetailTableView(this.table);
 		this.dispose();
@@ -161,7 +163,7 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 		int stepRow = 0;
 		pn3 = new JPanel();
 		pn3.setLayout(null);
-		pn3.setPreferredSize(new Dimension(800, listMark.size()*60 + 60));
+		pn3.setPreferredSize(new Dimension(800, listMark.size() * 60 + 60));
 		pn3.setBackground(new Color(255, 255, 255));
 		pn3.setBounds(0, 90, 800, 510);
 		JLabel jLabel = new JLabel();
@@ -169,105 +171,99 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 		jLabel.setFont(new Font("Tahoma", 1, 20));
 		jLabel.setBounds(95, 25 + stepRow, 80, 40);
 		jLabel.setForeground(new Color(110, 115, 199));
-		
+
 		JLabel jLabel1 = new JLabel();
 		jLabel1.setText("Mã đề");
 		jLabel1.setFont(new Font("Tahoma", 1, 20));
 		jLabel1.setBounds(240, 25 + stepRow, 150, 40);
 		jLabel1.setForeground(new Color(110, 115, 199));
-		
-		
+
 		JLabel jLabel2 = new JLabel();
 		jLabel2.setText("Số câu đúng");
 		jLabel2.setFont(new Font("Tahoma", 1, 20));
 		jLabel2.setBounds(390, 25 + stepRow, 250, 40);
 		jLabel2.setForeground(new Color(110, 115, 199));
-		
-		
+
 		JLabel jLabel3 = new JLabel();
 		jLabel3.setText("Điểm");
 		jLabel3.setFont(new Font("Tahoma", 1, 20));
 		jLabel3.setBounds(580, 25 + stepRow, 250, 40);
 		jLabel3.setForeground(new Color(110, 115, 199));
-		
+
 		pn3.add(jLabel);
 		pn3.add(jLabel1);
 		pn3.add(jLabel2);
 		pn3.add(jLabel3);
 		
-		if (listMark.isEmpty()) {
-			JLabel jlb = new JLabel("Chưa có bài chấm điểm nào!");
-			jlb.setBounds(300, 20, 300, 50);
-			pn4.add(jlb);
-		} else {
-			for (MarkDTO mark : listMark) {
-				JButton btn = new JButton(mark.getImgStudentID());
-				btn.setBackground(new Color(110, 115, 199));
-				btn.setForeground(new Color(255, 255, 255));
-				btn.addActionListener(new ActionListener() {
+		for (MarkDTO mark : listMark) {
+			JButton btn = new JButton(mark.getImgStudentID());
+			btn.setBackground(new Color(110, 115, 199));
+			btn.setForeground(new Color(255, 255, 255));
+//			btn.addActionListener(new ActionListener() {
+//
+//				@Override
+//				public void actionPerformed(ActionEvent e) {
+//					detailMarkActionPerformed(e);
+//				}
+//
+//				private void detailMarkActionPerformed(ActionEvent e) {
+//					// TODO Auto-generated method stub
+//
+//				}
+//			});
+			btn.setName(String.valueOf(mark.getMarkID()));
+			btn.setFont(new Font("Tahoma", 1, 18));
+			btn.setFocusPainted(false);
+			btn.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
+			btn.setBounds(70, 70 + stepRow, 110, 30);
 
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						detailMarkActionPerformed(e);
-					}
+			JLabel jLabel5 = new JLabel();
+			jLabel5.setText(mark.getImgCode());
+			jLabel5.setFont(new Font("Tahoma", 1, 18));
+			jLabel5.setBounds(260, 65 + stepRow, 150, 40);
 
-					private void detailMarkActionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
-				btn.setName(String.valueOf(mark.getMarkID()));
-				btn.setFont(new Font("Tahoma", 1, 18));
-				btn.setFocusPainted(false);
-				btn.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
-				btn.setBounds(70, 70 + stepRow, 110, 30);
-				
-				
-				JLabel jLabel5 = new JLabel();
-				jLabel5.setText(mark.getImgCode());
-				jLabel5.setFont(new Font("Tahoma", 1, 18));
-				jLabel5.setBounds(260, 65 + stepRow, 150, 40);
-				
-				
-				JLabel jLabel6 = new JLabel();
-				jLabel6.setText(mark.getNumberAnswerCorrect() + "/" + table.getNumberQuestionUse());
-				jLabel6.setFont(new Font("Tahoma", 1, 18));
-				jLabel6.setBounds(425, 65 + stepRow, 250, 40);
-				
-				
-				JLabel jLabel7 = new JLabel();
-				jLabel7.setText(String.valueOf(mark.getGrade()));
-				jLabel7.setFont(new Font("Tahoma", 1, 18));
-				jLabel7.setBounds(590, 65 + stepRow, 100, 40);
+			JLabel jLabel6 = new JLabel();
+			jLabel6.setText(mark.getNumberAnswerCorrect() + "/" + table.getNumberQuestionUse());
+			jLabel6.setFont(new Font("Tahoma", 1, 18));
+			jLabel6.setBounds(425, 65 + stepRow, 250, 40);
 
-				
-				pn3.add(jLabel7);
+			JLabel jLabel7 = new JLabel();
+			jLabel7.setText(String.valueOf(mark.getGrade()));
+			jLabel7.setFont(new Font("Tahoma", 1, 18));
+			jLabel7.setBounds(590, 65 + stepRow, 100, 40);
+
+			pn3.add(jLabel7);
 //				pn3.add(jLabel4);
-				pn3.add(jLabel5);
-				pn3.add(jLabel6);
-				pn3.add(btn);
-				
-				JButton btnx = new JButton();
-				btnx.setIcon(new ImageIcon("Images/delete1_40px.png"));
-				btnx.addActionListener(this);
-				btnx.setName(String.valueOf(mark.getMarkID()));
-				btnx.setFocusPainted(false);
-				btnx.setContentAreaFilled(false);
-				btnx.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
-				btnx.setRequestFocusEnabled(false);
-				btnx.setBounds(720, 70 + stepRow, 30, 30);
-				pn3.add(btnx);
-				removeMarkManager.add(btnx);
-				stepRow += 60;
-			}
-			JScrollPane talkPane = new JScrollPane(pn3,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-	                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			talkPane.setBounds(0, 0, 800, 510);
-			pn4.add(talkPane, BorderLayout.CENTER);
+			pn3.add(jLabel5);
+			pn3.add(jLabel6);
+			pn3.add(btn);
+
+			JButton btnx = new JButton();
+			btnx.setIcon(new ImageIcon("Images/delete1_40px.png"));
+			btnx.addActionListener(this);
+			btnx.setName(String.valueOf(mark.getMarkID()));
+			btnx.setFocusPainted(false);
+			btnx.setContentAreaFilled(false);
+			btnx.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
+			btnx.setRequestFocusEnabled(false);
+			btnx.setBounds(720, 70 + stepRow, 30, 30);
+			pn3.add(btnx);
+			removeMarkManager.add(btnx);
+			stepRow += 60;
 		}
+		JScrollPane talkPane = new JScrollPane(pn3, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		talkPane.setBounds(0, 0, 800, 510);
+		pn4.add(talkPane, BorderLayout.CENTER);
 
 	}
 
+	public void showListMarkIsEmpty() {
+		JLabel jlb = new JLabel("Chưa có bài chấm điểm nào!");
+		jlb.setBounds(300, 20, 300, 50);
+		pn4.add(jlb);
+	}
+	
 //	click TableManager
 	@Override
 	public void actionPerformed(ActionEvent e) {
