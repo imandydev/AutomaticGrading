@@ -13,15 +13,16 @@ import connection.ConnectionDB;
 
 public class TableDAO {
 
-	public static boolean checkTableExist(String name) {
+	public static boolean checkTableExist(String name, int userId) {
 		ResultSet rs = null;
 		Connection con = null;
 		PreparedStatement s = null;
 		try {
-			String sql = "select * from table_manager where table_name = ? and hide = 0";
+			String sql = "select * from table_manager where table_name = ? and user_id = ? and hide = 0";
 			con = ConnectionDB.createConnection();
 			s = con.prepareStatement(sql);
 			s.setString(1, name);
+			s.setInt(2, userId);
 			rs = s.executeQuery();
 			if (rs.next()) {
 				return true;
