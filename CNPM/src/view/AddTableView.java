@@ -66,7 +66,7 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		btnCancel = new JButton();
 		btnCancel.setBounds(295, 5, 30, 30);
 		btnCancel.setIcon(new ImageIcon("Images/cancel_w_32px.png"));
-		btnCancel.setToolTipText("ThoÃ¡t");
+		btnCancel.setToolTipText("ThoÃƒÂ¡t");
 		btnCancel.setBorder(null);
 		btnCancel.setBorderPainted(false);
 		btnCancel.setContentAreaFilled(false);
@@ -117,7 +117,7 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		// btn save
 		btnSave = new JButton();
 		btnSave.setIcon(new ImageIcon("Images/save_b_50px.png"));
-		btnSave.setToolTipText("LÆ°u mÃ£ Ä‘á»�");
+		btnSave.setToolTipText("LÃ†Â°u mÃƒÂ£ Ã„â€˜Ã¡Â»ï¿½");
 		btnSave.setBounds(265, 220, 40, 40);
 		btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		btnSave.setBackground(new java.awt.Color(255, 255, 255));
@@ -170,45 +170,53 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//		UserDTO userDTO = new UserDTO(1, "Nhat", "sadasd", "ssss", 1, "ádds", 0);
 		String tableName = getTextTableName().getText();
-//		System.out.println(tableName);
 		String numberQuestionUse = getTextNumberQuestionUse().getText();
-		boolean checkInput = checkInput(tableName, numberQuestionUse);
-		if (!checkInput) {
+		int checkInput = checkInput(tableName, numberQuestionUse);
+		if (checkInput==1) {
+			JOptionPane.showMessageDialog(this, "Hãy vui lòng nhập đầy đủ thông tin!");
 			reload();
-			JOptionPane.showMessageDialog(this, "Error!");
+		} else if (checkInput == 2) {
+			JOptionPane.showMessageDialog(this, "Số câu hỏi chỉ từ 1 đến 40. Vui lòng nhập lại!");
+			textNumberQuestionUse.setText("");
 		} else {
-			TableDTO tableDTO = new TableDTO(0, user, tableName, Integer.parseInt(numberQuestionUse), 0);
 			if (btnSave == e.getSource()) {
-				int id = new TableController().insertTable(tableDTO);
-//				System.out.println(id);
-				if (id == 0) {
-					JOptionPane.showMessageDialog(this, "Trùng tên bảng chấm điểm!");
-				} else {
-					loadTableManager();
-					JOptionPane.showMessageDialog(this, "Thêm bảng chấm điểm thành công!");
-
-				}
+				checkAndInsertTable(tableName, numberQuestionUse);
 
 			}
 		}
 
 	}
+	private void checkAndInsertTable(String tableName, String numberQuestionUse) {
+		TableDTO tableDTO = new TableDTO(0, user, tableName, Integer.parseInt(numberQuestionUse), 0);
+		int id = tableController.insertTable(tableDTO);
+		if (id == -1) {
+			JOptionPane.showMessageDialog(this, "Tên bảng chấm điểm đã tồn tại! ");
+		} else if (id == 0) {
+			JOptionPane.showMessageDialog(this, "Thêm bảng điểm thất bại!");
+		} 
+		else {
+			loadTableManager();
+			JOptionPane.showMessageDialog(this, "Thêm bảng chấm điểm thành công!");
 
-	private boolean checkInput(String tableName, String numberQuestionUse) {
-		if (tableName == "" || numberQuestionUse == "") {
-			return false;
 		}
-		try {
-			int check = Integer.parseInt(numberQuestionUse);
-			if (0 >= check || check > 40) {
-				return false;
+	}
+
+	private int checkInput(String tableName, String numberQuestionUse) {
+		if (tableName.isEmpty() || numberQuestionUse.isEmpty()) {
+			return 1;
+		} else {
+			try {
+				int check = Integer.parseInt(numberQuestionUse);
+				if (0 >= check || check > 40) {
+					return 2;
+				}
+			} catch (NumberFormatException e) {
+				return 2;
 			}
-		} catch (NumberFormatException e) {
-			return false;
 		}
-		return true;
+		
+		return 0;
 	}
 
 	public JTextField getTextTableName() {
@@ -231,7 +239,7 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		textNumberQuestionUse.setText("");
 		textTableName.setText("");
 	}
-//	load lại table management khi lưu bảng mới
+//	load láº¡i table management khi lÆ°u báº£ng má»›i
 	public void loadTableManager() {
 		this.table.reload();
 		this.dispose();
