@@ -201,6 +201,12 @@ public class DetailTableView extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				lblStatus.setText("");
+				lblTotal.setText("");
+				lblSuccess.setText("");
+				lblSNotScan.setText("");
+				lblNotImage.setText("");
+			
 				// TODO Auto-generated method stub
 				JFileChooser fileChooser = new JFileChooser();
 
@@ -246,9 +252,8 @@ public class DetailTableView extends JFrame {
 				if (countNotImage > 0) {
 					JFrame frame = new JFrame();
 					String messageError = "Bạn đã chọn " + countNotImage
-							+ "không phải là hình ảnh! Những file hình ảnh có đuôi là \".jpg\" \".jpeg\" và \".png\"\"";
-					JOptionPane.showMessageDialog(frame, messageError, "File không hợp lệ",
-							JOptionPane.ERROR_MESSAGE);
+							+ " file không phải là hình ảnh! Những file hình ảnh có đuôi là \".jpg\" \".jpeg\" và \".png\"\"";
+					JOptionPane.showMessageDialog(frame, messageError, "File không hợp lệ", JOptionPane.ERROR_MESSAGE);
 				}
 
 				if (numberFileChoose > 0) {
@@ -258,7 +263,6 @@ public class DetailTableView extends JFrame {
 					lblSNotScan.setText("Số file không Scan được: " + countNotScan);
 					lblNotImage.setText("Số file không phải là hình ảnh: " + countNotImage);
 				}
-
 			}
 		});
 
