@@ -47,8 +47,7 @@ public class UserDAO {
 		code = bigInt.toString(16);
 		return code;
 	}
-	
-	
+
 	// tim user theo id
 	public static UserDTO findUserById(int userId) {
 		UserDTO userDTO = new UserDTO();
@@ -82,4 +81,76 @@ public class UserDAO {
 		return userDTO;
 	}
 
+//	Mai
+	// Kiem tra username da ton tai hay chua
+	public static boolean checkUserName(String username) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement s = null;
+		try {
+			String user = "";
+			String sql = "select * from user_info where user_name = ?";
+			con = ConnectionDB.createConnection();
+			s = con.prepareStatement(sql);
+			s.setString(1, username);
+			rs = s.executeQuery();
+			if (rs.next())
+				user = rs.getString(2);
+			if (user.equals(""))
+				return true;
+			else
+				return false;
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+
+//	Mai
+	// Kiem tra email da duoc dang ki bang tai khoan khac chua
+	public static boolean checkEmail(String email) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement s = null;
+		try {
+			String rsEmail = "";
+			String sql = "select * from user_info where email = ?";
+			con = ConnectionDB.createConnection();
+			s = con.prepareStatement(sql);
+			s.setString(1, email);
+			rs = s.executeQuery();
+			if (rs.next())
+				rsEmail = rs.getString(2);
+			if (rsEmail.equals(""))
+				return true;
+			else
+				return false;
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+
+//	Mai
+	// insert User
+	public static boolean insertUser(UserDTO user) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		PreparedStatement s = null;
+		try {
+			String sql = "INSERT INTO user_info VALUES (null,?,?,?,?,?,?);";
+
+			s = ConnectionDB.createConnection().prepareStatement(sql);
+			s.setString(1, user.getName());
+			s.setString(2, user.getEmail());
+			s.setString(3, passwordSHA512(user.getPass()));
+			s.setInt(4, user.getRole());
+			s.setString(5, user.getKey());
+			s.setInt(6, user.getHide());
+
+			s.executeUpdate();
+
+			s.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
