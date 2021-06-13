@@ -271,10 +271,10 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 					System.out.println(getCodeID);
 					boolean checkRemove = CodeDAO.hideCodeByID(getCodeID, 1);
 					if (checkRemove) {
-						JOptionPane.showMessageDialog(pn3, "Xóa thành công mã đề "+getCodeID);
+						JOptionPane.showMessageDialog(pn3, "Xóa mã đề thành công!");
 						reload();
 					}else
-						JOptionPane.showMessageDialog(pn3, "Xóa mã đề thất bại ");
+						JOptionPane.showMessageDialog(pn3, "Xóa mã đề thất bại!");
 				}
 			}
 		}
