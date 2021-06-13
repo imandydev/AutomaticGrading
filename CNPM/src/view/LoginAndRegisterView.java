@@ -1,26 +1,23 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Dimension;
-
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-import javax.swing.UIManager;
 
 import DTO.UserDTO;
 import config.AllSetting;
 import controller.UserController;
 import interf.InterView;
 
-public class LoginAndRegisterView extends javax.swing.JFrame implements InterView{
+public class LoginAndRegisterView extends javax.swing.JFrame implements InterView {
 	private javax.swing.JButton jButton1, JButtonInstruction;
 	private javax.swing.JButton jButton10;
 	private javax.swing.JButton jButton11;
@@ -31,7 +28,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 	private javax.swing.JButton jButton5;
 	private javax.swing.JButton jButton6;
 	private javax.swing.JButton jButton7;
-	private javax.swing.JButton jButton8;
+	private javax.swing.JButton btnRegister;
 	private javax.swing.JLabel jLabel12;
 	private javax.swing.JLabel jLabel13;
 	private javax.swing.JLabel jLabel14;
@@ -53,13 +50,14 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 	private javax.swing.JPanel jPanel6;
 	private javax.swing.JPasswordField jPasswordField_Password;
 	private javax.swing.JSeparator jSeparator1;
-	private javax.swing.JTextField jTextField17;
-	private javax.swing.JPasswordField jTextField18;
+	private javax.swing.JTextField txtEmail;
+	private javax.swing.JPasswordField txtPassword;
 	private javax.swing.JTextField jTextField19;
-	private javax.swing.JTextField jTextField20;
-	private javax.swing.JPasswordField jTextField21;
+	private javax.swing.JTextField txtUserName;
+	private javax.swing.JPasswordField txtConfirmPassword;
 	private javax.swing.JTextField jTextField_Email;
 	private UserController userControl;
+
 	public LoginAndRegisterView() {
 		userControl = new UserController();
 		initComponents();
@@ -92,10 +90,10 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 		jLabel_inven = new javax.swing.JLabel();
 		jPanel6 = new javax.swing.JPanel();
 		jTextField19 = new javax.swing.JTextField();
-		jTextField20 = new javax.swing.JTextField();
-		jTextField17 = new javax.swing.JTextField();
-		jTextField18 = new JPasswordField();
-		jTextField21 = new JPasswordField();
+		txtUserName = new javax.swing.JTextField();
+		txtEmail = new javax.swing.JTextField();
+		txtPassword = new JPasswordField();
+		txtConfirmPassword = new JPasswordField();
 		jLabel13 = new javax.swing.JLabel();
 		jLabel12 = new javax.swing.JLabel();
 		jLabel14 = new javax.swing.JLabel();
@@ -104,7 +102,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 		jLabel17 = new javax.swing.JLabel();
 		jLabel16 = new javax.swing.JLabel();
 		jButton14 = new javax.swing.JButton();
-		jButton8 = new javax.swing.JButton();
+		btnRegister = new javax.swing.JButton();
 		jLabel20 = new javax.swing.JLabel();
 		jLabel21 = new javax.swing.JLabel();
 		jButton7 = new javax.swing.JButton();
@@ -132,7 +130,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 		jButton1.setBackground(new java.awt.Color(169, 224, 49));
 		jButton1.setFont(new java.awt.Font("Tahoma", 0, 14));
 		jButton1.setForeground(new java.awt.Color(0, 0, 0));
-		jButton1.setText("Tạo Tài Khoản");
+		jButton1.setText("Tạo tài khoản");
 		jButton1.setBorder(null);
 		jButton1.setBorderPainted(false);
 		jButton1.setContentAreaFilled(false);
@@ -235,53 +233,34 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 		jPanel6.setBackground(new Color(110, 115, 199));
 		jPanel6.setLayout(null);
 
-		jTextField20.setBackground(new java.awt.Color(110, 115, 199));
-		jTextField20.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
-		jTextField20.setForeground(new java.awt.Color(255, 255, 255));
-		jTextField20.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(255, 255, 255)));
-		jTextField20.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-			public void mouseMoved(java.awt.event.MouseEvent evt) {
-				jTextField20MouseMoved(evt);
-			}
-		});
-		jTextField20.setBounds(50, 170, 330, 40);
-		jPanel6.add(jTextField20);
+		txtUserName.setBackground(new java.awt.Color(110, 115, 199));
+		txtUserName.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
+		txtUserName.setForeground(new java.awt.Color(255, 255, 255));
+		txtUserName.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(255, 255, 255)));
+		txtUserName.setBounds(50, 170, 330, 40);
+		jPanel6.add(txtUserName);
 
-		jTextField17.setBackground(new java.awt.Color(110, 115, 199));
-		jTextField17.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
-		jTextField17.setForeground(new java.awt.Color(255, 255, 255));
-		jTextField17.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(255, 255, 255)));
-		jTextField17.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-			public void mouseMoved(java.awt.event.MouseEvent evt) {
-				jTextField17MouseMoved(evt);
-			}
-		});
-		jTextField17.setBounds(50, 250, 330, 40);
-		jPanel6.add(jTextField17);
+		txtEmail.setBackground(new java.awt.Color(110, 115, 199));
+		txtEmail.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
+		txtEmail.setForeground(new java.awt.Color(255, 255, 255));
+		txtEmail.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(255, 255, 255)));
+		txtEmail.setBounds(50, 250, 330, 40);
+		jPanel6.add(txtEmail);
 
-		jTextField18.setBackground(new java.awt.Color(110, 115, 199));
-		jTextField18.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
-		jTextField18.setForeground(new java.awt.Color(255, 255, 255));
-		jTextField18.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(255, 255, 255)));
-		jTextField18.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-			public void mouseMoved(java.awt.event.MouseEvent evt) {
-				jTextField18MouseMoved(evt);
-			}
-		});
-		jTextField18.setBounds(50, 320, 330, 40);
-		jPanel6.add(jTextField18);
+		txtPassword.setBackground(new java.awt.Color(110, 115, 199));
+		txtPassword.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
+		txtPassword.setForeground(new java.awt.Color(255, 255, 255));
+		txtPassword.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(255, 255, 255)));
+		txtPassword.setBounds(50, 320, 330, 40);
+		jPanel6.add(txtPassword);
 
-		jTextField21.setBackground(new java.awt.Color(110, 115, 199));
-		jTextField21.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
-		jTextField21.setForeground(new java.awt.Color(255, 255, 255));
-		jTextField21.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(255, 255, 255)));
-		jTextField21.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-			public void mouseMoved(java.awt.event.MouseEvent evt) {
-				jTextField21MouseMoved(evt);
-			}
-		});
-		jTextField21.setBounds(50, 390, 330, 40);
-		jPanel6.add(jTextField21);
+		txtConfirmPassword.setBackground(new java.awt.Color(110, 115, 199));
+		txtConfirmPassword.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
+		txtConfirmPassword.setForeground(new java.awt.Color(255, 255, 255));
+		txtConfirmPassword.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(255, 255, 255)));
+		txtConfirmPassword.setBounds(50, 390, 330, 40);
+		jPanel6.add(txtConfirmPassword);
+
 		jLabel13.setFont(new java.awt.Font("Tahoma", 1, 33));
 		jLabel13.setForeground(new java.awt.Color(255, 255, 255));
 		jLabel13.setIcon(new javax.swing.ImageIcon("Images/grades_100px.png"));
@@ -336,20 +315,119 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 		jButton14.setBounds(150, 480, 110, 110);
 		jPanel6.add(jButton14);
 
-		jButton8.setBackground(new java.awt.Color(255, 255, 255));
-		jButton8.setFont(new java.awt.Font("Tahoma", 0, 18));
-		jButton8.setForeground(new java.awt.Color(110, 115, 199));
-		jButton8.setText("Đăng Ký");
-		jButton8.setBorder(null);
-		jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-		jButton8.setFocusPainted(false);
-		jButton8.addActionListener(new java.awt.event.ActionListener() {
+		btnRegister.setBackground(new java.awt.Color(255, 255, 255));
+		btnRegister.setFont(new java.awt.Font("Tahoma", 0, 18));
+		btnRegister.setForeground(new java.awt.Color(110, 115, 199));
+		btnRegister.setText("Đăng Ký");
+		btnRegister.setBorder(null);
+		btnRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnRegister.setFocusPainted(false);
+		btnRegister.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton8ActionPerformed(evt);
 			}
 		});
-		jButton8.setBounds(50, 450, 330, 40);
-		jPanel6.add(jButton8);
+		btnRegister.setBounds(50, 450, 330, 40);
+		jPanel6.add(btnRegister);
+
+		// Xu li su kien form Register
+		btnRegister.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Pattern checkUserName = Pattern.compile("^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){4,22}[a-zA-Z0-9]$");
+				Pattern checkEmail = Pattern.compile(
+						"^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
+				Pattern checkPass = Pattern.compile("^[a-zA-Z0-9]{6,24}$");
+
+				String userName = txtUserName.getText();
+				String email = txtEmail.getText();
+				String pass = txtPassword.getText();
+				String confirmPass = txtConfirmPassword.getText();
+
+				// Trường hợp chưa nhập đầy đủ thông tin
+				if (userName.isEmpty() || email.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) {
+					JOptionPane.showMessageDialog(jPanel6, "Vui lòng điền đầy đủ thông tin!");
+				} else {
+					// Nhập thông tin hợp lệ
+					if (checkUserName.matcher(userName).find() && checkEmail.matcher(email).find()
+							&& checkPass.matcher(pass).find() && checkPass.matcher(confirmPass).find()) {
+						// Kiểm tra password và confirm password có giống nhau hay không
+						if (!pass.equals(confirmPass)) {
+							JOptionPane.showMessageDialog(jPanel6, "Xác nhận mật khẩu không đúng. Vui lòng nhập lại!");
+							txtConfirmPassword.setText("");
+						} else {
+							try {
+								String resultRegister = new UserController().register(userName, email, pass);
+								// Đăng kí thành công
+								if (resultRegister.equals("TT")) {
+									txtUserName.setText("");
+									txtEmail.setText("");
+									txtPassword.setText("");
+									txtConfirmPassword.setText("");
+									JOptionPane.showMessageDialog(jPanel6, "Đăng kí thành công!");
+									// Lấy dữ liệu qua form login
+									jTextField_Email.setText(userName);
+									jPasswordField_Password.setText(pass);
+								}
+
+								// Username đã tồn tại
+								else if (resultRegister.equals("FT")) {
+									JOptionPane.showMessageDialog(jPanel6, "Tên đăng nhập đã tồn tại!");
+								}
+
+								else if (resultRegister.equals("TF")) {
+									JOptionPane.showMessageDialog(jPanel6,
+											"Email đã được đăng kí bởi 1 tài khoản khác!");
+								} else {
+									JOptionPane.showMessageDialog(jPanel6, "Tên đăng nhập và Email đã được sử dụng!");
+								}
+							} catch (UnsupportedEncodingException | NoSuchAlgorithmException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+
+							}
+						}
+					} else
+					// Trường hợp nhập thông tin không hợp lệ
+					{
+						// In ra thông báo cho người dùng biết đã nhập sai ở những trường dữ liệu nào
+						String message = "";
+						int count = 0;
+						if (!checkUserName.matcher(userName).find()) {
+							message += "Tên đăng nhập";
+							count++;
+							txtUserName.setText("");
+						}
+						if (!checkEmail.matcher(email).find()) {
+							if (count > 0)
+								message += ", ";
+							message += "Email";
+							count++;
+							txtEmail.setText("");
+						}
+						if (!checkPass.matcher(pass).find()) {
+							if (count > 0)
+								message += ", ";
+							message += "Mật khẩu";
+							count++;
+							txtPassword.setText("");
+							txtConfirmPassword.setText("");
+						}
+						if (!checkPass.matcher(confirmPass).find()) {
+							if (count > 0)
+								message += ", ";
+							message += "Xác nhận mật khẩu";
+							txtConfirmPassword.setText("");
+						}
+						if (count == 1)
+							message += " ";
+						message += "không hợp lệ!";
+						JOptionPane.showMessageDialog(jPanel6, message);
+					}
+				}
+			}
+		});
 
 		jPanel6.setBounds(20, 40, 410, 560);
 		jPanel3.add(jPanel6);
@@ -383,8 +461,6 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 		setSize(AllSetting.widthLAR, AllSetting.heightLAR);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		
-
 
 		jButton7.setBounds(90, 420, 260, 40);
 		jPanel1.add(jButton7);
@@ -432,10 +508,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 		jLabel_SoftZyd.setVisible(false);
 		jLabel_inven.setVisible(false);
 		jPanel6.setVisible(true);
-
 	}
-	 
-
 
 	private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -443,19 +516,6 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 
 	private void jTextField19MouseMoved(java.awt.event.MouseEvent evt) {
 
-	}
-
-	private void jTextField20MouseMoved(java.awt.event.MouseEvent evt) {
-
-	}
-
-	private void jTextField17MouseMoved(java.awt.event.MouseEvent evt) {
-	}
-
-	private void jTextField18MouseMoved(java.awt.event.MouseEvent evt) {
-	}
-
-	private void jTextField21MouseMoved(java.awt.event.MouseEvent evt) {
 	}
 
 	private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -472,15 +532,13 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 
 	}
 
-
-	
 	public void turnOffView(ActionEvent evt) {
 		this.dispose();
 	}
-	
+
 	@Override
 	public void backActionPerformed(ActionEvent avt) {
-		
+
 	}
 
 	@Override
