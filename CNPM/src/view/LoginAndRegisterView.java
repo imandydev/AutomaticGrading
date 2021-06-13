@@ -177,7 +177,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 		jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 		jLabel19.setForeground(new java.awt.Color(0, 0, 0));
 		jLabel19.setText("Tên tài khoản");
-		jLabel19.setBounds(180, 150, 83, 70);
+		jLabel19.setBounds(180, 150, 90, 70);
 		jPanel1.add(jLabel19);
 		jSeparator1.setBounds(260, 172, 150, 0);
 		jPanel1.add(jSeparator1);
