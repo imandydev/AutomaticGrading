@@ -32,6 +32,7 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 	private UserDTO user;
 	private TableDTO tableDTO;
 	private TableController tableControl;
+
 	public ManagerTableView(UserDTO user) {
 		this.user = user;
 		tableControl = new TableController();
@@ -56,7 +57,7 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 		btnCancel = new JButton();
 		btnCancel.setBounds(758, 5, 30, 30);
 		btnCancel.setIcon(new ImageIcon("Images/cancel_w_32px.png"));
-		btnCancel.setToolTipText("ThoÃ¡t");
+		btnCancel.setToolTipText("Thoát");
 		btnCancel.setBorder(null);
 		btnCancel.setBorderPainted(false);
 		btnCancel.setContentAreaFilled(false);
@@ -77,7 +78,7 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 		btnBack = new JButton();
 		btnBack.setBounds(10, 10, 32, 32);
 		btnBack.setIcon(new ImageIcon("Images/back_to_w_32px.png"));
-		btnBack.setToolTipText("Trá»Ÿ vá»�");
+		btnBack.setToolTipText("Trở về");
 		btnBack.setFocusPainted(false);
 		btnBack.setContentAreaFilled(false);
 		btnBack.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -103,20 +104,17 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 		pn1.setBackground(new Color(110, 115, 199));
 		add(pn1);
 
-		
-		
 		pn4 = new JPanel();
 		pn4.setLayout(null);
 		pn4.setPreferredSize(new Dimension(800, 500));
 //		add TableManager to button
-		listTableManager(tableControl.findListTableAllByHide(), pn4);
+		listTableManager(tableControl.findListTableAllByHide(user.getId()), pn4);
 		pn4.setBackground(new Color(255, 255, 255));
 		pn4.setBounds(0, 90, 800, 510);
 		add(pn4);
-		
-		
+
 //		setting
-		this.getContentPane().setBackground(new Color(255,255,255));
+		this.getContentPane().setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setResizable(false);
@@ -179,10 +177,10 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 		int stepRow = 0;
 		pn3 = new JPanel();
 		pn3.setLayout(null);
-		pn3.setPreferredSize(new Dimension(800, listTable.size()*80 + 80));
+		pn3.setPreferredSize(new Dimension(800, listTable.size() * 80 + 80));
 		pn3.setBackground(new Color(255, 255, 255));
 		pn3.setBounds(0, 90, 800, 510);
-		if (listTable.isEmpty()) {
+		if (listTable.size()==0) {
 			JLabel jlb = new JLabel("Chưa có bảng chấm điểm nào!");
 			jlb.setBounds(300, 20, 300, 50);
 			pn3.add(jlb);
@@ -199,7 +197,7 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 				btn.setBounds(225, 30 + stepRow, 300, 50);
 				listTableManager.add(btn);
 				pn3.add(btn);
-				
+
 				JButton btnx = new JButton();
 				btnx.setIcon(new ImageIcon("Images/delete1_40px.png"));
 				btnx.addActionListener(this);
@@ -213,8 +211,8 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 				removeTableManager.add(btnx);
 				stepRow += 80;
 			}
-			JScrollPane talkPane = new JScrollPane(pn3,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-	                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			JScrollPane talkPane = new JScrollPane(pn3, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			talkPane.setBounds(0, 0, 800, 510);
 			pn4.add(talkPane, BorderLayout.CENTER);
 		}
@@ -243,7 +241,7 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < listTableManager.size(); i++) {
 			JButton btn = listTableManager.get(i);
 			if (e.getSource() == btn) {
@@ -262,7 +260,7 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 		pn4.removeAll();
 		pn3.hide();
 		pn4.hide();
-		listTableManager(tableControl.findListTableAllByHide(), pn4);
+		listTableManager(tableControl.findListTableAllByHide(user.getId()), pn4);
 		pn3.show();
 		pn4.show();
 
