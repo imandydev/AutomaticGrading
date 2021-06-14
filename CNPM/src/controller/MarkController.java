@@ -9,6 +9,7 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import DTO.MarkDTO;
+import config.AllSetting;
 import model.AnswerDAO;
 import model.CodeDAO;
 import model.MarkDAO;
@@ -20,9 +21,17 @@ public class MarkController {
 		return (file.getAbsolutePath().endsWith("jpg") || file.getAbsolutePath().endsWith("jpeg")
 				|| file.getAbsolutePath().endsWith("png"));
 	}
-
+//	lay ra thu muc chua file jar chay chuong trinh
+	public String getLocationFile() {
+		return ClassLoader.getSystemClassLoader().getResource(".").getPath();
+	}
+	
 //	File là ảnh cần chấm điểm truyền vào, numberQuestionUse là số câu muốn chấm bắt đầu từ 1
 	public boolean mark(int tableID, int numberQuestionUse, File img) throws Exception {
+//		vi tri thu vien opencv, dung khi nen file jar
+//		String location = getLocationFile()+AllSetting.direcOpenCV+"/";
+//		System.load(location + Core.NATIVE_LIBRARY_NAME +".dll");
+//		dung khi chạy eclipse
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		Mat s = Imgcodecs.imread(img.getAbsolutePath());
 		try {

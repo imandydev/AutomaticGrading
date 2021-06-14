@@ -43,4 +43,6 @@ public class AllSetting {
 	public static final int heightBack = Config.readFileConfigInt("height_back");
 	public static final int widthSave= Config.readFileConfigInt("width_save");
 	public static final int heightSave = Config.readFileConfigInt("height_save");
+//	opencv
+	public static final String direcOpenCV = Config.readFileConfigStr("dir_opencv");
 }
