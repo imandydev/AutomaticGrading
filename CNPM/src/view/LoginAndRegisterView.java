@@ -375,7 +375,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 								else if (resultRegister.equals("FT")) {
 									JOptionPane.showMessageDialog(jPanel6, "Tên đăng nhập đã tồn tại!");
 								}
-
+								// Email đã được đăng kí bởi 1 tài khoản khác
 								else if (resultRegister.equals("TF")) {
 									JOptionPane.showMessageDialog(jPanel6,
 											"Email đã được đăng kí bởi 1 tài khoản khác!");
@@ -420,9 +420,8 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 							message += "Xác nhận mật khẩu";
 							txtConfirmPassword.setText("");
 						}
-						if (count == 1)
-							message += " ";
-						message += "không hợp lệ!";
+						if (count >= 1)
+							message += " không hợp lệ!";
 						JOptionPane.showMessageDialog(jPanel6, message);
 					}
 				}
