@@ -101,7 +101,7 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 		
 //		add TableManager to button
 		List<MarkDTO> listMark = markController.findListMarkAllByTableId(this.table.getId());
-		if (listMark.isEmpty()) {
+		if (checkListSize(listMark)==0) {
 			showListMarkIsEmpty();
 		} else {
 			showListMark(listMark, pn4);
@@ -156,6 +156,10 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 
 	public void btnCancelActionPerformed(ActionEvent evt) {
 		System.exit(0);
+	}
+
+	public int checkListSize(List<MarkDTO> listMark) {
+		return listMark.size();
 	}
 
 //	add TableManager in button
