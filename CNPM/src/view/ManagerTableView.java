@@ -57,7 +57,7 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 		btnCancel = new JButton();
 		btnCancel.setBounds(758, 5, 30, 30);
 		btnCancel.setIcon(new ImageIcon("Images/cancel_w_32px.png"));
-		btnCancel.setToolTipText("Thoát");
+		btnCancel.setToolTipText("ThoÃ¡t");
 		btnCancel.setBorder(null);
 		btnCancel.setBorderPainted(false);
 		btnCancel.setContentAreaFilled(false);
@@ -78,7 +78,7 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 		btnBack = new JButton();
 		btnBack.setBounds(10, 10, 32, 32);
 		btnBack.setIcon(new ImageIcon("Images/back_to_w_32px.png"));
-		btnBack.setToolTipText("Trở về");
+		btnBack.setToolTipText("Trá»Ÿ vá»�");
 		btnBack.setFocusPainted(false);
 		btnBack.setContentAreaFilled(false);
 		btnBack.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -94,7 +94,7 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 		btnAdd = new JButton();
 		btnAdd.setBounds(758, 10, 32, 32);
 		btnAdd.setIcon(new ImageIcon("Images/add_w_32px.png"));
-		btnAdd.setToolTipText("ThÃªm mÃ£ Ä‘á»�");
+		btnAdd.setToolTipText("Thêm bảng chấm điểm");
 		btnAdd.setFocusPainted(false);
 		btnAdd.setContentAreaFilled(false);
 		btnAdd.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -181,9 +181,10 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 		pn3.setBackground(new Color(255, 255, 255));
 		pn3.setBounds(0, 90, 800, 510);
 		if (listTable.size()==0) {
+			System.out.println(listTable.size()==0);
 			JLabel jlb = new JLabel("Chưa có bảng chấm điểm nào!");
 			jlb.setBounds(300, 20, 300, 50);
-			pn3.add(jlb);
+			pn4.add(jlb);
 		} else {
 			for (TableDTO table : listTable) {
 				JButton btn = new JButton(table.getTableName());
@@ -228,15 +229,15 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 			if (e.getSource() == btnx) {
 				tableId = Integer.parseInt(btnx.getName());
 //				System.out.println(tableId);
-				int result = JOptionPane.showConfirmDialog(pn4, "Bạn muốn xóa bảng chấm điểm?", "",
+				int result = JOptionPane.showConfirmDialog(pn4, "Bạn muốn xóa bảng chấm điểm này?", "",
 						JOptionPane.WARNING_MESSAGE);
 				if (result == JOptionPane.OK_OPTION) {
 					boolean checkRemove = tableControl.removeTableManagerByID(tableId);
 					reload();
 					if (checkRemove) {
-						JOptionPane.showMessageDialog(pn4, "Xóa thành công bảng chấm điểm!");
+						JOptionPane.showMessageDialog(pn4, "Xóa thành công!");
 					} else {
-						JOptionPane.showMessageDialog(pn4, "Xóa thất bại!");
+						JOptionPane.showMessageDialog(pn4, "Xóa thất bạn!");
 					}
 				}
 			}
