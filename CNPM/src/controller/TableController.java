@@ -8,7 +8,7 @@ import model.TableDAO;
 
 public class TableController {
 	public boolean checkTableByName(String nameTable, int userId) {
-		return TableDAO.checkTableExist(nameTable, userId);	
+		return TableDAO.checkTableExist(nameTable, userId);
 	}
 
 	public int insertTable(TableDTO tableDTO) {
@@ -20,15 +20,14 @@ public class TableController {
 		}
 	}
 
-	public List<TableDTO> findListTableAllByHide() {
-		return TableDAO.findListTableAllByHide();
+	public List<TableDTO> findListTableAllByHide(int userId) {
+		return TableDAO.findListTableAllByHide(userId);
 	}
-	
-	//tim table theo id
-		public TableDTO findTableById(int tableId) {
-			return TableDAO.findTableById(tableId);
-		}
 
+	// tim table theo id
+	public TableDTO findTableById(int tableId) {
+		return TableDAO.findTableById(tableId);
+	}
 
 	public boolean removeTableManagerByID(int tableId) {
 		return TableDAO.removeTableManagerByID(tableId);

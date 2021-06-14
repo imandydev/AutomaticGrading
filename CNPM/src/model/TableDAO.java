@@ -28,35 +28,36 @@ public class TableDAO {
 				return true;
 			}
 		} catch (SQLException throwables) {
-            return false;
-        } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (s != null)
-                    s.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
+			return false;
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (s != null)
+					s.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException throwables) {
+				throwables.printStackTrace();
+			}
+		}
 		return false;
 	}
-	
-	//tim list table
-	public static List<TableDTO> findListTableAllByHide() {
+
+	// tim list table
+	public static List<TableDTO> findListTableAllByHide(int userId) {
 		List<TableDTO> listTableDTO = new ArrayList<TableDTO>();
 		ResultSet rs = null;
 		Connection con = null;
 		PreparedStatement s = null;
 		try {
-			String sql = "select * from table_manager where hide = 0 order by table_id desc;";
+			String sql = "select * from table_manager where hide = 0 and user_id = ? order by table_id desc;";
 			con = ConnectionDB.createConnection();
 			s = con.prepareStatement(sql);
+			s.setInt(1, userId);
 			rs = s.executeQuery();
 			while (rs.next()) {
-				TableDTO tableDTO =  new TableDTO();
+				TableDTO tableDTO = new TableDTO();
 				tableDTO.setId(rs.getInt("table_id"));
 				tableDTO.setUserId(rs.getInt("user_id"));
 				tableDTO.setTableName(rs.getString("table_name"));
@@ -65,58 +66,58 @@ public class TableDAO {
 				listTableDTO.add(tableDTO);
 			}
 		} catch (SQLException throwables) {
-            return null;
-        } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (s != null)
-                    s.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
+			return null;
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (s != null)
+					s.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException throwables) {
+				throwables.printStackTrace();
+			}
+		}
 		return listTableDTO;
 	}
-	
-	//tim kiem table by id
-		public static TableDTO findTableById(int tableId) {
-			TableDTO tableDTO =  new TableDTO();
-			ResultSet rs = null;
-			Connection con = null;
-			PreparedStatement s = null;
+
+	// tim kiem table by id
+	public static TableDTO findTableById(int tableId) {
+		TableDTO tableDTO = new TableDTO();
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement s = null;
+		try {
+			String sql = "select * from table_manager where table_id = ?;";
+			con = ConnectionDB.createConnection();
+			s = con.prepareStatement(sql);
+			s.setInt(1, tableId);
+			rs = s.executeQuery();
+			while (rs.next()) {
+				tableDTO.setId(rs.getInt("table_id"));
+				tableDTO.setUserId(rs.getInt("user_id"));
+				tableDTO.setTableName(rs.getString("table_name"));
+				tableDTO.setNumberQuestionUse(rs.getInt("number_question_use"));
+				tableDTO.setHide(rs.getInt("hide"));
+			}
+		} catch (SQLException throwables) {
+			return null;
+		} finally {
 			try {
-				String sql = "select * from table_manager where table_id = ?;";
-				con = ConnectionDB.createConnection();
-				s = con.prepareStatement(sql);
-				s.setInt(1, tableId);
-				rs = s.executeQuery();
-				while (rs.next()) {
-					tableDTO.setId(rs.getInt("table_id"));
-					tableDTO.setUserId(rs.getInt("user_id"));
-					tableDTO.setTableName(rs.getString("table_name"));
-					tableDTO.setNumberQuestionUse(rs.getInt("number_question_use"));
-					tableDTO.setHide(rs.getInt("hide"));
-				}
+				if (rs != null)
+					rs.close();
+				if (s != null)
+					s.close();
+				if (con != null)
+					con.close();
 			} catch (SQLException throwables) {
-	            return null;
-	        } finally {
-	            try {
-	                if (rs != null)
-	                    rs.close();
-	                if (s != null)
-	                    s.close();
-	                if (con != null)
-	                    con.close();
-	            } catch (SQLException throwables) {
-	                throwables.printStackTrace();
-	            }
-	        }
-			return tableDTO;
+				throwables.printStackTrace();
+			}
 		}
-	
+		return tableDTO;
+	}
+
 //    insert code
 	public static int insertTable(TableDTO table) {
 		ResultSet rs = null;
@@ -173,9 +174,9 @@ public class TableDAO {
 			con.setAutoCommit(false);
 			s = con.prepareStatement(sql);
 			s.setInt(1, id);
-		    row = s.executeUpdate();
-            con.commit();
-        } catch (SQLException e) {
+			row = s.executeUpdate();
+			con.commit();
+		} catch (SQLException e) {
 			if (con != null) {
 				try {
 					con.rollback();
@@ -193,6 +194,6 @@ public class TableDAO {
 				e2.printStackTrace();
 			}
 		}
-        return row > 0 ? true : false;
+		return row > 0 ? true : false;
 	}
 }
