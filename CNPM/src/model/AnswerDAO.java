@@ -91,8 +91,7 @@ public class AnswerDAO {
 		for (int number : key) {
 			if (listAnswer.get(number).equalsIgnoreCase(listAnswerImg.get(number))
 					|| listAnswer.get(number).equalsIgnoreCase("F"))
-				;
-			count++;
+				count++;
 		}
 		return count;
 	}
