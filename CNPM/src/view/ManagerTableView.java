@@ -28,7 +28,7 @@ import interf.InterView;
 public class ManagerTableView extends JFrame implements ActionListener, InterView {
 	private JButton btnAdd, btnBack, btnCancel, btnMinus;
 	private List<JButton> removeTableManager, listTableManager;
-	private JPanel pn3, pn4;
+	private JPanel pn0, pn3, pn4;
 	private UserDTO user;
 	private TableDTO tableDTO;
 	private TableController tableControl;
@@ -39,7 +39,7 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 		removeTableManager = new ArrayList<JButton>();
 		listTableManager = new ArrayList<JButton>();
 		setLayout(null);
-		JPanel pn0 = new JPanel();
+		pn0 = new JPanel();
 		pn0.setLayout(null);
 		btnMinus = new JButton();
 		btnMinus.setBounds(728, 5, 30, 30);
@@ -108,7 +108,7 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 		pn4.setLayout(null);
 		pn4.setPreferredSize(new Dimension(800, 500));
 //		add TableManager to button
-		listTableManager(tableControl.findListTableAllByHide(user.getId()), pn4);
+		listTableManager(tableControl.findListTableByUserId(user.getId()), pn4);
 		pn4.setBackground(new Color(255, 255, 255));
 		pn4.setBounds(0, 90, 800, 510);
 		add(pn4);
@@ -181,7 +181,6 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 		pn3.setBackground(new Color(255, 255, 255));
 		pn3.setBounds(0, 90, 800, 510);
 		if (listTable.size()==0) {
-			System.out.println(listTable.size()==0);
 			JLabel jlb = new JLabel("Chưa có bảng chấm điểm nào!");
 			jlb.setBounds(300, 20, 300, 50);
 			pn4.add(jlb);
@@ -254,14 +253,19 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 		}
 
 	}
+	
 
-//	reload panel 3
+public void setPn0(JPanel pn0) {
+		this.pn0 = pn0;
+	}
+
+	//	reload panel 3
 	public void reload() {
 		pn3.removeAll();
 		pn4.removeAll();
 		pn3.hide();
 		pn4.hide();
-		listTableManager(tableControl.findListTableAllByHide(user.getId()), pn4);
+		listTableManager(tableControl.findListTableByUserId(user.getId()), pn4);
 		pn3.show();
 		pn4.show();
 

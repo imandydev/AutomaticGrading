@@ -20,8 +20,8 @@ public class TableController {
 		}
 	}
 
-	public List<TableDTO> findListTableAllByHide(int userId) {
-		return TableDAO.findListTableAllByHide(userId);
+	public List<TableDTO> findListTableByUserId(int userId) {
+		return TableDAO.findListTableByUserId(userId);
 	}
 
 	// tim table theo id

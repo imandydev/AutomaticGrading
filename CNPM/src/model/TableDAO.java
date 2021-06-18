@@ -45,7 +45,7 @@ public class TableDAO {
 	}
 
 	// tim list table
-	public static List<TableDTO> findListTableAllByHide(int userId) {
+	public static List<TableDTO> findListTableByUserId(int userId) {
 		List<TableDTO> listTableDTO = new ArrayList<TableDTO>();
 		ResultSet rs = null;
 		Connection con = null;
