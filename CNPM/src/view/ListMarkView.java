@@ -158,9 +158,9 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 		System.exit(0);
 	}
 
-	public int checkListSize(List<MarkDTO> listMark) {
+	private int checkListSize(List<MarkDTO> listMark) {
 		return listMark.size();
-	}
+	}	
 
 //	add TableManager in button
 	public void showListMark(List<MarkDTO> listMark, JPanel panel) {

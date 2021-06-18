@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,22 +21,20 @@ import controller.TableController;
 import interf.InterView;
 
 public class AddTableView extends JFrame implements ActionListener, InterView {
-//	private JFrame frame;
-	private JTextField textTableName,textNumberQuestionUse;
+
+	private JTextField textTableName, textNumberQuestionUse;
 	private JButton btnSave, btnCancel, btnMinus;
 	private JPanel panel, panel_header, panel_body;
 	private UserDTO user;
 	private ManagerTableView table;
 	private TableController tableController;
+
 	public AddTableView(UserDTO user, ManagerTableView tableMa) {
 		this.user = user;
 		this.table = tableMa;
 		this.tableController = new TableController();
-		initialize(this.user, this.table);
-	}
-	private void initialize(UserDTO user, ManagerTableView tableMa) {
 		getContentPane().setLayout(null);
-		
+
 		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setBounds(0, 0, 335, 280);
@@ -46,7 +43,6 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		panel_header.setBackground(new Color(110, 115, 199));
 		panel_header.setBounds(0, 0, 335, 80);
 		panel_header.setLayout(null);
-	
 
 		// button minus
 		btnMinus = new JButton();
@@ -66,7 +62,7 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		btnCancel = new JButton();
 		btnCancel.setBounds(295, 5, 30, 30);
 		btnCancel.setIcon(new ImageIcon("Images/cancel_w_32px.png"));
-		btnCancel.setToolTipText("ThoÃƒÂ¡t");
+		btnCancel.setToolTipText("Thoát");
 		btnCancel.setBorder(null);
 		btnCancel.setBorderPainted(false);
 		btnCancel.setContentAreaFilled(false);
@@ -117,7 +113,7 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		// btn save
 		btnSave = new JButton();
 		btnSave.setIcon(new ImageIcon("Images/save_b_50px.png"));
-		btnSave.setToolTipText("LÃ†Â°u mÃƒÂ£ Ã„â€˜Ã¡Â»ï¿½");
+//		btnSave.setToolTipText("LÃ†Â°u mÃƒÂ£ Ã„â€˜Ã¡Â»ï¿½");
 		btnSave.setBounds(265, 220, 40, 40);
 		btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		btnSave.setBackground(new java.awt.Color(255, 255, 255));
@@ -125,7 +121,7 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		btnSave.addActionListener(this);
 		btnSave.setFont(new java.awt.Font("Tahoma", 0, 15));
 		panel_body.add(btnSave);
-		
+
 		panel.add(panel_body);
 		getContentPane().add(panel);
 		setUndecorated(true);
@@ -139,7 +135,7 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btnMinusActionPerformed(e);
-				
+
 			}
 		});
 
@@ -149,10 +145,8 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 				btnCancelActionPerformed(e);
 			}
 		});
-	
-		
 	}
-	
+
 	@Override
 	public void backActionPerformed(ActionEvent avt) {
 	}
@@ -160,7 +154,7 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 	@Override
 	public void btnMinusActionPerformed(ActionEvent evt) {
 		this.setState(ICONIFIED);
-		
+
 	}
 
 	@Override
@@ -173,10 +167,14 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		String tableName = getTextTableName().getText();
 		String numberQuestionUse = getTextNumberQuestionUse().getText();
 		int checkInput = checkInput(tableName, numberQuestionUse);
-		if (checkInput==1) {
+		if (checkInput == 1) { //name and number question is empty
 			JOptionPane.showMessageDialog(this, "Hãy vui lòng nhập đầy đủ thông tin!");
 			reload();
-		} else if (checkInput == 2) {
+		} else if (checkInput == 2) {//name is empty
+			JOptionPane.showMessageDialog(this, "Hãy vui lòng nhập tên bảng chấm điểm!");
+		} else if (checkInput == 3) { //number question is empty
+			JOptionPane.showMessageDialog(this, "Hãy vui lòng nhập số câu hỏi!");
+		} else if (checkInput == 4) { //not type number or >40 or <=0
 			JOptionPane.showMessageDialog(this, "Số câu hỏi chỉ từ 1 đến 40. Vui lòng nhập lại!");
 			textNumberQuestionUse.setText("");
 		} else {
@@ -187,6 +185,7 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		}
 
 	}
+
 	private void checkAndInsertTable(String tableName, String numberQuestionUse) {
 		TableDTO tableDTO = new TableDTO(0, user, tableName, Integer.parseInt(numberQuestionUse), 0);
 		int id = tableController.insertTable(tableDTO);
@@ -194,8 +193,7 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 			JOptionPane.showMessageDialog(this, "Tên bảng chấm điểm đã tồn tại! ");
 		} else if (id == 0) {
 			JOptionPane.showMessageDialog(this, "Thêm bảng điểm thất bại!");
-		} 
-		else {
+		} else {
 			loadTableManager();
 			JOptionPane.showMessageDialog(this, "Thêm bảng chấm điểm thành công!");
 
@@ -203,19 +201,23 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 	}
 
 	private int checkInput(String tableName, String numberQuestionUse) {
-		if (tableName.isEmpty() || numberQuestionUse.isEmpty()) {
+		if (tableName.isEmpty() && numberQuestionUse.isEmpty()) {
 			return 1;
+		} else if (tableName.isEmpty()) {
+			return 2;
+		} else if (numberQuestionUse.isEmpty()) {
+			return 3;
 		} else {
 			try {
 				int check = Integer.parseInt(numberQuestionUse);
 				if (0 >= check || check > 40) {
-					return 2;
+					return 4;
 				}
 			} catch (NumberFormatException e) {
-				return 2;
+				return 4;
 			}
 		}
-		
+
 		return 0;
 	}
 
@@ -227,18 +229,11 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		return textNumberQuestionUse;
 	}
 
-	public void setTextNumberQuestionUse(JTextField textNumberQuestionUse) {
-		this.textNumberQuestionUse = textNumberQuestionUse;
-	}
-
-	public void setTextTableName(JTextField textTableName) {
-		this.textTableName = textTableName;
-	}
-
 	public void reload() {
 		textNumberQuestionUse.setText("");
 		textTableName.setText("");
 	}
+
 //	load láº¡i table management khi lÆ°u báº£ng má»›i
 	public void loadTableManager() {
 		this.table.reload();
