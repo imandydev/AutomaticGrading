@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/config/Config.java=UTF-8
 encoding//src/controller/MarkController.java=UTF-8
 encoding//src/model/AnswerDAO.java=UTF-8
 encoding//src/model/CodeDAO.java=UTF-8

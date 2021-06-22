@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Config {
-//	đọc file config
+//	Ä‘á»�c file config
 public static int readFileConfigInt(String key) {
 	FileReader reader = null;
 	String result = "0";
