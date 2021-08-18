@@ -292,7 +292,6 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 		}
 
 	}
-
 //	reload panel 3
 	public void reload() {
 		pn3.removeAll();
