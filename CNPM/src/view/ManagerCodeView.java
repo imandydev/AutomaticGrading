@@ -224,7 +224,8 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 		int stepRow = 0;
 //		for (CodeDTO codeDTO : listCodes) {
 		for (int i = 0; i < listCodes.size(); i++) {
-			JButton btn = new JButton(listCodes.get(i).getCode()+"");
+			String code = checkCode(listCodes.get(i).getCode());
+			JButton btn = new JButton(code);
 			btn.setBackground(new Color(110, 115, 199));
 			btn.setForeground(new Color(255,255,255));
 			btn.addActionListener(this);
@@ -284,6 +285,22 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 		this.lbSize0.setBounds(340, 30, 200, 30);
 		this.pn4.add(lbSize0);
 	}
+	
+	private String checkCode(int code){
+		String result = null;
+		if (code < 10) {
+			result = "00" + code;
+		} else if (code < 100 && code >= 10) {
+			result = "0" + code;
+		} else {
+			result = String.valueOf(code);
+		}
+		return result;
+	}
+
+	
+	
+	
 //	reload lai danh sach ma de sau khi remove 1 ma de nao do
 	public void reload() {
 		pn4.removeAll();

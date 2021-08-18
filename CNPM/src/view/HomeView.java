@@ -72,13 +72,13 @@ public class HomeView extends JFrame implements InterView {
 		jpn2 = new JPanel();
 		jpn2.setLayout(null);
 //		set location button first 
-		if (user.getRole() == 1)
+		if (user.getRole() == 0)
 			locationStart = 120;
 		else
 			locationStart = 40;
 //		list btn
 		for (int i = 0; i < arrBtn.length; i++) {
-			if (user.getRole() == 1) {
+			if (user.getRole() == 0) {
 				if (i == 4 || i == 5) {
 					continue;
 				} else {
