@@ -44,7 +44,7 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 		btnMinus = new JButton();
 		btnMinus.setBounds(728, 5, 30, 30);
 		btnMinus.setIcon(new javax.swing.ImageIcon("Images/minus_w_32px.png"));
-		btnMinus.setToolTipText("Minimize");
+		btnMinus.setToolTipText("Ẩn");
 		btnMinus.setBorder(null);
 		btnMinus.setBorderPainted(false);
 		btnMinus.setContentAreaFilled(false);
@@ -57,7 +57,7 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 		btnCancel = new JButton();
 		btnCancel.setBounds(758, 5, 30, 30);
 		btnCancel.setIcon(new ImageIcon("Images/cancel_w_32px.png"));
-		btnCancel.setToolTipText("ThoÃ¡t");
+		btnCancel.setToolTipText("Thoát");
 		btnCancel.setBorder(null);
 		btnCancel.setBorderPainted(false);
 		btnCancel.setContentAreaFilled(false);
@@ -81,7 +81,7 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 		btnBack = new JButton();
 		btnBack.setBounds(10, 10, 32, 32);
 		btnBack.setIcon(new ImageIcon("Images/back_to_w_32px.png"));
-		btnBack.setToolTipText("Trá»Ÿ vá»�");
+		btnBack.setToolTipText("Trở về");
 		btnBack.setFocusPainted(false);
 		btnBack.setContentAreaFilled(false);
 		btnBack.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -263,7 +263,7 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 	}
 
 	public void showListMarkIsEmpty() {
-		JLabel jlb = new JLabel("Chưa có bài chấm điểm nào!");
+		JLabel jlb = new JLabel("ChÆ°a cÃ³ bÃ i cháº¥m Ä‘iá»ƒm nÃ o!");
 		jlb.setBounds(300, 20, 300, 50);
 		pn4.add(jlb);
 	}
@@ -279,15 +279,15 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 //				System.out.println(tableId);
 			}
 		}
-		int result = JOptionPane.showConfirmDialog(pn4, "Bạn muốn xóa bài chấm không?", "",
+		int result = JOptionPane.showConfirmDialog(pn4, "Báº¡n muá»‘n xÃ³a bÃ i cháº¥m khÃ´ng?", "",
 				JOptionPane.WARNING_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
 			boolean checkRemove = markController.removeMarkByID(markId);
 			if (checkRemove) {
-				JOptionPane.showMessageDialog(pn4, "Xóa thành công bài chấm!");
+				JOptionPane.showMessageDialog(pn4, "XÃ³a thÃ nh cÃ´ng bÃ i cháº¥m!");
 				reload();
 			} else {
-				JOptionPane.showMessageDialog(pn4, "Xóa thất bại!");
+				JOptionPane.showMessageDialog(pn4, "XÃ³a tháº¥t báº¡i!");
 			}
 		}
 
