@@ -284,22 +284,17 @@ public class AddCodeAndAnswerView extends JFrame implements ActionListener, Inte
 //		Save
 		if (btnSave == e.getSource()) {
 			try {
-				if (tfInputCode.getText().isEmpty())
+				if (tfInputCode.getText().trim().length() != 3)
 					checkCodeInput = 1;
-				else if (tfInputCode.getText().length() != 3)
-					checkCodeInput = 2;
 				else {
-					input = Integer.parseInt(tfInputCode.getText());
+					input = Integer.parseInt(tfInputCode.getText().trim());
 					checkCodeInput = 0;
 				}
 			} catch (Exception ex) {
-				checkCodeInput = 2;
+				checkCodeInput = 1;
 			}
 			switch (checkCodeInput) {
 			case 1:
-				JOptionPane.showMessageDialog(this, "Vui lòng nhập mã đề!");
-				break;
-			case 2:
 				JOptionPane.showMessageDialog(this, "Độ dài mã đề phải là 3 và mã đề phải là số!");
 				break;
 			default:
