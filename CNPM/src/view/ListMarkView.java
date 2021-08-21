@@ -57,7 +57,7 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 		btnCancel = new JButton();
 		btnCancel.setBounds(758, 5, 30, 30);
 		btnCancel.setIcon(new ImageIcon("Images/cancel_w_32px.png"));
-		btnCancel.setToolTipText("ThoÃ¡t");
+		btnCancel.setToolTipText("Thoát");
 		btnCancel.setBorder(null);
 		btnCancel.setBorderPainted(false);
 		btnCancel.setContentAreaFilled(false);
@@ -81,7 +81,7 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 		btnBack = new JButton();
 		btnBack.setBounds(10, 10, 32, 32);
 		btnBack.setIcon(new ImageIcon("Images/back_to_w_32px.png"));
-		btnBack.setToolTipText("Trá»Ÿ vá»�");
+		btnBack.setToolTipText("Trở về");
 		btnBack.setFocusPainted(false);
 		btnBack.setContentAreaFilled(false);
 		btnBack.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
