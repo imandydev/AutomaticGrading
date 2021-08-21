@@ -263,7 +263,7 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 	}
 
 	public void showListMarkIsEmpty() {
-		JLabel jlb = new JLabel("ChÆ°a cÃ³ bÃ i cháº¥m Ä‘iá»ƒm nÃ o!");
+		JLabel jlb = new JLabel("Chưa có bài chấm điểm nào!");
 		jlb.setBounds(300, 20, 300, 50);
 		pn4.add(jlb);
 	}
@@ -279,15 +279,15 @@ public class ListMarkView extends JFrame implements ActionListener, InterView {
 //				System.out.println(tableId);
 			}
 		}
-		int result = JOptionPane.showConfirmDialog(pn4, "Báº¡n muá»‘n xÃ³a bÃ i cháº¥m khÃ´ng?", "",
+		int result = JOptionPane.showConfirmDialog(pn4, "Bạn muốn xóa bài chấm này?", "",
 				JOptionPane.WARNING_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
 			boolean checkRemove = markController.removeMarkByID(markId);
 			if (checkRemove) {
-				JOptionPane.showMessageDialog(pn4, "XÃ³a thÃ nh cÃ´ng bÃ i cháº¥m!");
+				JOptionPane.showMessageDialog(pn4, "Xóa thành công!");
 				reload();
 			} else {
-				JOptionPane.showMessageDialog(pn4, "XÃ³a tháº¥t báº¡i!");
+				JOptionPane.showMessageDialog(pn4, "Xóa thất bại!");
 			}
 		}
 

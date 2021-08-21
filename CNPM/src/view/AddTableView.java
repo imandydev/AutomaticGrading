@@ -167,14 +167,14 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		String numberQuestionUse = getTextNumberQuestionUse().getText();
 		int checkInput = checkInput(tableName, numberQuestionUse);
 		if (checkInput == 1) { //name and number question is empty
-			JOptionPane.showMessageDialog(this, "HÃ£y vui lÃ²ng nháº­p Ä‘áº§y Ä‘á»§ thÃ´ng tin!");
+			JOptionPane.showMessageDialog(this, "Hãy vui lòng nhập đầy đủ thông tin!");
 			reload();
 		} else if (checkInput == 2) {//name is empty
-			JOptionPane.showMessageDialog(this, "HÃ£y vui lÃ²ng nháº­p tÃªn báº£ng cháº¥m Ä‘iá»ƒm!");
+			JOptionPane.showMessageDialog(this, "Hãy vui lòng nhập tên bảng chấm điểm!");
 		} else if (checkInput == 3) { //number question is empty
-			JOptionPane.showMessageDialog(this, "HÃ£y vui lÃ²ng nháº­p sá»‘ cÃ¢u há»�i!");
+			JOptionPane.showMessageDialog(this, "Hãy vui lòng nhập số câu hỏi!");
 		} else if (checkInput == 4) { //not type number or >40 or <=0
-			JOptionPane.showMessageDialog(this, "Sá»‘ cÃ¢u há»�i chá»‰ tá»« 1 Ä‘áº¿n 40. Vui lÃ²ng nháº­p láº¡i!");
+			JOptionPane.showMessageDialog(this, "Số câu hỏi chỉ từ 1 đến 40. Vui lòng nhập lại!");
 			textNumberQuestionUse.setText("");
 		} else {
 			if (btnSave == e.getSource()) {
@@ -189,12 +189,12 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		TableDTO tableDTO = new TableDTO(0, user, tableName, Integer.parseInt(numberQuestionUse), 0);
 		int id = tableController.insertTable(tableDTO);
 		if (id == -1) {
-			JOptionPane.showMessageDialog(this, "TÃªn báº£ng cháº¥m Ä‘iá»ƒm Ä‘Ã£ tá»“n táº¡i! ");
+			JOptionPane.showMessageDialog(this, "Tên bảng chấm điểm đã tồn tại! ");
 		} else if (id == 0) {
-			JOptionPane.showMessageDialog(this, "ThÃªm báº£ng Ä‘iá»ƒm tháº¥t báº¡i!");
+			JOptionPane.showMessageDialog(this, "Thêm bảng chấm điểm thất bại!");
 		} else {
 			loadTableManager();
-			JOptionPane.showMessageDialog(this, "ThÃªm báº£ng cháº¥m Ä‘iá»ƒm thÃ nh cÃ´ng!");
+			JOptionPane.showMessageDialog(this, "Thêm bảng chấm điểm thành công!");
 
 		}
 	}

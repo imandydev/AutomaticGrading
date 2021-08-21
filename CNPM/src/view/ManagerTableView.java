@@ -181,7 +181,7 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 		pn3.setBackground(new Color(255, 255, 255));
 		pn3.setBounds(0, 90, 800, 510);
 		if (listTable.size()==0) {
-			JLabel jlb = new JLabel("ChÆ°a cÃ³ báº£ng cháº¥m Ä‘iá»ƒm nÃ o!");
+			JLabel jlb = new JLabel("Chưa có bảng chấm điểm nào!");
 			jlb.setBounds(300, 20, 300, 50);
 			pn4.add(jlb);
 		} else {
@@ -228,15 +228,15 @@ public class ManagerTableView extends JFrame implements ActionListener, InterVie
 			if (e.getSource() == btnx) {
 				tableId = Integer.parseInt(btnx.getName());
 //				System.out.println(tableId);
-				int result = JOptionPane.showConfirmDialog(pn4, "Báº¡n muá»‘n xÃ³a báº£ng cháº¥m Ä‘iá»ƒm nÃ y?", "",
+				int result = JOptionPane.showConfirmDialog(pn4, "Bạn muốn xóa bảng chấm điểm này?", "",
 						JOptionPane.WARNING_MESSAGE);
 				if (result == JOptionPane.OK_OPTION) {
 					boolean checkRemove = tableControl.removeTableManagerByID(tableId);
 					reload();
 					if (checkRemove) {
-						JOptionPane.showMessageDialog(pn4, "XÃ³a thÃ nh cÃ´ng!");
+						JOptionPane.showMessageDialog(pn4, "Xóa thành công!");
 					} else {
-						JOptionPane.showMessageDialog(pn4, "XÃ³a tháº¥t báº¡n!");
+						JOptionPane.showMessageDialog(pn4, "Xóa thất bại!");
 					}
 				}
 			}
