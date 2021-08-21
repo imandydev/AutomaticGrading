@@ -139,7 +139,7 @@ public class DetailTableView extends JFrame {
 		btnMark.setBackground(new Color(110, 115, 199));
 		btnMark.setFocusPainted(false);
 
-//		Sá»­ dá»¥ng sau khi cháº¥m bÃ i xong
+//		Sử dụng sau khi chấm bài xong
 		JPanel pn3 = new JPanel();
 		pn3.setBounds(0, 241, 600, 159);
 		getContentPane().add(pn3);
@@ -187,7 +187,7 @@ public class DetailTableView extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 
-//		Quáº£n lÃ­ mÃ£ Ä‘á»�
+//		Quản lí mã đề
 		btnCodeManager.addActionListener(new ActionListener() {
 
 			@Override
@@ -196,7 +196,7 @@ public class DetailTableView extends JFrame {
 			}
 		});
 
-//		Xá»­ lÃ­ cháº¥m Ä‘iá»ƒm
+//		Xử lí chấm điểm
 		btnMark.addActionListener(new ActionListener() {
 
 			@Override
@@ -215,18 +215,18 @@ public class DetailTableView extends JFrame {
 				fileChooser.setFileFilter(new FileNameExtensionFilter(".jpg", "jpg"));
 				fileChooser.setFileFilter(new FileNameExtensionFilter("Image Files", "png", "jpeg", "jpg"));
 
-				// Cho phÃ©p ngÆ°á»�i dÃ¹ng chá»�n nhiá»�u file
+				// Cho phép người dùng chọn nhiều file
 				fileChooser.setMultiSelectionEnabled(true);
-				fileChooser.setDialogTitle("Táº£i áº£nh lÃªn");
+				fileChooser.setDialogTitle("Tải ảnh lên");
 				int selected = fileChooser.showDialog(pn2, "Open");
 
-				int numberFileChoose = 0; // Sá»‘ file Ä‘Æ°á»£c chá»�n
-				int countSuccess = 0; // Sá»‘ file cháº¥m thÃ nh cÃ´ng
-				int countNotScan = 0; // Sá»‘ file khÃ´ng Scan Ä‘Æ°á»£c
-				int countNotImage = 0; // Sá»‘ file khÃ´ng pháº£i lÃ  hÃ¬nh áº£nh
+				int numberFileChoose = 0; // Số file được chọn
+				int countSuccess = 0; // Số file chấm thành công
+				int countNotScan = 0; // Số file không Scan được
+				int countNotImage = 0; // Số file không phải là hình ảnh
 
 				if (selected == JFileChooser.APPROVE_OPTION) {
-					lblStatus.setText("Há»‡ thá»‘ng Ä‘ang cháº¥m bÃ i");
+					lblStatus.setText("Hệ thống đang chấm bài!");
 					File[] files = fileChooser.getSelectedFiles();
 					numberFileChoose = files.length;
 					java.util.List<String> listNameFileFalse = new ArrayList<String>();
@@ -251,17 +251,17 @@ public class DetailTableView extends JFrame {
 
 				if (countNotImage > 0) {
 					JFrame frame = new JFrame();
-					String messageError = "Báº¡n Ä‘Ã£ chá»�n " + countNotImage
-							+ " file khÃ´ng pháº£i lÃ  hÃ¬nh áº£nh! Nhá»¯ng file hÃ¬nh áº£nh cÃ³ Ä‘uÃ´i lÃ  \".jpg\" \".jpeg\" vÃ  \".png\"\"";
-					JOptionPane.showMessageDialog(frame, messageError, "File khÃ´ng há»£p lá»‡", JOptionPane.ERROR_MESSAGE);
+					String messageError = "Bạn đã chọn " + countNotImage
+							+ " file không phải là hình ảnh! Những file hình ảnh có đuôi là \".jpg\" \".jpeg\" vÃ  \".png\"\"";
+					JOptionPane.showMessageDialog(frame, messageError, "File không hợp lệ", JOptionPane.ERROR_MESSAGE);
 				}
 
 				if (numberFileChoose > 0) {
-					lblStatus.setText("Ä�Ãƒ CHáº¤M XONG!");
-					lblTotal.setText("Tá»•ng sá»‘ file Ä‘Ã£ chá»�n: " + numberFileChoose);
-					lblSuccess.setText("Sá»‘ file cháº¥m thÃ nh cÃ´ng: " + countSuccess);
-					lblSNotScan.setText("Sá»‘ file khÃ´ng Scan Ä‘Æ°á»£c: " + countNotScan);
-					lblNotImage.setText("Sá»‘ file khÃ´ng pháº£i lÃ  hÃ¬nh áº£nh: " + countNotImage);
+					lblStatus.setText("ĐÃ CHẤM XONG!");
+					lblTotal.setText("Tổng số file đã chọn: " + numberFileChoose);
+					lblSuccess.setText("Số file chấm thành công: " + countSuccess);
+					lblSNotScan.setText("Số file không Scan được: " + countNotScan);
+					lblNotImage.setText("Số file không phải là hình ảnh: " + countNotImage);
 				}
 			}
 		});

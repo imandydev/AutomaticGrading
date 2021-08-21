@@ -345,42 +345,42 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 				String pass = txtPassword.getText();
 				String confirmPass = txtConfirmPassword.getText();
 
-				// TrÆ°á»�ng há»£p chÆ°a nháº­p Ä‘áº§y Ä‘á»§ thÃ´ng tin
+				// Trường hợp chưa nhập đầy đủ thông tin
 				if (userName.isEmpty() || email.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) {
-					JOptionPane.showMessageDialog(jPanel6, "Vui lÃ²ng Ä‘iá»�n Ä‘áº§y Ä‘á»§ thÃ´ng tin!");
+					JOptionPane.showMessageDialog(jPanel6, "Vui lòng nhập đầy đủ thông tin!");
 				} else {
-					// Nháº­p thÃ´ng tin há»£p lá»‡
+					// Nhập thông tin hợp lệ
 					if (checkUserName.matcher(userName).find() && checkEmail.matcher(email).find()
 							&& checkPass.matcher(pass).find() && checkPass.matcher(confirmPass).find()) {
-						// Kiá»ƒm tra password vÃ  confirm password cÃ³ giá»‘ng nhau hay khÃ´ng
+						// Kiểm tra password và confirmPassword có giống nhau hay không
 						if (!pass.equals(confirmPass)) {
-							JOptionPane.showMessageDialog(jPanel6, "XÃ¡c nháº­n máº­t kháº©u khÃ´ng Ä‘Ãºng. Vui lÃ²ng nháº­p láº¡i!");
+							JOptionPane.showMessageDialog(jPanel6, "Xác nhận mật khẩu không đúng. Vui lòng nhập lại!");
 							txtConfirmPassword.setText("");
 						} else {
 							try {
 								String resultRegister = new UserController().register(userName, email, pass);
-								// Ä�Äƒng kÃ­ thÃ nh cÃ´ng
+								// Đăng kí thành công
 								if (resultRegister.equals("TT")) {
 									txtUserName.setText("");
 									txtEmail.setText("");
 									txtPassword.setText("");
 									txtConfirmPassword.setText("");
-									JOptionPane.showMessageDialog(jPanel6, "Ä�Äƒng kÃ­ thÃ nh cÃ´ng!");
-									// Láº¥y dá»¯ liá»‡u qua form login
+									JOptionPane.showMessageDialog(jPanel6, "Đăng kí thành công!");
+									// Lấy dữ liệu qua form login
 									jTextField_Email.setText(userName);
 									jPasswordField_Password.setText(pass);
 								}
 
-								// Username Ä‘Ã£ tá»“n táº¡i
+								// Username đã tồn tại
 								else if (resultRegister.equals("FT")) {
 									JOptionPane.showMessageDialog(jPanel6, "TÃªn Ä‘Äƒng nháº­p Ä‘Ã£ tá»“n táº¡i!");
 								}
-								// Email Ä‘Ã£ Ä‘Æ°á»£c Ä‘Äƒng kÃ­ bá»Ÿi 1 tÃ i khoáº£n khÃ¡c
+								// Email đã được đăng kí bởi 1 tài khoản khác
 								else if (resultRegister.equals("TF")) {
 									JOptionPane.showMessageDialog(jPanel6,
-											"Email Ä‘Ã£ Ä‘Æ°á»£c Ä‘Äƒng kÃ­ bá»Ÿi 1 tÃ i khoáº£n khÃ¡c!");
+											" Email đã được đăng kí bởi 1 tài khoản khác!");
 								} else {
-									JOptionPane.showMessageDialog(jPanel6, "TÃªn Ä‘Äƒng nháº­p vÃ  Email Ä‘Ã£ Ä‘Æ°á»£c sá»­ dá»¥ng!");
+									JOptionPane.showMessageDialog(jPanel6, "Tên đăng nhập và Email đã được sử dụng!");
 								}
 							} catch (UnsupportedEncodingException | NoSuchAlgorithmException e1) {
 								// TODO Auto-generated catch block
@@ -389,13 +389,13 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 							}
 						}
 					} else
-					// TrÆ°á»�ng há»£p nháº­p thÃ´ng tin khÃ´ng há»£p lá»‡
+					// Trường hợp nhập thông tin không hợp lệ
 					{
-						// In ra thÃ´ng bÃ¡o cho ngÆ°á»�i dÃ¹ng biáº¿t Ä‘Ã£ nháº­p sai á»Ÿ nhá»¯ng trÆ°á»�ng dá»¯ liá»‡u nÃ o
+						// In ra thông báo cho người dùng biết đã nhâp sai ở những trường dữ liệu nào
 						String message = "";
 						int count = 0;
 						if (!checkUserName.matcher(userName).find()) {
-							message += "TÃªn Ä‘Äƒng nháº­p";
+							message += "Tên đăng nhập";
 							count++;
 							txtUserName.setText("");
 						}
@@ -409,7 +409,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 						if (!checkPass.matcher(pass).find()) {
 							if (count > 0)
 								message += ", ";
-							message += "Máº­t kháº©u";
+							message += "Mật khẩu";
 							count++;
 							txtPassword.setText("");
 							txtConfirmPassword.setText("");
@@ -417,11 +417,11 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 						if (!checkPass.matcher(confirmPass).find()) {
 							if (count > 0)
 								message += ", ";
-							message += "XÃ¡c nháº­n máº­t kháº©u";
+							message += "Xác nhận mật khẩu";
 							txtConfirmPassword.setText("");
 						}
 						if (count >= 1)
-							message += " khÃ´ng há»£p lá»‡!";
+							message += " không hợp lệ!";
 						JOptionPane.showMessageDialog(jPanel6, message);
 					}
 				}
