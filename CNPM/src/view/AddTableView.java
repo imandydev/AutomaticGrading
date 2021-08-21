@@ -113,7 +113,6 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		// btn save
 		btnSave = new JButton();
 		btnSave.setIcon(new ImageIcon("Images/save_b_50px.png"));
-//		btnSave.setToolTipText("LÃƒâ€ Ã‚Â°u mÃƒÆ’Ã‚Â£ Ãƒâ€žÃ¢â‚¬ËœÃƒÂ¡Ã‚Â»Ã¯Â¿Â½");
 		btnSave.setBounds(265, 220, 40, 40);
 		btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		btnSave.setBackground(new java.awt.Color(255, 255, 255));
@@ -234,7 +233,7 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		textTableName.setText("");
 	}
 
-//	load lÃ¡ÂºÂ¡i table management khi lÃ†Â°u bÃ¡ÂºÂ£ng mÃ¡Â»â€ºi
+//	reload table management
 	public void loadTableManager() {
 		this.table.reload();
 		this.dispose();
