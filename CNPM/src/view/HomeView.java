@@ -62,7 +62,7 @@ public class HomeView extends JFrame implements InterView {
 		lbTitle = new JLabel("TRANG CHỦ");
 		lbTitle.setFont(new java.awt.Font("Tahoma", 1, 30));
 		lbTitle.setForeground(new Color(255, 255, 255));
-		lbTitle.setBounds(360, 30, 180, 35);
+		lbTitle.setBounds(360, 30, 200, 35);
 		jpn1.add(lbTitle);
 
 		jpn1.setBounds(0, 0, 910, 90);
