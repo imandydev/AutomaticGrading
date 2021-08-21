@@ -44,7 +44,7 @@ public class DetailTableView extends JFrame {
 		btnMinus = new JButton();
 		btnMinus.setBounds(528, 5, 30, 30);
 		btnMinus.setIcon(new javax.swing.ImageIcon("Images/minus_w_32px.png"));
-		btnMinus.setToolTipText("Thu nhỏ");
+		btnMinus.setToolTipText("Ẩn");
 		btnMinus.setBorder(null);
 		btnMinus.setBorderPainted(false);
 		btnMinus.setContentAreaFilled(false);
@@ -112,7 +112,7 @@ public class DetailTableView extends JFrame {
 		pn2.setBounds(0, 135, 600, 107);
 		getContentPane().add(pn2);
 
-		btnCodeManager = new JButton("Quản lí mã đề");
+		btnCodeManager = new JButton("Quản lý mã đề");
 		btnCodeManager.setBounds(55, 25, 140, 55);
 		btnCodeManager.setForeground(new Color(255, 255, 255));
 		btnCodeManager.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -226,7 +226,7 @@ public class DetailTableView extends JFrame {
 				int countNotImage = 0; // Số file không phải là hình ảnh
 
 				if (selected == JFileChooser.APPROVE_OPTION) {
-					lblStatus.setText("Hệ thống đang chấm bài");
+					lblStatus.setText("Hệ thống đang chấm bài!");
 					File[] files = fileChooser.getSelectedFiles();
 					numberFileChoose = files.length;
 					java.util.List<String> listNameFileFalse = new ArrayList<String>();
@@ -252,7 +252,7 @@ public class DetailTableView extends JFrame {
 				if (countNotImage > 0) {
 					JFrame frame = new JFrame();
 					String messageError = "Bạn đã chọn " + countNotImage
-							+ " file không phải là hình ảnh! Những file hình ảnh có đuôi là \".jpg\" \".jpeg\" và \".png\"\"";
+							+ " file không phải là hình ảnh! Những file hình ảnh có đuôi là \".jpg\" \".jpeg\" vÃ  \".png\"\"";
 					JOptionPane.showMessageDialog(frame, messageError, "File không hợp lệ", JOptionPane.ERROR_MESSAGE);
 				}
 

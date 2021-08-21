@@ -147,7 +147,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 		JButtonInstruction.setBackground(new java.awt.Color(169, 224, 49));
 		JButtonInstruction.setFont(new java.awt.Font("Tahoma", 0, 14));
 		JButtonInstruction.setForeground(new java.awt.Color(0, 0, 0));
-		JButtonInstruction.setText("Hướng Dẫn");
+		JButtonInstruction.setText("Hướng dẫn");
 		JButtonInstruction.setBorder(null);
 		JButtonInstruction.setBorderPainted(false);
 		JButtonInstruction.setContentAreaFilled(false);
@@ -318,7 +318,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 		btnRegister.setBackground(new java.awt.Color(255, 255, 255));
 		btnRegister.setFont(new java.awt.Font("Tahoma", 0, 18));
 		btnRegister.setForeground(new java.awt.Color(110, 115, 199));
-		btnRegister.setText("Đăng Ký");
+		btnRegister.setText("Đăng Kí");
 		btnRegister.setBorder(null);
 		btnRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		btnRegister.setFocusPainted(false);
@@ -347,12 +347,12 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 
 				// Trường hợp chưa nhập đầy đủ thông tin
 				if (userName.isEmpty() || email.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) {
-					JOptionPane.showMessageDialog(jPanel6, "Vui lòng điền đầy đủ thông tin!");
+					JOptionPane.showMessageDialog(jPanel6, "Vui lòng nhập đầy đủ thông tin!");
 				} else {
 					// Nhập thông tin hợp lệ
 					if (checkUserName.matcher(userName).find() && checkEmail.matcher(email).find()
 							&& checkPass.matcher(pass).find() && checkPass.matcher(confirmPass).find()) {
-						// Kiểm tra password và confirm password có giống nhau hay không
+						// Kiểm tra password và confirmPassword có giống nhau hay không
 						if (!pass.equals(confirmPass)) {
 							JOptionPane.showMessageDialog(jPanel6, "Xác nhận mật khẩu không đúng. Vui lòng nhập lại!");
 							txtConfirmPassword.setText("");
@@ -373,12 +373,12 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 
 								// Username đã tồn tại
 								else if (resultRegister.equals("FT")) {
-									JOptionPane.showMessageDialog(jPanel6, "Tên đăng nhập đã tồn tại!");
+									JOptionPane.showMessageDialog(jPanel6, "TÃªn Ä‘Äƒng nháº­p Ä‘Ã£ tá»“n táº¡i!");
 								}
 								// Email đã được đăng kí bởi 1 tài khoản khác
 								else if (resultRegister.equals("TF")) {
 									JOptionPane.showMessageDialog(jPanel6,
-											"Email đã được đăng kí bởi 1 tài khoản khác!");
+											" Email đã được đăng kí bởi 1 tài khoản khác!");
 								} else {
 									JOptionPane.showMessageDialog(jPanel6, "Tên đăng nhập và Email đã được sử dụng!");
 								}
@@ -391,7 +391,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 					} else
 					// Trường hợp nhập thông tin không hợp lệ
 					{
-						// In ra thông báo cho người dùng biết đã nhập sai ở những trường dữ liệu nào
+						// In ra thông báo cho người dùng biết đã nhâp sai ở những trường dữ liệu nào
 						String message = "";
 						int count = 0;
 						if (!checkUserName.matcher(userName).find()) {
@@ -487,7 +487,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 							new HomeView(user);
 							turnOffView(e);
 						} else
-							JOptionPane.showMessageDialog(jPanel1, "Tài khoản hoặc mật khẩu không chính xác!");
+							JOptionPane.showMessageDialog(jPanel1, "Tên tài khoản hoặc mật khẩu không chính xác!");
 					} catch (UnsupportedEncodingException e1) {
 						e1.printStackTrace();
 					} catch (NoSuchAlgorithmException e1) {

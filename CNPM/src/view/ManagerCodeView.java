@@ -28,7 +28,6 @@ import DTO.TableDTO;
 import config.AllSetting;
 import controller.CodeAndAnswerController;
 import interf.InterView;
-import javafx.scene.layout.Border;
 import model.CodeDAO;
 
 public class ManagerCodeView extends JFrame implements ActionListener, InterView{
@@ -53,7 +52,7 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 		btnMinus = new JButton();
 		btnMinus.setBounds(728, 5, 30, 30);
 		btnMinus.setIcon(new javax.swing.ImageIcon("Images/minus_w_32px.png")); 
-		btnMinus.setToolTipText("Minimize");
+		btnMinus.setToolTipText("Ẩn");
 		btnMinus.setBorder(null);
 		btnMinus.setBorderPainted(false);
 		btnMinus.setContentAreaFilled(false);
@@ -266,7 +265,7 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 		for (int i = 0; i < removeBtnCode.size(); i++) {
 			if (e.getSource() == removeBtnCode.get(i)) {
 //				ma code tuong ung voi button remove
-				int result = JOptionPane.showConfirmDialog(pn3, "Bạn có muốn xóa mã đề ?", "", JOptionPane.WARNING_MESSAGE);
+				int result = JOptionPane.showConfirmDialog(pn3, "Bạn có chắc muốn xóa mã đề này?", "", JOptionPane.WARNING_MESSAGE);
 				if (result == JOptionPane.OK_OPTION) {
 					int getCodeID = Integer.parseInt(listBtnCode.get(i).getName());
 					System.out.println(getCodeID);
@@ -281,7 +280,7 @@ public class ManagerCodeView extends JFrame implements ActionListener, InterView
 		}
 	}
 	public void listCode0() {
-		this.lbSize0 = new JLabel("Danh Sách Mã Đề Rỗng!");
+		this.lbSize0 = new JLabel("Danh sách mã đề rỗng!");
 		this.lbSize0.setBounds(340, 30, 200, 30);
 		this.pn4.add(lbSize0);
 	}

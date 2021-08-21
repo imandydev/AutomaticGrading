@@ -34,7 +34,7 @@ public class HomeView extends JFrame implements InterView {
 		btnMinus = new JButton();
 		btnMinus.setBounds(840, 5, 30, 30);
 		btnMinus.setIcon(new javax.swing.ImageIcon("Images/minus_w_32px.png"));
-		btnMinus.setToolTipText("Minimize");
+		btnMinus.setToolTipText("Ẩn");
 		btnMinus.setBorder(null);
 		btnMinus.setBorderPainted(false);
 		btnMinus.setContentAreaFilled(false);
@@ -59,10 +59,10 @@ public class HomeView extends JFrame implements InterView {
 		jpn1.add(btnCancel);
 
 //		title
-		lbTitle = new JLabel("Trang Chủ");
+		lbTitle = new JLabel("TRANG CHỦ");
 		lbTitle.setFont(new java.awt.Font("Tahoma", 1, 30));
 		lbTitle.setForeground(new Color(255, 255, 255));
-		lbTitle.setBounds(380, 30, 160, 35);
+		lbTitle.setBounds(360, 30, 200, 35);
 		jpn1.add(lbTitle);
 
 		jpn1.setBounds(0, 0, 910, 90);

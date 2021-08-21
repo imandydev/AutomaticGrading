@@ -41,6 +41,7 @@ public class AddCodeAndAnswerView extends JFrame implements ActionListener, Inte
 	private TableDTO table;
 	private CodeAndAnswerController cAndAControl;
 	private String fontFamily;
+
 	public AddCodeAndAnswerView(TableDTO table, ManagerCodeView mg) {
 		this.mg = mg;
 		this.table = table;
@@ -149,7 +150,7 @@ public class AddCodeAndAnswerView extends JFrame implements ActionListener, Inte
 		btnSave = new JButton();
 		btnSave.setIcon(new ImageIcon("Images/save_b_50px.png"));
 		btnSave.setToolTipText("Lưu mã đề");
-		btnSave.setBounds(1280, 10, AllSetting.widthSave,AllSetting.heightSave);
+		btnSave.setBounds(1280, 10, AllSetting.widthSave, AllSetting.heightSave);
 		btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		btnSave.setBackground(new java.awt.Color(255, 255, 255));
 		btnSave.setFocusPainted(false);
@@ -286,10 +287,10 @@ public class AddCodeAndAnswerView extends JFrame implements ActionListener, Inte
 			try {
 				if (tfInputCode.getText().isEmpty())
 					checkCodeInput = 1;
-				else if (tfInputCode.getText().length() != 3)
+				else if (tfInputCode.getText().trim().length() != 3)
 					checkCodeInput = 2;
 				else {
-					input = Integer.parseInt(tfInputCode.getText());
+					input = Integer.parseInt(tfInputCode.getText().trim());
 					checkCodeInput = 0;
 				}
 			} catch (Exception ex) {
@@ -305,9 +306,9 @@ public class AddCodeAndAnswerView extends JFrame implements ActionListener, Inte
 			default:
 				listAnswers = beforeProcess(listAnswers, table.getNumberQuestionUse());
 //				insert ma de va dap an
-				boolean checkCodeExist = cAndAControl.insertCodeAndAnswer(input, table.getId(), listAnswers);
+				boolean checkInsertAnswer = cAndAControl.insertCodeAndAnswer(input, table.getId(), listAnswers);
 //				insert thanh cong
-				if (!checkCodeExist) {
+				if (!checkInsertAnswer) {
 					JOptionPane.showMessageDialog(this, "Thêm mã đề thất bại!");
 				} else {
 					JOptionPane.showMessageDialog(this, "Thêm mã đề thành công!");
