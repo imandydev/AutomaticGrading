@@ -373,7 +373,7 @@ public class LoginAndRegisterView extends javax.swing.JFrame implements InterVie
 
 								// Username đã tồn tại
 								else if (resultRegister.equals("FT")) {
-									JOptionPane.showMessageDialog(jPanel6, "TÃªn Ä‘Äƒng nháº­p Ä‘Ã£ tá»“n táº¡i!");
+									JOptionPane.showMessageDialog(jPanel6, "Tên đăng nhập đã tồn tại!");
 								}
 								// Email đã được đăng kí bởi 1 tài khoản khác
 								else if (resultRegister.equals("TF")) {
