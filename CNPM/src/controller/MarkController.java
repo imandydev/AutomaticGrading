@@ -29,47 +29,47 @@ public class MarkController {
 //	File là hinh anh can cham diem duoc truyen vao, numberQuestionUse la so cau muon cham
 	public boolean mark(int tableID, int numberQuestionUse, File img) throws Exception {
 //		vi tri thu vien opencv, dung khi nen file jar
-		String location = getLocationFile()+AllSetting.direcOpenCV+"/";
-		System.load(location + Core.NATIVE_LIBRARY_NAME +".dll");
+//		String location = getLocationFile()+AllSetting.direcOpenCV+"/";
+//		System.load(location + Core.NATIVE_LIBRARY_NAME +".dll");
 //		dung khi chay eclipse
-//		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		Mat s = Imgcodecs.imread(img.getAbsolutePath());
 		try {
 			imgProcess.scan(s, numberQuestionUse);
 
 			// Lay ra mssv tu file hinh anh
 			String imgStudentID = imgProcess.getMssv().trim();
-			System.out.println("MSSV được tô: " + imgStudentID);
+//			System.out.println("MSSV được tô: " + imgStudentID);
 
 			// Lay ra ma de tu file hinh anh
 			String imgCode = imgProcess.getCode().trim();
-			System.out.println("Mã đề được tô: " + imgCode);
+//			System.out.println("Mã đề được tô: " + imgCode);
 
 			// Kiem tra sinh vien to ma de co hop le hay khong
 			if (imgCode.contains("-")) {
 				MarkDTO mark = new MarkDTO(0, tableID, 0, imgCode, imgStudentID, img.getAbsolutePath(), 0, 0);
-				System.out.println(mark.toString());
+//				System.out.println(mark.toString());
 				MarkDAO.insertMark(mark);
 			} else {
 				// Tim kiem ma de trong BD
 				int codeID = CodeDAO.findCodeID(tableID, Integer.parseInt(imgCode));
-				System.out.println("CodeID: " + codeID);
+//				System.out.println("CodeID: " + codeID);
 
 				// Truong hop khong tim thay ma de trong DB
 				if (codeID == 0) {
 					MarkDTO mark = new MarkDTO(0, tableID, 0, imgCode, imgStudentID, img.getAbsolutePath(), 0, 0);
-					System.out.println(mark.toString());
+//					System.out.println(mark.toString());
 					MarkDAO.insertMark(mark);
 				} else {
 					HashMap<Integer, String> listAnswerImg = (HashMap<Integer, String>) imgProcess.getAnswer();
-					System.out.println("Đáp án: " + listAnswerImg);
+//					System.out.println("Đáp án: " + listAnswerImg);
 					int numberAnswerCorrect = AnswerDAO.getNumberAnswerCorrect(listAnswerImg, codeID);
-					System.out.println("Số câu đúng: " + numberAnswerCorrect);
-					System.out.println("Tổng số câu: " + numberQuestionUse);
+//					System.out.println("Số câu đúng: " + numberAnswerCorrect);
+//					System.out.println("Tổng số câu: " + numberQuestionUse);
 
 					double grade = (double) numberAnswerCorrect / numberQuestionUse * 10;
 					grade = Math.ceil(grade * 100) / 100; // Làm tròn 2 chữ số thập phân
-					System.out.println("Điểm: " + grade);
+//					System.out.println("Điểm: " + grade);
 
 					MarkDTO mark = new MarkDTO(0, tableID, numberAnswerCorrect, imgCode, imgStudentID,
 							img.getAbsolutePath(), grade, 0);

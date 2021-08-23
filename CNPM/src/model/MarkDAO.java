@@ -31,11 +31,11 @@ public class MarkDAO {
 			s.executeUpdate();
 
 			s.close();
-			System.out.println("Insert Mark thành công");
+//			System.out.println("Insert Mark thành công");
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Insert Mark thất bại");
+//			System.out.println("Insert Mark thất bại");
 			return false;
 		}
 	}

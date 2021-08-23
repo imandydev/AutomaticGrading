@@ -63,6 +63,7 @@ public class UserDAO {
 			while (rs.next()) {
 				userDTO.setId(rs.getInt("user_id"));
 				userDTO.setName(rs.getString("user_name"));
+				userDTO.setRole(rs.getInt("role"));
 			}
 		} catch (SQLException throwables) {
 			return null;

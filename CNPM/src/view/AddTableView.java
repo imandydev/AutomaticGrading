@@ -207,7 +207,7 @@ public class AddTableView extends JFrame implements ActionListener, InterView {
 		} else if (numberQuestionUse.isEmpty()) {
 			return 3;
 		} else {
-			try {
+			try {	
 				int check = Integer.parseInt(numberQuestionUse);
 				if (0 >= check || check > 40) {
 					return 4;

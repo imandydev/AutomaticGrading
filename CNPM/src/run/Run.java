@@ -9,7 +9,6 @@ import interf.InterView;
 import view.HomeView;
 import view.LoginAndRegisterView;
 import view.ManagerCodeView;
-//import view.ManagerTableView;
 
 public class Run {
 	public static void main(String[] args) {

@@ -86,7 +86,7 @@ public class AnswerDAO {
 	public static int getNumberAnswerCorrect(HashMap<Integer, String> listAnswerImg, int codeID) {
 		int count = 0;
 		HashMap<Integer, String> listAnswer = findAnswer(codeID);
-		System.out.println(listAnswer);
+//		System.out.println(listAnswer);
 		Set<Integer> key = listAnswer.keySet();
 		for (int number : key) {
 			if (listAnswer.get(number).equalsIgnoreCase(listAnswerImg.get(number))

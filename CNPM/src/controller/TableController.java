@@ -7,12 +7,12 @@ import DTO.UserDTO;
 import model.TableDAO;
 
 public class TableController {
-	public boolean checkTableByName(String nameTable, int userId) {
+	public boolean checkTableByNameAndUserId(String nameTable, int userId) {
 		return TableDAO.checkTableExist(nameTable, userId);
 	}
 
 	public int insertTable(TableDTO tableDTO) {
-		boolean check = checkTableByName(tableDTO.getTableName(), tableDTO.getUserId());
+		boolean check = checkTableByNameAndUserId(tableDTO.getTableName(), tableDTO.getUserId());
 		if (!check) {
 			return TableDAO.insertTable(tableDTO);
 		} else {
